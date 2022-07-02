@@ -14,6 +14,7 @@
 		08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE7286EE499006296DE /* PhotoOverlay.xcdatamodeld */; };
 		08C78AEB286EE49B006296DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08C78AEA286EE49B006296DE /* Assets.xcassets */; };
 		08C78AEE286EE49B006296DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08C78AEC286EE49B006296DE /* LaunchScreen.storyboard */; };
+		7EB504A1546323787CEDE95A /* Pods_PhotoOverlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CA4CB6B1D0FEAA9B5EC1E0 /* Pods_PhotoOverlay.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,9 @@
 		08C78AEA286EE49B006296DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		08C78AED286EE49B006296DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08C78AEF286EE49B006296DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3566AEE95C0343BE36ED3110 /* Pods-PhotoOverlay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoOverlay.release.xcconfig"; path = "Target Support Files/Pods-PhotoOverlay/Pods-PhotoOverlay.release.xcconfig"; sourceTree = "<group>"; };
+		4937A16D6DCBCF1BC3E5C774 /* Pods-PhotoOverlay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoOverlay.debug.xcconfig"; path = "Target Support Files/Pods-PhotoOverlay/Pods-PhotoOverlay.debug.xcconfig"; sourceTree = "<group>"; };
+		79CA4CB6B1D0FEAA9B5EC1E0 /* Pods_PhotoOverlay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoOverlay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EB504A1546323787CEDE95A /* Pods_PhotoOverlay.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +49,8 @@
 			children = (
 				08C78ADD286EE499006296DE /* PhotoOverlay */,
 				08C78ADC286EE499006296DE /* Products */,
+				1D96A0FF0E1293BDAB159F1C /* Pods */,
+				C5D4D167448E053028DFB112 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +77,24 @@
 			path = PhotoOverlay;
 			sourceTree = "<group>";
 		};
+		1D96A0FF0E1293BDAB159F1C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4937A16D6DCBCF1BC3E5C774 /* Pods-PhotoOverlay.debug.xcconfig */,
+				3566AEE95C0343BE36ED3110 /* Pods-PhotoOverlay.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C5D4D167448E053028DFB112 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				79CA4CB6B1D0FEAA9B5EC1E0 /* Pods_PhotoOverlay.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -77,9 +102,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 08C78AF2286EE49B006296DE /* Build configuration list for PBXNativeTarget "PhotoOverlay" */;
 			buildPhases = (
+				50F9F5F46617071160E03A0E /* [CP] Check Pods Manifest.lock */,
 				08C78AD7286EE499006296DE /* Sources */,
 				08C78AD8286EE499006296DE /* Frameworks */,
 				08C78AD9286EE499006296DE /* Resources */,
+				78E2B065131392F6391ACD88 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -135,6 +162,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		50F9F5F46617071160E03A0E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PhotoOverlay-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78E2B065131392F6391ACD88 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PhotoOverlay/Pods-PhotoOverlay-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PhotoOverlay/Pods-PhotoOverlay-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PhotoOverlay/Pods-PhotoOverlay-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		08C78AD7286EE499006296DE /* Sources */ = {
@@ -288,6 +357,7 @@
 		};
 		08C78AF3286EE49B006296DE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4937A16D6DCBCF1BC3E5C774 /* Pods-PhotoOverlay.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -316,6 +386,7 @@
 		};
 		08C78AF4286EE49B006296DE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3566AEE95C0343BE36ED3110 /* Pods-PhotoOverlay.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
