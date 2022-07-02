@@ -10,10 +10,13 @@ import Photos
 
 import RxSwift
 
-final class PhotoManager: PhotoAuthorizationable {
-    static let shared: PhotoAuthorizationable = PhotoManager()
+final class PhotoManager {
+    static let shared: PhotoManager = PhotoManager()
     
     private init() { }
+}
+
+extension PhotoManager: PhotoAuthorizationable {
     
     /// 앨범 권한 확인 메서드
     func checkPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus> {
@@ -32,6 +35,23 @@ final class PhotoManager: PhotoAuthorizationable {
                 emitter.onNext(status)
                 emitter.onCompleted()
             }
+            
+            return Disposables.create()
+        }
+    }
+}
+
+extension PhotoManager: PhotoFetchable {
+    
+    /// 앨범 사진 가져오기
+    func fetch() -> Observable<[PHAsset]> {
+        return Observable<[PHAsset]>.create { emitter in
+            let fetchResult = PHAsset.fetchAssets(with: .image, options: nil)
+            let indexSet = IndexSet(integersIn: 0..<fetchResult.count)
+            let assets = fetchResult.objects(at: indexSet)
+            
+            emitter.onNext(assets)
+            emitter.onCompleted()
             
             return Disposables.create()
         }
