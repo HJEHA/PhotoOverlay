@@ -11,7 +11,7 @@ import Photos
 
 import RxSwift
 
-class MockPhotoManager: PhotoManagerable {
+final class MockPhotoManager: PhotoManagerable {
     var authorizationStatus: PHAuthorizationStatus?
     
     func checkPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus> {
@@ -19,7 +19,7 @@ class MockPhotoManager: PhotoManagerable {
     }
 }
 
-class PhotoManagerTests: XCTestCase {
+final class PhotoManagerTests: XCTestCase {
 
     private var sut: PhotoManagerable!
     private var disposeBag = DisposeBag()

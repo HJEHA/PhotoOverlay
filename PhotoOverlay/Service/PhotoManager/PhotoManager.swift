@@ -18,6 +18,16 @@ final class PhotoManager: PhotoManagerable {
     /// 앨범 권한 확인 메서드
     func checkPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus> {
         return Observable<PHAuthorizationStatus>.create { emitter in
+            emitter.onNext(PHPhotoLibrary.authorizationStatus())
+            emitter.onCompleted()
+            
+            return Disposables.create()
+        }
+    }
+    
+    /// 앨범 권한 요청 메서드
+    func requestPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus> {
+        return Observable<PHAuthorizationStatus>.create { emitter in
             PHPhotoLibrary.requestAuthorization { status in
                 emitter.onNext(status)
                 emitter.onCompleted()
