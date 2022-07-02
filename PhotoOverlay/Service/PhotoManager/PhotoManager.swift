@@ -10,8 +10,8 @@ import Photos
 
 import RxSwift
 
-final class PhotoManager {
-    static let shared = PhotoManager()
+final class PhotoManager: PhotoManagerable {
+    static let shared: PhotoManagerable = PhotoManager()
     
     private init() { }
     
@@ -20,6 +20,7 @@ final class PhotoManager {
         return Observable<PHAuthorizationStatus>.create { emitter in
             PHPhotoLibrary.requestAuthorization { status in
                 emitter.onNext(status)
+                emitter.onCompleted()
             }
             
             return Disposables.create()
