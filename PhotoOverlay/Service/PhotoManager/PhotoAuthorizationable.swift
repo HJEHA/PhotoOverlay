@@ -10,7 +10,7 @@ import Photos
 
 import RxSwift
 
-protocol PhotoManagerable {
+protocol PhotoAuthorizationable {
     /// 앨범 권한 확인 메서드
     func checkPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus>
     

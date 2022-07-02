@@ -14,7 +14,7 @@
 		08C78AEE286EE49B006296DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08C78AEC286EE49B006296DE /* LaunchScreen.storyboard */; };
 		08C78AFB2870395F006296DE /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AFA2870395F006296DE /* PhotosViewController.swift */; };
 		08C78AFF287039F7006296DE /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AFE287039F7006296DE /* PhotoManager.swift */; };
-		08C78B0E28704483006296DE /* PhotoManagerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78B0D28704483006296DE /* PhotoManagerable.swift */; };
+		08C78B0E28704483006296DE /* PhotoAuthorizationable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78B0D28704483006296DE /* PhotoAuthorizationable.swift */; };
 		08C78B1628704BA2006296DE /* PhotoManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78B1528704BA2006296DE /* PhotoManagerTests.swift */; };
 		7EB504A1546323787CEDE95A /* Pods_PhotoOverlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CA4CB6B1D0FEAA9B5EC1E0 /* Pods_PhotoOverlay.framework */; };
 		F0A3321282B8D80DE55088A0 /* Pods_PhotoOverlay_PhotoOverlayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B865E6E4EF1D705535FAE4 /* Pods_PhotoOverlay_PhotoOverlayTests.framework */; };
@@ -40,7 +40,7 @@
 		08C78AEF286EE49B006296DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08C78AFA2870395F006296DE /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		08C78AFE287039F7006296DE /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
-		08C78B0D28704483006296DE /* PhotoManagerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManagerable.swift; sourceTree = "<group>"; };
+		08C78B0D28704483006296DE /* PhotoAuthorizationable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAuthorizationable.swift; sourceTree = "<group>"; };
 		08C78B1328704BA2006296DE /* PhotoOverlayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoOverlayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C78B1528704BA2006296DE /* PhotoManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManagerTests.swift; sourceTree = "<group>"; };
 		3566AEE95C0343BE36ED3110 /* Pods-PhotoOverlay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoOverlay.release.xcconfig"; path = "Target Support Files/Pods-PhotoOverlay/Pods-PhotoOverlay.release.xcconfig"; sourceTree = "<group>"; };
@@ -158,7 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				08C78AFE287039F7006296DE /* PhotoManager.swift */,
-				08C78B0D28704483006296DE /* PhotoManagerable.swift */,
+				08C78B0D28704483006296DE /* PhotoAuthorizationable.swift */,
 			);
 			path = PhotoManager;
 			sourceTree = "<group>";
@@ -378,7 +378,7 @@
 			files = (
 				08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */,
 				08C78AFB2870395F006296DE /* PhotosViewController.swift in Sources */,
-				08C78B0E28704483006296DE /* PhotoManagerable.swift in Sources */,
+				08C78B0E28704483006296DE /* PhotoAuthorizationable.swift in Sources */,
 				08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */,
 				08C78AFF287039F7006296DE /* PhotoManager.swift in Sources */,
 				08C78AE1286EE499006296DE /* SceneDelegate.swift in Sources */,

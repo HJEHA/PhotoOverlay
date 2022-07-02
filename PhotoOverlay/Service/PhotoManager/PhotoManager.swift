@@ -10,8 +10,8 @@ import Photos
 
 import RxSwift
 
-final class PhotoManager: PhotoManagerable {
-    static let shared: PhotoManagerable = PhotoManager()
+final class PhotoManager: PhotoAuthorizationable {
+    static let shared: PhotoAuthorizationable = PhotoManager()
     
     private init() { }
     

@@ -25,7 +25,7 @@ final class MockPHPhotoLibrary: PHPhotoLibrary {
     }
 }
 
-final class MockPhotoManager: PhotoManagerable {
+final class MockPhotoManager: PhotoAuthorizationable {
     func checkPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus> {
         return Observable<PHAuthorizationStatus>.create { emitter in
             emitter.onNext(MockPHPhotoLibrary.authorizationStatus())
@@ -48,8 +48,8 @@ final class MockPhotoManager: PhotoManagerable {
 }
 
 final class PhotoManagerTests: XCTestCase {
-
-    private var sut: PhotoManagerable!
+    
+    private var sut: PhotoAuthorizationable!
     private var disposeBag = DisposeBag()
     
     override func setUpWithError() throws {
