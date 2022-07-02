@@ -11,11 +11,32 @@ import Photos
 
 import RxSwift
 
+final class MockPHPhotoLibrary: PHPhotoLibrary {
+    static var authorizationStatus: PHAuthorizationStatus?
+    
+    override class func requestAuthorization(
+        _ handler: @escaping (PHAuthorizationStatus) -> Void
+    ) {
+        handler(authorizationStatus!)
+    }
+}
+
 final class MockPhotoManager: PhotoManagerable {
     var authorizationStatus: PHAuthorizationStatus?
     
     func checkPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus> {
         return Observable.just(authorizationStatus!)
+    }
+    
+    func requestPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus> {
+        return Observable<PHAuthorizationStatus>.create { emitter in
+            MockPHPhotoLibrary.requestAuthorization { status in
+                emitter.onNext(status)
+                emitter.onCompleted()
+            }
+            
+            return Disposables.create()
+        }
     }
 }
 
@@ -30,10 +51,11 @@ final class PhotoManagerTests: XCTestCase {
 
     override func tearDownWithError() throws {
         sut = nil
+        MockPHPhotoLibrary.authorizationStatus = nil
         disposeBag = DisposeBag()
     }
 
-    func test_앨범권한확인시_상태값을_넘기는가() throws {
+    func test_앨범권한확인시_상태값을_정상적으로_넘기는가() throws {
         // given
         guard let mockSut = sut as? MockPhotoManager else {
             XCTFail()
@@ -49,6 +71,32 @@ final class PhotoManagerTests: XCTestCase {
         
         // then
         mockSut.checkPhotoLibraryAuthorization()
+            .subscribe(onNext: { status in
+                result = status
+                expectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+        
+        wait(for: [expectation], timeout: 5)
+        XCTAssertEqual(result, expected)
+    }
+    
+    func test_앨범권한요청시_상태값을_정상적으로_넘기는가() throws {
+        // given
+        guard let mockSut = sut as? MockPhotoManager else {
+            XCTFail()
+            return
+        }
+        let expected: PHAuthorizationStatus = .authorized
+        MockPHPhotoLibrary.authorizationStatus = expected
+        
+        let expectation = XCTestExpectation(description: "앨범 권한 요청")
+        
+        // when
+        var result: PHAuthorizationStatus?
+        
+        // then
+        mockSut.requestPhotoLibraryAuthorization()
             .subscribe(onNext: { status in
                 result = status
                 expectation.fulfill()
