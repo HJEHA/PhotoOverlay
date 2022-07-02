@@ -12,20 +12,27 @@ import Photos
 import RxSwift
 
 final class MockPHPhotoLibrary: PHPhotoLibrary {
-    static var authorizationStatus: PHAuthorizationStatus?
+    static var status: PHAuthorizationStatus?
+    
+    override class func authorizationStatus() -> PHAuthorizationStatus {
+        return status!
+    }
     
     override class func requestAuthorization(
         _ handler: @escaping (PHAuthorizationStatus) -> Void
     ) {
-        handler(authorizationStatus!)
+        handler(status!)
     }
 }
 
 final class MockPhotoManager: PhotoManagerable {
-    var authorizationStatus: PHAuthorizationStatus?
-    
     func checkPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus> {
-        return Observable.just(authorizationStatus!)
+        return Observable<PHAuthorizationStatus>.create { emitter in
+            emitter.onNext(MockPHPhotoLibrary.authorizationStatus())
+            emitter.onCompleted()
+            
+            return Disposables.create()
+        }
     }
     
     func requestPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus> {
@@ -51,18 +58,14 @@ final class PhotoManagerTests: XCTestCase {
 
     override func tearDownWithError() throws {
         sut = nil
-        MockPHPhotoLibrary.authorizationStatus = nil
+        MockPHPhotoLibrary.status = nil
         disposeBag = DisposeBag()
     }
 
     func test_앨범권한확인시_상태값을_정상적으로_넘기는가() throws {
         // given
-        guard let mockSut = sut as? MockPhotoManager else {
-            XCTFail()
-            return
-        }
         let expected: PHAuthorizationStatus = .authorized
-        mockSut.authorizationStatus = expected
+        MockPHPhotoLibrary.status = expected
         
         let expectation = XCTestExpectation(description: "앨범 권한 확인")
         
@@ -70,7 +73,7 @@ final class PhotoManagerTests: XCTestCase {
         var result: PHAuthorizationStatus?
         
         // then
-        mockSut.checkPhotoLibraryAuthorization()
+        sut.checkPhotoLibraryAuthorization()
             .subscribe(onNext: { status in
                 result = status
                 expectation.fulfill()
@@ -83,12 +86,8 @@ final class PhotoManagerTests: XCTestCase {
     
     func test_앨범권한요청시_상태값을_정상적으로_넘기는가() throws {
         // given
-        guard let mockSut = sut as? MockPhotoManager else {
-            XCTFail()
-            return
-        }
         let expected: PHAuthorizationStatus = .authorized
-        MockPHPhotoLibrary.authorizationStatus = expected
+        MockPHPhotoLibrary.status = expected
         
         let expectation = XCTestExpectation(description: "앨범 권한 요청")
         
@@ -96,7 +95,7 @@ final class PhotoManagerTests: XCTestCase {
         var result: PHAuthorizationStatus?
         
         // then
-        mockSut.requestPhotoLibraryAuthorization()
+        sut.requestPhotoLibraryAuthorization()
             .subscribe(onNext: { status in
                 result = status
                 expectation.fulfill()
