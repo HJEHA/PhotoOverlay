@@ -21,21 +21,12 @@ final class PhotosViewController: UIViewController {
         configureView()
         
         PhotoManager.shared.checkPhotoLibraryAuthorization()
+            .filter { $0 != .authorized }
+            .flatMap { _ in
+                PhotoManager.shared.requestPhotoLibraryAuthorization()
+            }
             .subscribe(onNext: { status in
-                switch status {
-                case .authorized:
-                    print("권한 허용")
-                case .notDetermined:
-                    print("결정되지 않음")
-                case .restricted:
-                    print("앱이 권한이 없음")
-                case .denied:
-                    print("권한 거부")
-                case .limited:
-                    print("제한된 사진")
-                @unknown default:
-                    print("알수 없음")
-                }
+                print(status)
             })
             .disposed(by: disposeBag)
     }

@@ -1,6 +1,6 @@
 //
-//  PhotoOverlayTests.swift
-//  PhotoOverlayTests
+//  PhotoManagerTests.swift
+//  PhotoManagerTests
 //
 //  Created by 황제하 on 2022/07/02.
 //
