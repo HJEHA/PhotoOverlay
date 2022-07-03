@@ -17,7 +17,24 @@ final class ImageManager {
 }
 
 extension ImageManager: ImageRequestable {
-    func requestImage(asset: PHAsset, contentMOde: UIView.ContentMode) -> Observable<UIImage> {
-        return .empty()
+    func requestImage(
+        asset: PHAsset,
+        contentMode: PHImageContentMode
+    ) -> Observable<UIImage?> {
+        return Observable<UIImage?>.create { emitter in
+            let targetSize = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
+            
+            PHImageManager.default().requestImage(
+                for: asset,
+                targetSize: targetSize,
+                contentMode: contentMode,
+                options: nil
+            ) { (image, _) in
+                emitter.onNext(image)
+                emitter.onCompleted()
+            }
+            
+            return Disposables.create()
+        }
     }
 }
