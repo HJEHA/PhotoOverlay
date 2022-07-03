@@ -43,7 +43,7 @@ extension PhotoManager: PhotoAuthorizationable {
 
 extension PhotoManager: PhotoFetchable {
     
-    /// 앨범 사진 가져오기
+    /// 앨범 사진 가져오기 메서드
     func fetch(
         mediaType: PHAssetMediaType = .image
     ) -> Observable<[PHAsset]> {
