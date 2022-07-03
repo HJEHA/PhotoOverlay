@@ -15,7 +15,7 @@ final class ImageManager {
     
     let phImageManager: PHImageManagerable
     
-    private init(
+    init(
         phImageManager: PHImageManagerable = PHImageManager.default()
     ) {
         self.phImageManager = phImageManager
