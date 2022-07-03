@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089A8D5328718AAE00AC4873 /* ImageRequestable.swift */; };
 		08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78ADE286EE499006296DE /* AppDelegate.swift */; };
 		08C78AE1286EE499006296DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE0286EE499006296DE /* SceneDelegate.swift */; };
 		08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE7286EE499006296DE /* PhotoOverlay.xcdatamodeld */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		089A8D5328718AAE00AC4873 /* ImageRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequestable.swift; sourceTree = "<group>"; };
 		08C78ADB286EE499006296DE /* PhotoOverlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoOverlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C78ADE286EE499006296DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08C78AE0286EE499006296DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +77,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		085CBFB72871AA08006F2953 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				089A8D5328718AAE00AC4873 /* ImageRequestable.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		089A8D5228718A7F00AC4873 /* ImageManager */ = {
+			isa = PBXGroup;
+			children = (
+				085CBFB72871AA08006F2953 /* Protocol */,
+			);
+			path = ImageManager;
+			sourceTree = "<group>";
+		};
 		08C78AD2286EE499006296DE = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +171,7 @@
 		08C78AFC287039CC006296DE /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				089A8D5228718A7F00AC4873 /* ImageManager */,
 				08C78AFD287039D2006296DE /* PhotoManager */,
 			);
 			path = Service;
@@ -391,6 +410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */,
+				089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */,
 				08C78AFB2870395F006296DE /* PhotosViewController.swift in Sources */,
 				08C78B2028706C0B006296DE /* PhotoFetchable.swift in Sources */,
 				08C78B0E28704483006296DE /* PhotoAuthorizationable.swift in Sources */,
