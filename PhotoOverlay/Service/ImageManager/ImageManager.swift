@@ -13,7 +13,13 @@ import RxSwift
 final class ImageManager {
     static let shard: ImageManager = ImageManager()
     
-    private init() { }
+    let phImageManager: PHImageManager
+    
+    private init(
+        phImageManager: PHImageManager = PHImageManager.default()
+    ) {
+        self.phImageManager = phImageManager
+    }
 }
 
 extension ImageManager: ImageRequestable {
@@ -21,12 +27,10 @@ extension ImageManager: ImageRequestable {
         asset: PHAsset,
         contentMode: PHImageContentMode
     ) -> Observable<UIImage?> {
-        return Observable<UIImage?>.create { emitter in
-            
+        return Observable<UIImage?>.create { [weak self] emitter in
             let targetSize = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
             
-            let manager = PHImageManager.default()
-            let requestID = manager.requestImage(
+            let requestID = self?.phImageManager.requestImage(
                 for: asset,
                 targetSize: targetSize,
                 contentMode: contentMode,
@@ -36,7 +40,7 @@ extension ImageManager: ImageRequestable {
             }
             
             return Disposables.create {
-                manager.cancelImageRequest(requestID)
+                requestID.map { self?.phImageManager.cancelImageRequest($0) }
             }
         }
     }
