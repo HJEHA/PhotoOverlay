@@ -64,15 +64,15 @@ final class PhotoManagerAuthorizationTests: XCTestCase {
 
     func test_앨범권한확인시_상태값을_정상적으로_넘기는가() throws {
         // given
+        // 권한을 허용한 상태
         let expected: PHAuthorizationStatus = .authorized
         MockPHPhotoLibrary.status = expected
         
         let expectation = XCTestExpectation(description: "앨범 권한 확인")
         
         // when
+        // 권한을 확인할 때
         var result: PHAuthorizationStatus?
-        
-        // then
         sut.checkPhotoLibraryAuthorization()
             .subscribe(onNext: { status in
                 result = status
@@ -81,20 +81,23 @@ final class PhotoManagerAuthorizationTests: XCTestCase {
             .disposed(by: disposeBag)
         
         wait(for: [expectation], timeout: 5)
+        
+        // then
+        // 앨범 권한은 허용이다
         XCTAssertEqual(result, expected)
     }
     
     func test_앨범권한요청시_상태값을_정상적으로_넘기는가() throws {
         // given
+        // 사용자가 앨범 권한을 허용하면
         let expected: PHAuthorizationStatus = .authorized
         MockPHPhotoLibrary.status = expected
         
         let expectation = XCTestExpectation(description: "앨범 권한 요청")
         
         // when
+        // 권한 요청할 때
         var result: PHAuthorizationStatus?
-        
-        // then
         sut.requestPhotoLibraryAuthorization()
             .subscribe(onNext: { status in
                 result = status
@@ -103,6 +106,9 @@ final class PhotoManagerAuthorizationTests: XCTestCase {
             .disposed(by: disposeBag)
         
         wait(for: [expectation], timeout: 5)
+        
+        // then
+        // 앨범 권한은 허용이다.        
         XCTAssertEqual(result, expected)
     }
 }
