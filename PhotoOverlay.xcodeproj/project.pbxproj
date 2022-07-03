@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		085CBFB92871AA4F006F2953 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFB82871AA4F006F2953 /* ImageManager.swift */; };
+		085CBFBB2871D145006F2953 /* PHImageManagerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFBA2871D145006F2953 /* PHImageManagerable.swift */; };
 		089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089A8D5328718AAE00AC4873 /* ImageRequestable.swift */; };
 		08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78ADE286EE499006296DE /* AppDelegate.swift */; };
 		08C78AE1286EE499006296DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE0286EE499006296DE /* SceneDelegate.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		085CBFB82871AA4F006F2953 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		085CBFBA2871D145006F2953 /* PHImageManagerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHImageManagerable.swift; sourceTree = "<group>"; };
 		089A8D5328718AAE00AC4873 /* ImageRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequestable.swift; sourceTree = "<group>"; };
 		08C78ADB286EE499006296DE /* PhotoOverlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoOverlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C78ADE286EE499006296DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				089A8D5328718AAE00AC4873 /* ImageRequestable.swift */,
+				085CBFBA2871D145006F2953 /* PHImageManagerable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				08C78AFB2870395F006296DE /* PhotosViewController.swift in Sources */,
 				085CBFB92871AA4F006F2953 /* ImageManager.swift in Sources */,
 				08C78B2028706C0B006296DE /* PhotoFetchable.swift in Sources */,
+				085CBFBB2871D145006F2953 /* PHImageManagerable.swift in Sources */,
 				08C78B0E28704483006296DE /* PhotoAuthorizationable.swift in Sources */,
 				08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */,
 				08C78AFF287039F7006296DE /* PhotoManager.swift in Sources */,

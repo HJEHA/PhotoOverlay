@@ -13,10 +13,10 @@ import RxSwift
 final class ImageManager {
     static let shard: ImageManager = ImageManager()
     
-    let phImageManager: PHImageManager
+    let phImageManager: PHImageManagerable
     
     private init(
-        phImageManager: PHImageManager = PHImageManager.default()
+        phImageManager: PHImageManagerable = PHImageManager.default()
     ) {
         self.phImageManager = phImageManager
     }
