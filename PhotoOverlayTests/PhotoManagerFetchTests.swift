@@ -26,7 +26,9 @@ final class MockPHFetchResult<ObjectType>: PHFetchResult<AnyObject> where Object
 }
 
 final class MockPhotoFetchManager: PhotoFetchable {
-    func fetch() -> Observable<[PHAsset]> {
+    func fetch(
+        mediaType: PHAssetMediaType = .image
+    ) -> Observable<[PHAsset]> {
         return Observable<[PHAsset]>.create { emitter in
             let fetchResult = MockPHFetchResult<MockPHAsset>()
             let indexSet = IndexSet(integersIn: 0..<fetchResult.count)

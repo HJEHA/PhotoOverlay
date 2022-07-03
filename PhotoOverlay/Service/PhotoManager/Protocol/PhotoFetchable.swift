@@ -11,5 +11,5 @@ import Photos
 import RxSwift
 
 protocol PhotoFetchable {
-    func fetch() -> Observable<[PHAsset]>
+    func fetch(mediaType: PHAssetMediaType) -> Observable<[PHAsset]>
 }

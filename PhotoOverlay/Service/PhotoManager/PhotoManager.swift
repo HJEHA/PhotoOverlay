@@ -44,9 +44,11 @@ extension PhotoManager: PhotoAuthorizationable {
 extension PhotoManager: PhotoFetchable {
     
     /// 앨범 사진 가져오기
-    func fetch() -> Observable<[PHAsset]> {
+    func fetch(
+        mediaType: PHAssetMediaType = .image
+    ) -> Observable<[PHAsset]> {
         return Observable<[PHAsset]>.create { emitter in
-            let fetchResult = PHAsset.fetchAssets(with: .image, options: nil)
+            let fetchResult = PHAsset.fetchAssets(with: mediaType, options: nil)
             let indexSet = IndexSet(integersIn: 0..<fetchResult.count)
             let assets = fetchResult.objects(at: indexSet)
             
