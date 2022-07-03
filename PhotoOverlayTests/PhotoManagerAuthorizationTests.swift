@@ -1,6 +1,6 @@
 //
-//  PhotoManagerTests.swift
-//  PhotoManagerTests
+//  PhotoManagerAuthorizationTests.swift
+//  PhotoOverlayTests
 //
 //  Created by 황제하 on 2022/07/02.
 //
@@ -25,7 +25,7 @@ final class MockPHPhotoLibrary: PHPhotoLibrary {
     }
 }
 
-final class MockPhotoManager: PhotoAuthorizationable {
+final class MockPhotoAuthorizationManager: PhotoAuthorizationable {
     func checkPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus> {
         return Observable<PHAuthorizationStatus>.create { emitter in
             emitter.onNext(MockPHPhotoLibrary.authorizationStatus())
@@ -47,13 +47,13 @@ final class MockPhotoManager: PhotoAuthorizationable {
     }
 }
 
-final class PhotoManagerTests: XCTestCase {
+final class PhotoManagerAuthorizationTests: XCTestCase {
     
     private var sut: PhotoAuthorizationable!
     private var disposeBag = DisposeBag()
     
     override func setUpWithError() throws {
-        sut = MockPhotoManager()
+        sut = MockPhotoAuthorizationManager()
     }
 
     override func tearDownWithError() throws {

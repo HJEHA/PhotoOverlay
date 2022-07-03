@@ -15,8 +15,9 @@
 		08C78AFB2870395F006296DE /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AFA2870395F006296DE /* PhotosViewController.swift */; };
 		08C78AFF287039F7006296DE /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AFE287039F7006296DE /* PhotoManager.swift */; };
 		08C78B0E28704483006296DE /* PhotoAuthorizationable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78B0D28704483006296DE /* PhotoAuthorizationable.swift */; };
-		08C78B1628704BA2006296DE /* PhotoManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78B1528704BA2006296DE /* PhotoManagerTests.swift */; };
+		08C78B1628704BA2006296DE /* PhotoManagerAuthorizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78B1528704BA2006296DE /* PhotoManagerAuthorizationTests.swift */; };
 		08C78B2028706C0B006296DE /* PhotoFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78B1F28706C0B006296DE /* PhotoFetchable.swift */; };
+		08C78B2228708F3E006296DE /* PhotoManagerFetchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78B2128708F3E006296DE /* PhotoManagerFetchTests.swift */; };
 		7EB504A1546323787CEDE95A /* Pods_PhotoOverlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CA4CB6B1D0FEAA9B5EC1E0 /* Pods_PhotoOverlay.framework */; };
 		F0A3321282B8D80DE55088A0 /* Pods_PhotoOverlay_PhotoOverlayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B865E6E4EF1D705535FAE4 /* Pods_PhotoOverlay_PhotoOverlayTests.framework */; };
 /* End PBXBuildFile section */
@@ -43,8 +44,9 @@
 		08C78AFE287039F7006296DE /* PhotoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 		08C78B0D28704483006296DE /* PhotoAuthorizationable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAuthorizationable.swift; sourceTree = "<group>"; };
 		08C78B1328704BA2006296DE /* PhotoOverlayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoOverlayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		08C78B1528704BA2006296DE /* PhotoManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManagerTests.swift; sourceTree = "<group>"; };
+		08C78B1528704BA2006296DE /* PhotoManagerAuthorizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManagerAuthorizationTests.swift; sourceTree = "<group>"; };
 		08C78B1F28706C0B006296DE /* PhotoFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFetchable.swift; sourceTree = "<group>"; };
+		08C78B2128708F3E006296DE /* PhotoManagerFetchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoManagerFetchTests.swift; sourceTree = "<group>"; };
 		3566AEE95C0343BE36ED3110 /* Pods-PhotoOverlay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoOverlay.release.xcconfig"; path = "Target Support Files/Pods-PhotoOverlay/Pods-PhotoOverlay.release.xcconfig"; sourceTree = "<group>"; };
 		4937A16D6DCBCF1BC3E5C774 /* Pods-PhotoOverlay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoOverlay.debug.xcconfig"; path = "Target Support Files/Pods-PhotoOverlay/Pods-PhotoOverlay.debug.xcconfig"; sourceTree = "<group>"; };
 		79CA4CB6B1D0FEAA9B5EC1E0 /* Pods_PhotoOverlay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoOverlay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,7 +170,8 @@
 		08C78B1428704BA2006296DE /* PhotoOverlayTests */ = {
 			isa = PBXGroup;
 			children = (
-				08C78B1528704BA2006296DE /* PhotoManagerTests.swift */,
+				08C78B1528704BA2006296DE /* PhotoManagerAuthorizationTests.swift */,
+				08C78B2128708F3E006296DE /* PhotoManagerFetchTests.swift */,
 			);
 			path = PhotoOverlayTests;
 			sourceTree = "<group>";
@@ -401,7 +404,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08C78B1628704BA2006296DE /* PhotoManagerTests.swift in Sources */,
+				08C78B1628704BA2006296DE /* PhotoManagerAuthorizationTests.swift in Sources */,
+				08C78B2228708F3E006296DE /* PhotoManagerFetchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
