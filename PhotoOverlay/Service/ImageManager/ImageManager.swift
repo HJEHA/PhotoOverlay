@@ -22,19 +22,22 @@ extension ImageManager: ImageRequestable {
         contentMode: PHImageContentMode
     ) -> Observable<UIImage?> {
         return Observable<UIImage?>.create { emitter in
+            
             let targetSize = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
             
-            PHImageManager.default().requestImage(
+            let manager = PHImageManager.default()
+            let requestID = manager.requestImage(
                 for: asset,
                 targetSize: targetSize,
                 contentMode: contentMode,
                 options: nil
             ) { (image, _) in
                 emitter.onNext(image)
-                emitter.onCompleted()
             }
             
-            return Disposables.create()
+            return Disposables.create {
+                manager.cancelImageRequest(requestID)
+            }
         }
     }
 }
