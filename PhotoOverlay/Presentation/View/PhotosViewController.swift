@@ -60,16 +60,47 @@ extension PhotosViewController {
 
 private extension PhotosViewController {
     func configureCollectionViewDataSource() {
+        photoView.photoListCollectionView.registerCell(
+            withClass: PhotoListCollectionViewCell.self
+        )
+        
         dataSource = DiffableDataSource(
             collectionView: photoView.photoListCollectionView,
             cellProvider: { collectionView, indexPath, item in
                 let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: "TestCell",
-                    for: indexPath
+                    withClass: PhotoListCollectionViewCell.self,
+                    indextPath: indexPath
                 )
+                
+                cell.update(item)
                 
                 return cell
             })
+    }
+}
+
+// MARK: - UICollectionView Extension
+
+private extension UICollectionView {
+    func dequeueReusableCell<T: UICollectionViewCell>(
+        withClass: T.Type,
+        indextPath: IndexPath
+    ) -> T {
+        guard let cell = self.dequeueReusableCell(
+            withReuseIdentifier: String(describing: T.self),
+            for: indextPath
+        ) as? T else {
+            return T()
+        }
+        
+        return cell
+    }
+    
+    func registerCell<T: UICollectionViewCell>(withClass: T.Type) {
+        self.register(
+            T.self,
+            forCellWithReuseIdentifier: String(describing: T.self)
+        )
     }
 }
 
