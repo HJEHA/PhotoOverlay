@@ -23,7 +23,7 @@ final class PhotosViewController: UIViewController {
     
     // MARK: - Views
     
-    private let photoView = PhotosView()
+    private let photosView = PhotosView()
     
     // MARK: - Properties
     
@@ -50,6 +50,7 @@ final class PhotosViewController: UIViewController {
                 }
             }
             .subscribe(onNext: { [weak self] items in
+                self?.photosView.activityIndicator.stopAnimating()
                 self?.applySnapShot(items)
             })
             .disposed(by: disposeBag)
@@ -64,9 +65,9 @@ extension PhotosViewController {
     }
     
     private func configureSubViews() {
-        view.addSubview(photoView)
+        view.addSubview(photosView)
         
-        photoView.snp.makeConstraints { make in
+        photosView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.bottom.equalToSuperview()
         }
@@ -77,12 +78,12 @@ extension PhotosViewController {
 
 private extension PhotosViewController {
     func configureCollectionViewDataSource() {
-        photoView.photoListCollectionView.registerCell(
+        photosView.photoListCollectionView.registerCell(
             withClass: PhotoListCollectionViewCell.self
         )
         
         dataSource = DiffableDataSource(
-            collectionView: photoView.photoListCollectionView,
+            collectionView: photosView.photoListCollectionView,
             cellProvider: { collectionView, indexPath, item in
                 let cell = collectionView.dequeueReusableCell(
                     withClass: PhotoListCollectionViewCell.self,

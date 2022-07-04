@@ -13,7 +13,7 @@ final class PhotosView: UIView {
     
     // MARK: - View Properties
     
-    let showAlbumListButtonAccessory: UIImageView = {
+    private let showAlbumListButtonAccessory: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.down")
         imageView.contentMode = .scaleAspectFit
@@ -22,7 +22,7 @@ final class PhotosView: UIView {
         return imageView
     }()
     
-    let showAlbumListButton: UIButton = {
+    private let showAlbumListButton: UIButton = {
         let button = UIButton()
         button.setTitle("All Photos", for: .normal)
         button.setTitle("All Photos", for: .selected)
@@ -41,6 +41,14 @@ final class PhotosView: UIView {
         )
         
         return collectionView
+    }()
+    
+    let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.style = .large
+        activityIndicator.startAnimating()
+        
+        return activityIndicator
     }()
     
     // MARK: - Initializer
@@ -99,6 +107,11 @@ extension PhotosView {
         photoListCollectionView.snp.makeConstraints { make in
             make.top.equalTo(separateView.snp.bottom).inset(-8)
             make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
         }
     }
 }
