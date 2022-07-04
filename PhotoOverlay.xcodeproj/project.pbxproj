@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0817A9AF2872AB8200C821DD /* PhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0817A9AE2872AB8200C821DD /* PhotosView.swift */; };
 		0817A9B12872CDC300C821DD /* PhotoListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0817A9B02872CDC300C821DD /* PhotoListCollectionViewCell.swift */; };
+		0817A9B42872DB7500C821DD /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0817A9B32872DB7500C821DD /* UIFont+extension.swift */; };
 		085CBFB92871AA4F006F2953 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFB82871AA4F006F2953 /* ImageManager.swift */; };
 		085CBFBB2871D145006F2953 /* PHImageManagerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFBA2871D145006F2953 /* PHImageManagerable.swift */; };
 		085CBFBD2871D236006F2953 /* ImageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFBC2871D236006F2953 /* ImageManagerTests.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		0817A9AE2872AB8200C821DD /* PhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosView.swift; sourceTree = "<group>"; };
 		0817A9B02872CDC300C821DD /* PhotoListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListCollectionViewCell.swift; sourceTree = "<group>"; };
+		0817A9B32872DB7500C821DD /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
 		085CBFB82871AA4F006F2953 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		085CBFBA2871D145006F2953 /* PHImageManagerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHImageManagerable.swift; sourceTree = "<group>"; };
 		085CBFBC2871D236006F2953 /* ImageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagerTests.swift; sourceTree = "<group>"; };
@@ -87,6 +89,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0817A9B22872DB5300C821DD /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0817A9B32872DB7500C821DD /* UIFont+extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		085CBFB72871AA08006F2953 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +138,7 @@
 		08C78ADD286EE499006296DE /* PhotoOverlay */ = {
 			isa = PBXGroup;
 			children = (
+				0817A9B22872DB5300C821DD /* Extension */,
 				08C78AFC287039CC006296DE /* Service */,
 				08C78AF728703916006296DE /* Presentation */,
 				08C78AF628703670006296DE /* Resource */,
@@ -427,6 +438,7 @@
 				08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */,
 				089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */,
 				08C78AFB2870395F006296DE /* PhotosViewController.swift in Sources */,
+				0817A9B42872DB7500C821DD /* UIFont+extension.swift in Sources */,
 				085CBFB92871AA4F006F2953 /* ImageManager.swift in Sources */,
 				0817A9AF2872AB8200C821DD /* PhotosView.swift in Sources */,
 				08C78B2028706C0B006296DE /* PhotoFetchable.swift in Sources */,
