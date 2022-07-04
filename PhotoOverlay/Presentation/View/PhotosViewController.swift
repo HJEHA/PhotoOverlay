@@ -28,6 +28,8 @@ final class PhotosViewController: UIViewController {
     }
 }
 
+// MARK: - Configure View
+
 extension PhotosViewController {
     private func configureView() {
         view.backgroundColor = .systemBackground
