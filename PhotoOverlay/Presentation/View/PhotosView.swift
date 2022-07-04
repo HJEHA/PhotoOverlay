@@ -73,7 +73,7 @@ extension PhotosView {
             make.centerX.equalToSuperview()
         }
         
-        // MARK: - Constraints separateView
+        // MARK: - Constraints SeparateView
         
         let separateView: UIView = {
             let view = UIView()
@@ -89,12 +89,38 @@ extension PhotosView {
             make.height.equalTo(1)
         }
         
-        // MARK: - Constraints photoListCollectionView
+        // MARK: - Constraints PhotoListCollectionView
         
         addSubview(photoListCollectionView)
         photoListCollectionView.snp.makeConstraints { make in
             make.top.equalTo(separateView.snp.bottom).inset(-8)
             make.leading.trailing.bottom.equalToSuperview()
         }
+    }
+}
+
+// MARK: - Configure PhotoListCollectionView Layout
+
+extension PhotosView {
+    func configureCollectionViewLayout() {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.3),
+            heightDimension: .fractionalHeight(0.3)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(0.3)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+                
+        photoListCollectionView.collectionViewLayout = layout
     }
 }
