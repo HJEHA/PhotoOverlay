@@ -46,6 +46,7 @@ final class PhotosView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureView()
+        configureCollectionViewLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -102,7 +103,7 @@ extension PhotosView {
 // MARK: - Configure PhotoListCollectionView Layout
 
 extension PhotosView {
-    func configureCollectionViewLayout() {
+    private func configureCollectionViewLayout() {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.3),
             heightDimension: .fractionalHeight(0.3)

@@ -12,6 +12,15 @@ import SnapKit
 
 final class PhotosViewController: UIViewController {
     
+    // MARK: - Collection View
+    
+    private enum Section {
+        case main
+    }
+    
+    private typealias DiffableDataSource = UICollectionViewDiffableDataSource<Section, PhotoItem>
+    private var dataSource: DiffableDataSource?
+    
     // MARK: - Views
     
     private let photoView = PhotosView()
@@ -25,6 +34,8 @@ final class PhotosViewController: UIViewController {
         
         configureView()
         configureSubViews()
+        
+        configureCollectionViewDataSource()
     }
 }
 
@@ -43,4 +54,26 @@ extension PhotosViewController {
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
+}
+
+// MARK: - Configure Collection View
+
+private extension PhotosViewController {
+    func configureCollectionViewDataSource() {
+        dataSource = DiffableDataSource(
+            collectionView: photoView.photoListCollectionView,
+            cellProvider: { collectionView, indexPath, item in
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: "TestCell",
+                    for: indexPath
+                )
+                
+                return cell
+            })
+    }
+}
+
+/// 임시
+struct PhotoItem: Hashable {
+    let photo: UIImage
 }
