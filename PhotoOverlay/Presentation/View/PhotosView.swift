@@ -45,7 +45,8 @@ final class PhotosView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureView()
+        
+        configureConstraintsSubviews()
         configureCollectionViewLayout()
     }
     
@@ -57,7 +58,7 @@ final class PhotosView: UIView {
 // MARK: - Configure View
 
 extension PhotosView {
-    private func configureView() {
+    private func configureConstraintsSubviews() {
         
         // MARK: - Constraints AlbumListButton & Accessory
         
@@ -78,7 +79,7 @@ extension PhotosView {
         
         let separateView: UIView = {
             let view = UIView()
-            view.backgroundColor = .darkGray
+            view.backgroundColor = .gray
             
             return view
         }()
@@ -105,19 +106,21 @@ extension PhotosView {
 extension PhotosView {
     private func configureCollectionViewLayout() {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.3),
-            heightDimension: .fractionalHeight(0.3)
+            widthDimension: .fractionalWidth(0.32),
+            heightDimension: .fractionalWidth(0.32)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 0)
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(0.3)
+            heightDimension: .fractionalWidth(0.32)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
             subitems: [item]
         )
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 0)
         
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)

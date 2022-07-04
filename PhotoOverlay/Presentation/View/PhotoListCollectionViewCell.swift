@@ -23,7 +23,9 @@ final class PhotoListCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         configureView()
+        configureConstraintsSubview()
     }
     
     required init?(coder: NSCoder) {
@@ -43,6 +45,14 @@ extension PhotoListCollectionViewCell {
 
 extension PhotoListCollectionViewCell {
     private func configureView() {
+        
+        // MARK: - ContentView CornerRadius
+        
+        contentView.layer.cornerRadius = 12
+        contentView.layer.masksToBounds = true
+    }
+    
+    private func configureConstraintsSubview() {
                 
         // MARK: - Constraints PhotoImageView
         

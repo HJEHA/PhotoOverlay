@@ -36,6 +36,23 @@ final class PhotosViewController: UIViewController {
         configureSubViews()
         
         configureCollectionViewDataSource()
+        
+        PhotoManager.shared.fetch()
+            .flatMap { assets -> Observable<[UIImage?]> in
+                let dd = assets.map { asset in
+                    ImageManager.shard.requestImage(asset: asset, contentMode: .aspectFit)
+                }
+                return Observable.combineLatest(dd)
+            }
+            .map { images in
+                return images.map { image in
+                    return PhotoItem(photo: image!)
+                }
+            }
+            .subscribe(onNext: { [weak self] items in
+                self?.applySnapShot(items)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
