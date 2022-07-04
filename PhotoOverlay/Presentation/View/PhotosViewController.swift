@@ -77,6 +77,15 @@ private extension PhotosViewController {
                 return cell
             })
     }
+    
+    func applySnapShot(_ items: [PhotoItem]) {
+        var snapShot = NSDiffableDataSourceSnapshot<Section, PhotoItem>()
+    
+        snapShot.appendSections([.main])
+        snapShot.appendItems(items, toSection: .main)
+    
+        dataSource?.apply(snapShot)
+    }
 }
 
 // MARK: - UICollectionView Extension
