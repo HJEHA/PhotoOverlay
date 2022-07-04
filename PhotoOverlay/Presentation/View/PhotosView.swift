@@ -15,7 +15,7 @@ final class PhotosView: UIView {
             frame: .zero,
             collectionViewLayout: UICollectionViewLayout()
         )
-        
+        collectionView.backgroundColor = .gray
         return collectionView
     }()
     
