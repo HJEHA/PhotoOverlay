@@ -26,6 +26,8 @@ final class PhotosView: UIView {
         let button = UIButton()
         button.setTitle("All Photos", for: .normal)
         button.setTitle("All Photos", for: .selected)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .title3).bold
+        
         button.setTitleColor(UIColor.label, for: .normal)
         button.setTitleColor(UIColor.label, for: .selected)
         
