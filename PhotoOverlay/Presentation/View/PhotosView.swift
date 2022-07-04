@@ -10,6 +10,9 @@ import UIKit
 import SnapKit
 
 final class PhotosView: UIView {
+    
+    // MARK: - View Properties
+    
     let showAlbumListButtonAccessory: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.down")
@@ -34,10 +37,11 @@ final class PhotosView: UIView {
             frame: .zero,
             collectionViewLayout: UICollectionViewLayout()
         )
-        collectionView.backgroundColor = .gray
         
         return collectionView
     }()
+    
+    // MARK: - Initializer
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,8 +51,15 @@ final class PhotosView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+}
+
+// MARK: - Configure View
+
+extension PhotosView {
     private func configureView() {
+        
+        // MARK: - Constraints AlbumListButton & Accessory
+        
         let showAlbumListButtonStackView = UIStackView(arrangedSubviews: [
             showAlbumListButton,
             showAlbumListButtonAccessory
@@ -62,9 +73,27 @@ final class PhotosView: UIView {
             make.centerX.equalToSuperview()
         }
         
+        // MARK: - Constraints separateView
+        
+        let separateView: UIView = {
+            let view = UIView()
+            view.backgroundColor = .darkGray
+            
+            return view
+        }()
+        
+        addSubview(separateView)
+        separateView.snp.makeConstraints { make in
+            make.top.equalTo(showAlbumListButtonStackView.snp.bottom).inset(-8)
+            make.width.centerX.equalToSuperview()
+            make.height.equalTo(1)
+        }
+        
+        // MARK: - Constraints photoListCollectionView
+        
         addSubview(photoListCollectionView)
         photoListCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(showAlbumListButtonStackView.snp.bottom).inset(-8)
+            make.top.equalTo(separateView.snp.bottom).inset(-8)
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
