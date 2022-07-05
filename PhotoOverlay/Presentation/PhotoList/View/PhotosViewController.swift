@@ -8,6 +8,7 @@
 import UIKit
 
 import RxSwift
+import RxCocoa
 import SnapKit
 
 final class PhotosViewController: UIViewController {
@@ -27,6 +28,7 @@ final class PhotosViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let viewModel = PhotosViewModel()
     private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -37,21 +39,26 @@ final class PhotosViewController: UIViewController {
         
         configureCollectionViewDataSource()
         
-        PhotoManager.shared.fetch()
-            .flatMap { assets -> Observable<[UIImage?]> in
-                let dd = assets.map { asset in
-                    ImageManager.shard.requestImage(asset: asset, contentMode: .aspectFit)
-                }
-                return Observable.combineLatest(dd)
-            }
-            .map { images in
-                return images.map { image in
-                    return PhotoItem(photo: image!)
-                }
-            }
-            .subscribe(onNext: { [weak self] items in
-                self?.photosView.activityIndicator.stopAnimating()
-                self?.applySnapShot(items)
+        bindViewModel()
+    }
+}
+
+// MARK: - Bind
+
+extension PhotosViewController {
+    private func bindViewModel() {
+        let input = PhotosViewModel.Input(
+            viewWillAppear: self.rx.viewWillAppear.asObservable()
+        )
+        
+        let output = viewModel.transform(input)
+        
+        output.itemsObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, items) in
+                owner.photosView.activityIndicator.stopAnimating()
+                owner.applySnapShot(items)
             })
             .disposed(by: disposeBag)
     }
@@ -76,8 +83,8 @@ extension PhotosViewController {
 
 // MARK: - Configure Collection View
 
-private extension PhotosViewController {
-    func configureCollectionViewDataSource() {
+extension PhotosViewController {
+    private func configureCollectionViewDataSource() {
         photosView.photoListCollectionView.registerCell(
             withClass: PhotoListCollectionViewCell.self
         )
@@ -96,7 +103,7 @@ private extension PhotosViewController {
             })
     }
     
-    func applySnapShot(_ items: [PhotoItem]) {
+    private func applySnapShot(_ items: [PhotoItem]) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, PhotoItem>()
     
         snapShot.appendSections([.main])
@@ -129,9 +136,4 @@ private extension UICollectionView {
             forCellWithReuseIdentifier: String(describing: T.self)
         )
     }
-}
-
-/// 임시
-struct PhotoItem: Hashable {
-    let photo: UIImage
 }
