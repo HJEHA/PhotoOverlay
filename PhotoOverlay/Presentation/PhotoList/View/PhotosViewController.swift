@@ -137,29 +137,3 @@ private extension UICollectionView {
         )
     }
 }
-
-/// 임시
-struct PhotoItem: Hashable {
-    let photo: UIImage
-}
-
-extension Reactive where Base: UIViewController {
-    var viewDidLoad: ControlEvent<Void> {
-        let viewDidLoadEvent = self.methodInvoked(
-                #selector(base.viewDidLoad)
-            )
-            .map { _ in }
-        
-        return ControlEvent(events: viewDidLoadEvent)
-    }
-    
-    var viewWillAppear: ControlEvent<Void> {
-        let viewWillAppearEvent = self.methodInvoked(
-                #selector(base.viewWillAppear)
-            )
-            .map { _ in }
-        
-        return ControlEvent(events: viewWillAppearEvent)
-    }
-}
-
