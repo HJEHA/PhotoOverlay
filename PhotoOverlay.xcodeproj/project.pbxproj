@@ -14,6 +14,8 @@
 		085CBFBB2871D145006F2953 /* PHImageManagerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFBA2871D145006F2953 /* PHImageManagerable.swift */; };
 		085CBFBD2871D236006F2953 /* ImageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFBC2871D236006F2953 /* ImageManagerTests.swift */; };
 		089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089A8D5328718AAE00AC4873 /* ImageRequestable.swift */; };
+		08A1D49D2873FCA100490129 /* PhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D49C2873FCA100490129 /* PhotosViewModel.swift */; };
+		08A1D49F2873FD0D00490129 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D49E2873FD0D00490129 /* ViewModel.swift */; };
 		08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78ADE286EE499006296DE /* AppDelegate.swift */; };
 		08C78AE1286EE499006296DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE0286EE499006296DE /* SceneDelegate.swift */; };
 		08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE7286EE499006296DE /* PhotoOverlay.xcdatamodeld */; };
@@ -47,6 +49,8 @@
 		085CBFBA2871D145006F2953 /* PHImageManagerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHImageManagerable.swift; sourceTree = "<group>"; };
 		085CBFBC2871D236006F2953 /* ImageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagerTests.swift; sourceTree = "<group>"; };
 		089A8D5328718AAE00AC4873 /* ImageRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequestable.swift; sourceTree = "<group>"; };
+		08A1D49C2873FCA100490129 /* PhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewModel.swift; sourceTree = "<group>"; };
+		08A1D49E2873FD0D00490129 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		08C78ADB286EE499006296DE /* PhotoOverlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoOverlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C78ADE286EE499006296DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08C78AE0286EE499006296DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +119,23 @@
 			path = ImageManager;
 			sourceTree = "<group>";
 		};
+		08A1D49B2873FC7400490129 /* PhotoList */ = {
+			isa = PBXGroup;
+			children = (
+				08C78AF92870394D006296DE /* ViewModel */,
+				08C78AF828703947006296DE /* View */,
+			);
+			path = PhotoList;
+			sourceTree = "<group>";
+		};
+		08A1D4A02873FD1400490129 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				08A1D49E2873FD0D00490129 /* ViewModel.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		08C78AD2286EE499006296DE = {
 			isa = PBXGroup;
 			children = (
@@ -170,8 +191,8 @@
 		08C78AF728703916006296DE /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				08C78AF92870394D006296DE /* ViewModel */,
-				08C78AF828703947006296DE /* View */,
+				08A1D4A02873FD1400490129 /* Common */,
+				08A1D49B2873FC7400490129 /* PhotoList */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -189,6 +210,7 @@
 		08C78AF92870394D006296DE /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				08A1D49C2873FCA100490129 /* PhotosViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -440,10 +462,12 @@
 				08C78AFB2870395F006296DE /* PhotosViewController.swift in Sources */,
 				0817A9B42872DB7500C821DD /* UIFont+extension.swift in Sources */,
 				085CBFB92871AA4F006F2953 /* ImageManager.swift in Sources */,
+				08A1D49D2873FCA100490129 /* PhotosViewModel.swift in Sources */,
 				0817A9AF2872AB8200C821DD /* PhotosView.swift in Sources */,
 				08C78B2028706C0B006296DE /* PhotoFetchable.swift in Sources */,
 				085CBFBB2871D145006F2953 /* PHImageManagerable.swift in Sources */,
 				0817A9B12872CDC300C821DD /* PhotoListCollectionViewCell.swift in Sources */,
+				08A1D49F2873FD0D00490129 /* ViewModel.swift in Sources */,
 				08C78B0E28704483006296DE /* PhotoAuthorizationable.swift in Sources */,
 				08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */,
 				08C78AFF287039F7006296DE /* PhotoManager.swift in Sources */,
