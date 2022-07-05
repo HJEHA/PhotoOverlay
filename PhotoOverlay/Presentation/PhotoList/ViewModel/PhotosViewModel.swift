@@ -15,12 +15,14 @@ final class PhotosViewModel: ViewModel {
     // MARK: - Input
     
     struct Input {
-        
+        let viewWillAppear: Observable<Void>
     }
     
     // MARK: - Output
     
-    struct Output { }
+    struct Output {
+        let itemsObservable: Observable<[PhotoItem]>
+    }
     
     // MARK: - Properties
     
@@ -33,8 +35,17 @@ final class PhotosViewModel: ViewModel {
     }
     
     func transform(_ input: Input) -> Output {
+        let itemsObservable = input.viewWillAppear
+            .withUnretained(self)
+            .flatMap { (owner, _) in
+                owner.useCase.fetch()
+            }
+            .map {
+                $0.toItem()
+            }
         
-        
-        return Output()
+        return Output(
+            itemsObservable: itemsObservable
+        )
     }
 }
