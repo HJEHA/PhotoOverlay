@@ -10,7 +10,7 @@ import Photos
 
 import RxSwift
 
-final class DefaultPhotoRepository {
+final class DefaultPhotoRepository: PhotoRepository {
     let photoManager: PhotoFetchable
     
     init(photoManager: PhotoFetchable = PhotoManager.shared) {

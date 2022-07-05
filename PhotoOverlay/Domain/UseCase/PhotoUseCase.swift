@@ -11,9 +11,9 @@ import Photos
 import RxSwift
 
 final class PhotoUseCase {
-    let photoRepository: DefaultPhotoRepository
+    let photoRepository: PhotoRepository
     
-    init(photoRepository: DefaultPhotoRepository = DefaultPhotoRepository()) {
+    init(photoRepository: PhotoRepository = DefaultPhotoRepository()) {
         self.photoRepository = photoRepository
     }
 }
