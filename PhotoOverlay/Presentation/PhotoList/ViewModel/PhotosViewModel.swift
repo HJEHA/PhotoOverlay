@@ -8,12 +8,23 @@
 import Foundation
 import Photos
 
+import RxSwift
+
 final class PhotosViewModel: ViewModel {
-    struct Input { }
+    
+    // MARK: - Input
+    
+    struct Input {
+        
+    }
+    
+    // MARK: - Output
     
     struct Output { }
     
     func transform(_ input: Input) -> Output {
+        
+        
         return Output()
     }
 }
