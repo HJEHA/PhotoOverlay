@@ -19,7 +19,18 @@ final class PhotoUseCase {
 }
 
 extension PhotoUseCase {
-    func fetch() -> Observable<Bool> {
-        return .empty()
+    func fetch() -> Observable<Photos> {
+        return photoRepository.fetch()
+            .flatMap { assets -> Observable<[UIImage]> in
+                let observables = assets.map { asset in
+                    ImageManager.shard.requestImage(
+                        asset: asset,
+                        contentMode: .aspectFit
+                    )
+                }
+                
+                return Observable.combineLatest(observables)
+            }
+            .map { Photos(photos: $0) }
     }
 }
