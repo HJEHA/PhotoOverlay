@@ -22,6 +22,16 @@ final class PhotosViewModel: ViewModel {
     
     struct Output { }
     
+    // MARK: - Properties
+    
+    private let useCase: PhotoUseCase
+    
+    // MARK: - Initializer
+    
+    init(useCase: PhotoUseCase = PhotoUseCase()) {
+        self.useCase = useCase
+    }
+    
     func transform(_ input: Input) -> Output {
         
         
