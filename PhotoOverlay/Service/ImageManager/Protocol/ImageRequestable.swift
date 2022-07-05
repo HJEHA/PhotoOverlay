@@ -15,5 +15,5 @@ protocol ImageRequestable {
     func requestImage(
         asset: PHAsset,
         contentMode: PHImageContentMode
-    ) -> Observable<UIImage?>
+    ) -> Observable<UIImage>
 }

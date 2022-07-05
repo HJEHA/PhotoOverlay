@@ -38,7 +38,7 @@ final class PhotosViewController: UIViewController {
         configureCollectionViewDataSource()
         
         PhotoManager.shared.fetch()
-            .flatMap { assets -> Observable<[UIImage?]> in
+            .flatMap { assets -> Observable<[UIImage]> in
                 let dd = assets.map { asset in
                     ImageManager.shard.requestImage(asset: asset, contentMode: .aspectFit)
                 }
@@ -46,7 +46,7 @@ final class PhotosViewController: UIViewController {
             }
             .map { images in
                 return images.map { image in
-                    return PhotoItem(photo: image!)
+                    return PhotoItem(photo: image)
                 }
             }
             .subscribe(onNext: { [weak self] items in
