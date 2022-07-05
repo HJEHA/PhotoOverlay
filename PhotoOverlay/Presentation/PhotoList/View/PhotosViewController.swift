@@ -83,8 +83,8 @@ extension PhotosViewController {
 
 // MARK: - Configure Collection View
 
-private extension PhotosViewController {
-    func configureCollectionViewDataSource() {
+extension PhotosViewController {
+    private func configureCollectionViewDataSource() {
         photosView.photoListCollectionView.registerCell(
             withClass: PhotoListCollectionViewCell.self
         )
@@ -103,7 +103,7 @@ private extension PhotosViewController {
             })
     }
     
-    func applySnapShot(_ items: [PhotoItem]) {
+    private func applySnapShot(_ items: [PhotoItem]) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, PhotoItem>()
     
         snapShot.appendSections([.main])

@@ -25,7 +25,8 @@ final class ImageManager {
 extension ImageManager: ImageRequestable {
     func requestImage(
         asset: PHAsset,
-        contentMode: PHImageContentMode
+        contentMode: PHImageContentMode,
+        isThumbnail: Bool = true
     ) -> Observable<UIImage> {
         return Observable<UIImage>.create { [weak self] emitter in
             let targetSize = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
@@ -38,6 +39,10 @@ extension ImageManager: ImageRequestable {
             ) { (image, _) in
                 if let image = image {
                     emitter.onNext(image)
+                }
+                
+                if isThumbnail {
+                    emitter.onCompleted()
                 }
             }
             

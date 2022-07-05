@@ -14,6 +14,7 @@ protocol ImageRequestable {
     // PHAsset -> UIImage 요청 메서드
     func requestImage(
         asset: PHAsset,
-        contentMode: PHImageContentMode
+        contentMode: PHImageContentMode,
+        isThumbnail: Bool
     ) -> Observable<UIImage>
 }
