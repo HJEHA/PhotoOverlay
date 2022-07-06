@@ -41,6 +41,7 @@ final class PhotosViewController: UIViewController {
         configureCollectionViewDataSource()
         
         bindViewModel()
+        bindShowAlbumListButton()
         
         PhotoManager.shared.fetchCollections()
             .subscribe(onNext: {
@@ -68,6 +69,14 @@ extension PhotosViewController {
             .subscribe(onNext: { (owner, items) in
                 owner.photosView.activityIndicator.stopAnimating()
                 owner.applySnapShot(items)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindShowAlbumListButton() {
+        photosView.showAlbumListGesture.rx.event
+            .subscribe(onNext: { _ in
+                print("앨범 리스트 버튼 클릭")
             })
             .disposed(by: disposeBag)
     }
