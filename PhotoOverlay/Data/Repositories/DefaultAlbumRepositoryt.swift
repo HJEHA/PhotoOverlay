@@ -18,8 +18,15 @@ final class DefaultAlbumRepository {
     }
 }
 
-extension DefaultAlbumRepository {
+extension DefaultAlbumRepository: AlbumRepository {
     func fetch() -> Observable<[PHAssetCollection]> {
         return photoManager.fetchCollections()
+    }
+    
+    func fetchFirst(
+        in collection: PHAssetCollection,
+        with mediaType: PHAssetMediaType
+    ) -> Observable<PHAsset?> {
+        return photoManager.fetchFirst(in: collection, with: mediaType)
     }
 }

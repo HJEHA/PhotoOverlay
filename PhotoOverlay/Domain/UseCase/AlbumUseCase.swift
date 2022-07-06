@@ -11,9 +11,9 @@ import Photos
 import RxSwift
 
 final class AlbumUseCase {
-    let albumRepository: DefaultAlbumRepository
+    let albumRepository: AlbumRepository
     
-    init(albumRepository: DefaultAlbumRepository = DefaultAlbumRepository()) {
+    init(albumRepository: AlbumRepository = DefaultAlbumRepository()) {
         self.albumRepository = albumRepository
     }
 }
@@ -21,10 +21,11 @@ final class AlbumUseCase {
 extension AlbumUseCase {
     func fetch() -> Observable<[Album]> {
         return albumRepository.fetch()
-            .flatMap { collections -> Observable<[Album]> in
+            .withUnretained(self)
+            .flatMap { (owner, collections) -> Observable<[Album]> in
                 let observables = collections.map { collection -> Observable<Album> in
                     
-                    let thumbnail = PhotoManager.shared.fetchFirst(in: collection)
+                    let thumbnail = owner.albumRepository.fetchFirst(in: collection, with: .image)
                         .flatMap { asset in
                             ImageManager.shard.requestImage(
                                 asset: asset!,

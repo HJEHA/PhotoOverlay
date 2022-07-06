@@ -10,7 +10,7 @@ import Photos
 
 import RxSwift
 
-final class DefaultPhotoRepository: PhotoRepository {
+final class DefaultPhotoRepository {
     let photoManager: PhotoFetchable
     
     init(photoManager: PhotoFetchable = PhotoManager.shared) {
@@ -18,7 +18,7 @@ final class DefaultPhotoRepository: PhotoRepository {
     }
 }
 
-extension DefaultPhotoRepository {
+extension DefaultPhotoRepository: PhotoRepository {
     func fetch() -> Observable<[PHAsset]> {
         return photoManager.fetch(mediaType: .image)
     }

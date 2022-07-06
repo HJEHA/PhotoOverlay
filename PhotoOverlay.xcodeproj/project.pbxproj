@@ -29,6 +29,7 @@
 		08A1D4C02875636200490129 /* AlbumListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D4BF2875636200490129 /* AlbumListViewModel.swift */; };
 		08A1D4C2287563D800490129 /* DefaultAlbumRepositoryt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D4C1287563D800490129 /* DefaultAlbumRepositoryt.swift */; };
 		08A1D4C42875666200490129 /* AlbumUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D4C32875666200490129 /* AlbumUseCase.swift */; };
+		08A1D4C628756E9A00490129 /* AlbumRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D4C528756E9A00490129 /* AlbumRepository.swift */; };
 		08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78ADE286EE499006296DE /* AppDelegate.swift */; };
 		08C78AE1286EE499006296DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE0286EE499006296DE /* SceneDelegate.swift */; };
 		08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE7286EE499006296DE /* PhotoOverlay.xcdatamodeld */; };
@@ -77,6 +78,7 @@
 		08A1D4BF2875636200490129 /* AlbumListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListViewModel.swift; sourceTree = "<group>"; };
 		08A1D4C1287563D800490129 /* DefaultAlbumRepositoryt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAlbumRepositoryt.swift; sourceTree = "<group>"; };
 		08A1D4C32875666200490129 /* AlbumUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumUseCase.swift; sourceTree = "<group>"; };
+		08A1D4C528756E9A00490129 /* AlbumRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRepository.swift; sourceTree = "<group>"; };
 		08C78ADB286EE499006296DE /* PhotoOverlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoOverlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C78ADE286EE499006296DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08C78AE0286EE499006296DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				08A1D4AB287404DE00490129 /* PhotoRepository.swift */,
+				08A1D4C528756E9A00490129 /* AlbumRepository.swift */,
 			);
 			path = Repositorise;
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 			files = (
 				08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */,
 				089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */,
+				08A1D4C628756E9A00490129 /* AlbumRepository.swift in Sources */,
 				08A1D4AF287408C500490129 /* Album.swift in Sources */,
 				08C78AFB2870395F006296DE /* PhotosViewController.swift in Sources */,
 				0817A9B42872DB7500C821DD /* UIFont+extension.swift in Sources */,
