@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import Photos
 
 final class PhotosViewController: UIViewController {
     
@@ -40,6 +41,14 @@ final class PhotosViewController: UIViewController {
         configureCollectionViewDataSource()
         
         bindViewModel()
+        
+        PhotoManager.shared.fetchCollections()
+            .subscribe(onNext: {
+                $0.forEach {
+                    print($0.localizedTitle)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
