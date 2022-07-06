@@ -53,6 +53,7 @@ extension PhotoManager: PhotoFetchable {
             )
             let indexSet = IndexSet(integersIn: 0..<fetchedCollections.count)
             let albumAsset = fetchedCollections.objects(at: indexSet)
+            
             emitter.onNext(albumAsset)
             emitter.onCompleted()
             
@@ -60,7 +61,24 @@ extension PhotoManager: PhotoFetchable {
         }
     }
     
-    /// 전체 사진 가져오기 메서드
+    /// 앨범 내 Asset 가져오기 메서드
+    func fetch(
+        in collection: PHAssetCollection,
+        with mediaType: PHAssetMediaType = .image
+    ) -> Observable<[PHAsset]> {
+        return Observable<[PHAsset]>.create { emitter in
+            let fetchResult = PHAsset.fetchAssets(in: collection, options: nil)
+            let indexSet = IndexSet(integersIn: 0..<fetchResult.count)
+            let assets = fetchResult.objects(at: indexSet)
+            
+            emitter.onNext(assets)
+            emitter.onCompleted()
+            
+            return Disposables.create()
+        }
+    }
+        
+    /// 전체 Asset 가져오기 메서드
     func fetch(
         mediaType: PHAssetMediaType = .image
     ) -> Observable<[PHAsset]> {
