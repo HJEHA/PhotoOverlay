@@ -85,7 +85,7 @@ extension PhotoManager: PhotoFetchable {
     ) -> Observable<PHAsset?> {
         return Observable<PHAsset?>.create { emitter in
             let fetchResult = PHAsset.fetchAssets(in: collection, options: nil)
-            let asset = fetchResult.firstObject
+            let asset = fetchResult.lastObject
             
             emitter.onNext(asset)
             emitter.onCompleted()
