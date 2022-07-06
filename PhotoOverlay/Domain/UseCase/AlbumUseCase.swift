@@ -47,4 +47,18 @@ extension AlbumUseCase {
                 return Observable.combineLatest(observables)
             }
     }
+    
+    func fetchAllPhotosAlbum() -> Observable<Album> {
+        return albumRepository.fetchFirst(mediaType: .image)
+            .flatMap { asset -> Observable<UIImage?> in
+                ImageManager.shard.requestImage(asset: asset, contentMode: .aspectFit)
+            }
+            .map { image in
+                Album(
+                    title: "All Photos",
+                    thumbnail: image,
+                    assetCollection: nil
+                )
+            }
+    }
 }

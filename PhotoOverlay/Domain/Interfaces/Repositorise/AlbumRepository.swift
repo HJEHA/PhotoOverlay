@@ -17,4 +17,8 @@ protocol AlbumRepository {
         in collection: PHAssetCollection,
         with mediaType: PHAssetMediaType
     ) -> Observable<PHAsset?>
+    
+    func fetchFirst(
+        mediaType: PHAssetMediaType
+    ) -> Observable<PHAsset?>
 }

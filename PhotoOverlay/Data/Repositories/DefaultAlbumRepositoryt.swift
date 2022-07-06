@@ -29,4 +29,11 @@ extension DefaultAlbumRepository: AlbumRepository {
     ) -> Observable<PHAsset?> {
         return photoManager.fetchFirst(in: collection, with: mediaType)
     }
+    
+    func fetchFirst(
+        mediaType: PHAssetMediaType
+    ) -> Observable<PHAsset?> {
+        return photoManager.fetch(mediaType: .image)
+            .map { $0.first }
+    }
 }
