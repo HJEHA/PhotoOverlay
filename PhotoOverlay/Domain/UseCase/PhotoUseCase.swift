@@ -33,4 +33,19 @@ extension PhotoUseCase {
             }
             .map { Photos(photos: $0) }
     }
+    
+    func fetch(in collection: PHAssetCollection) -> Observable<Photos> {
+        return photoRepository.fetch(in: collection, with: .image)
+            .flatMap { assets -> Observable<[UIImage?]> in
+                let observables = assets.map { asset in
+                    ImageManager.shard.requestImage(
+                        asset: asset,
+                        contentMode: .aspectFit
+                    )
+                }
+                
+                return Observable.combineLatest(observables)
+            }
+            .map { Photos(photos: $0) }
+    }
 }

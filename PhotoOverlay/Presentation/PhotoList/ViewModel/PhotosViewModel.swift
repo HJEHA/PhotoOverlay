@@ -16,6 +16,7 @@ final class PhotosViewModel: ViewModel {
     
     struct Input {
         let viewWillAppear: Observable<Void>
+        let albumAsset: Observable<Album>
     }
     
     // MARK: - Output
@@ -42,6 +43,12 @@ final class PhotosViewModel: ViewModel {
             }
             .map {
                 $0.toItem()
+            }
+        
+        let itemsInAlbumObservable = input.viewWillAppear
+            .withUnretained(self)
+            .flatMap { (owner, asset) in
+                owner.useCase.
             }
         
         return Output(
