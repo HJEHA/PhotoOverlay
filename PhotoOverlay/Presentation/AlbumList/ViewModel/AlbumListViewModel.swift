@@ -16,12 +16,14 @@ final class AlbumListViewModel: ViewModel {
     
     struct Input {
         let viewWillAppear: Observable<Void>
+        let selectedAlbumTitle: Observable<String>
     }
     
     // MARK: - Output
     
     struct Output {
         let itemsObservable: Observable<[AlbumItem]>
+        let selectedAlbumObservable: Observable<Album?>
     }
     
     // MARK: - Properties
@@ -40,6 +42,8 @@ final class AlbumListViewModel: ViewModel {
             .flatMap { (owner, _) in
                 owner.useCase.fetchAlbum()
             }
+            
+        let albumItemsObservable = albumsObservable
             .map {
                 $0.map {
                     $0.toItem()
@@ -56,7 +60,7 @@ final class AlbumListViewModel: ViewModel {
             .map { $0.toItem() }
         
         let itemsObservable = Observable.combineLatest(
-                albumsObservable,
+                albumItemsObservable,
                 allPhotosAlbumObservable
             )
             .map { albums, allPhotosAlbum -> [AlbumItem] in
@@ -66,8 +70,20 @@ final class AlbumListViewModel: ViewModel {
                 return items
             }
         
+        let selectedAlbumObservable = Observable.combineLatest(
+                albumsObservable,
+                input.selectedAlbumTitle
+            )
+            .map { albums, title in
+                albums.filter {
+                    $0.title == title
+                }
+                .first
+            }
+            
         return Output(
-            itemsObservable: itemsObservable
+            itemsObservable: itemsObservable,
+            selectedAlbumObservable: selectedAlbumObservable
         )
     }
 }

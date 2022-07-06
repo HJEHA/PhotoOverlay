@@ -8,6 +8,7 @@
 import UIKit
 
 import RxSwift
+import RxRelay
 import RxCocoa
 import SnapKit
 
@@ -31,6 +32,14 @@ final class AlbumListViewController: UIViewController {
     private let viewModel = AlbumListViewModel()
     private var disposeBag = DisposeBag()
     
+    // MARK: - Relay
+    
+    private let selectedAlbumTitleRelay = PublishRelay<String>()
+    
+    deinit {
+        print("디이닛")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,6 +49,7 @@ final class AlbumListViewController: UIViewController {
         configureTableViewDataSource()
         
         bindViewModel()
+        bindTableView()
     }
 }
 
@@ -48,7 +58,8 @@ final class AlbumListViewController: UIViewController {
 extension AlbumListViewController {
     private func bindViewModel() {
         let input = AlbumListViewModel.Input(
-            viewWillAppear: self.rx.viewWillAppear.asObservable()
+            viewWillAppear: self.rx.viewWillAppear.asObservable(),
+            selectedAlbumTitle: selectedAlbumTitleRelay.asObservable()
         )
         
         let output = viewModel.transform(input)
@@ -58,6 +69,27 @@ extension AlbumListViewController {
             .withUnretained(self)
             .subscribe(onNext: { (owner, items) in
                 owner.applySnapShot(items)
+            })
+            .disposed(by: disposeBag)
+        
+        output.selectedAlbumObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, album) in
+                print(album?.assetCollection)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindTableView() {
+        albumListView.albumListTableView.rx.itemSelected
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, indexPath) in
+                guard let selectedItem = owner.dataSource?.itemIdentifier(for: indexPath) else {
+                    return
+                }
+                
+                owner.selectedAlbumTitleRelay.accept(selectedItem.title)
             })
             .disposed(by: disposeBag)
     }
@@ -108,7 +140,7 @@ extension AlbumListViewController {
         snapShot.appendSections([.main])
         snapShot.appendItems(items, toSection: .main)
     
-        dataSource?.apply(snapShot)
+        dataSource?.apply(snapShot, animatingDifferences: false)
     }
 }
 
