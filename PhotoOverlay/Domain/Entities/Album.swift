@@ -9,6 +9,7 @@ import Foundation
 import Photos
 
 struct Album {
-    let title: String
-    var asset: PHAssetCollection?
+    let title: String?
+    var thumbnail: UIImage?
+    var assetCollection: PHAssetCollection?
 }

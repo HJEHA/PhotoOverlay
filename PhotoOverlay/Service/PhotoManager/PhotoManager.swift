@@ -77,6 +77,22 @@ extension PhotoManager: PhotoFetchable {
             return Disposables.create()
         }
     }
+    
+    /// 앨범 내 첫번째 Asset 가져오기 메서드
+    func fetchFirst(
+        in collection: PHAssetCollection,
+        with mediaType: PHAssetMediaType = .image
+    ) -> Observable<PHAsset?> {
+        return Observable<PHAsset?>.create { emitter in
+            let fetchResult = PHAsset.fetchAssets(in: collection, options: nil)
+            let asset = fetchResult.firstObject
+            
+            emitter.onNext(asset)
+            emitter.onCompleted()
+            
+            return Disposables.create()
+        }
+    }
         
     /// 전체 Asset 가져오기 메서드
     func fetch(
