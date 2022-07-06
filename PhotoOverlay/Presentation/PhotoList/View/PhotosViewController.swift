@@ -39,6 +39,7 @@ final class PhotosViewController: UIViewController {
     // MARK: - Relay
     
     private let selectedAlbumRelay = PublishRelay<Album?>()
+    private let showAlbumListGestureRelay = PublishRelay<Bool>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +96,14 @@ extension PhotosViewController {
             .scan(false) { lastState, _ in !lastState }
             .withUnretained(self)
             .subscribe(onNext: { (owner, isShow) in
+                owner.showAlbumListGestureRelay.accept(isShow)
+            })
+            .disposed(by: disposeBag)
+        
+        showAlbumListGestureRelay.asObservable()
+            .scan(false) { lastState, _ in !lastState }
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, isShow) in
                 if isShow {
                     owner.showAlbumList()
                 } else {
@@ -137,7 +146,7 @@ extension PhotosViewController {
 
 extension PhotosViewController: AlbumListViewControllerDelegate {
     func AlbumListViewController(didSelectedAlbum: Album?) {
-        hideAlbumList()
+        showAlbumListGestureRelay.accept(false)
         selectedAlbumRelay.accept(didSelectedAlbum)
     }
 }
