@@ -109,6 +109,8 @@ extension PhotosViewController {
                 } else {
                     owner.hideAlbumList()
                 }
+                
+                owner.photosView.showAlbumListButtonAccessoryAnimation(isShow: isShow)
             })
             .disposed(by: disposeBag)
     }
