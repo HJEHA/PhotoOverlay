@@ -27,6 +27,10 @@ final class PhotosViewController: UIViewController {
     
     private let photosView = PhotosView()
     
+    // MARK: - Child View Controller
+    
+    private let albumListViewController = AlbumListViewController()
+    
     // MARK: - Properties
     
     private let viewModel = PhotosViewModel()
@@ -75,8 +79,21 @@ extension PhotosViewController {
     
     private func bindShowAlbumListButton() {
         photosView.showAlbumListGesture.rx.event
-            .subscribe(onNext: { _ in
-                print("앨범 리스트 버튼 클릭")
+            .scan(false) { lastState, _ in !lastState }
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, isShow) in
+                print(isShow)
+                
+                if isShow {
+                    owner.view.addSubview(owner.albumListViewController.view)
+                    
+                    owner.albumListViewController.view.snp.makeConstraints { make in
+                        make.top.equalTo(owner.photosView.photoListCollectionView.snp.top).inset(-8)
+                        make.left.trailing.bottom.equalToSuperview()
+                    }
+                } else {
+                    owner.albumListViewController.view.removeFromSuperview()
+                }
             })
             .disposed(by: disposeBag)
     }
