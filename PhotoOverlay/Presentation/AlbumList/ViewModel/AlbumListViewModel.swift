@@ -35,7 +35,7 @@ final class AlbumListViewModel: ViewModel {
     }
     
     func transform(_ input: Input) -> Output {
-        let itemsObservable = input.viewWillAppear
+        let albumsObservable = input.viewWillAppear
             .withUnretained(self)
             .flatMap { (owner, _) in
                 owner.useCase.fetchAlbum()
@@ -46,6 +46,24 @@ final class AlbumListViewModel: ViewModel {
                 }.filter {
                     $0.thumbnailImage != nil
                 }
+            }
+        
+        let allPhotosAlbumObservable = input.viewWillAppear
+            .withUnretained(self)
+            .flatMap { (owner, _) in
+                owner.useCase.fetchAllPhotosAlbum()
+            }
+            .map { $0.toItem() }
+        
+        let itemsObservable = Observable.combineLatest(
+                albumsObservable,
+                allPhotosAlbumObservable
+            )
+            .map { albums, allPhotosAlbum -> [AlbumItem] in
+                var items = albums
+                items.insert(allPhotosAlbum, at: 0)
+                
+                return items
             }
         
         return Output(
