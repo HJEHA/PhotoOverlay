@@ -8,6 +8,7 @@
 import UIKit
 
 import RxSwift
+import RxRelay
 import RxCocoa
 import SnapKit
 
@@ -26,15 +27,18 @@ final class AlbumListViewController: UIViewController {
     
     private let albumListView = AlbumListView()
     
-    // 임시
+    // MARK: - Properties
     
-    private let albums: [AlbumItem] = [
-        AlbumItem(title: "1", thumbnailImage: UIImage(systemName: "heart")),
-        AlbumItem(title: "2", thumbnailImage: UIImage(systemName: "heart")),
-        AlbumItem(title: "3", thumbnailImage: UIImage(systemName: "heart")),
-        AlbumItem(title: "4", thumbnailImage: UIImage(systemName: "heart")),
-        AlbumItem(title: "5", thumbnailImage: UIImage(systemName: "heart"))
-    ]
+    private let viewModel = AlbumListViewModel()
+    private var disposeBag = DisposeBag()
+    
+    // MARK: - Relay
+    
+    private let selectedAlbumTitleRelay = PublishRelay<String>()
+    
+    deinit {
+        print("디이닛")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +47,51 @@ final class AlbumListViewController: UIViewController {
         configureSubViews()
         
         configureTableViewDataSource()
-        applySnapShot(albums)
+        
+        bindViewModel()
+        bindTableView()
+    }
+}
+
+// MARK: - Bind
+
+extension AlbumListViewController {
+    private func bindViewModel() {
+        let input = AlbumListViewModel.Input(
+            viewWillAppear: self.rx.viewWillAppear.asObservable(),
+            selectedAlbumTitle: selectedAlbumTitleRelay.asObservable()
+        )
+        
+        let output = viewModel.transform(input)
+        
+        output.itemsObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, items) in
+                owner.applySnapShot(items)
+            })
+            .disposed(by: disposeBag)
+        
+        output.selectedAlbumObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, album) in
+                print(album?.assetCollection)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindTableView() {
+        albumListView.albumListTableView.rx.itemSelected
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, indexPath) in
+                guard let selectedItem = owner.dataSource?.itemIdentifier(for: indexPath) else {
+                    return
+                }
+                
+                owner.selectedAlbumTitleRelay.accept(selectedItem.title)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -92,7 +140,7 @@ extension AlbumListViewController {
         snapShot.appendSections([.main])
         snapShot.appendItems(items, toSection: .main)
     
-        dataSource?.apply(snapShot)
+        dataSource?.apply(snapShot, animatingDifferences: false)
     }
 }
 
@@ -119,11 +167,4 @@ private extension UITableView {
             forCellReuseIdentifier: String(describing: T.self)
         )
     }
-}
-
-// 임시
-
-struct AlbumItem: Hashable {
-    let title: String
-    let thumbnailImage: UIImage?
 }

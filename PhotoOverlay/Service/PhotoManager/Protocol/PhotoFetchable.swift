@@ -20,6 +20,12 @@ protocol PhotoFetchable {
         with mediaType: PHAssetMediaType
     ) -> Observable<[PHAsset]>
     
+    /// 앨범 내 첫번째 Asset 가져오기 메서드
+    func fetchFirst(
+        in collection: PHAssetCollection,
+        with mediaType: PHAssetMediaType
+    ) -> Observable<PHAsset?>
+    
     /// 앨범 사진 가져오기 메서드
     func fetch(mediaType: PHAssetMediaType) -> Observable<[PHAsset]>
 }

@@ -21,7 +21,7 @@ final class PhotoUseCase {
 extension PhotoUseCase {
     func fetch() -> Observable<Photos> {
         return photoRepository.fetch()
-            .flatMap { assets -> Observable<[UIImage]> in
+            .flatMap { assets -> Observable<[UIImage?]> in
                 let observables = assets.map { asset in
                     ImageManager.shard.requestImage(
                         asset: asset,

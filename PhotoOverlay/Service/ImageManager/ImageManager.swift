@@ -24,11 +24,15 @@ final class ImageManager {
 
 extension ImageManager: ImageRequestable {
     func requestImage(
-        asset: PHAsset,
+        asset: PHAsset?,
         contentMode: PHImageContentMode,
         isThumbnail: Bool = true
-    ) -> Observable<UIImage> {
-        return Observable<UIImage>.create { [weak self] emitter in
+    ) -> Observable<UIImage?> {
+        guard let asset = asset else {
+            return Observable<UIImage?>.just(nil)
+        }
+        
+        return Observable<UIImage?>.create { [weak self] emitter in
             let targetSize = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
             
             let requestID = self?.phImageManager.requestImage(

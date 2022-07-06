@@ -15,6 +15,8 @@ final class AlbumListTableViewCell: UITableViewCell {
     
     private let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.layer.cornerRadius = 12
+        imageView.layer.masksToBounds = true
         
         return imageView
     }()

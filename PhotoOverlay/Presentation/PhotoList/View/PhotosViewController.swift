@@ -29,7 +29,7 @@ final class PhotosViewController: UIViewController {
     
     // MARK: - Child View Controller
     
-    private let albumListViewController = AlbumListViewController()
+    private var albumListViewController: AlbumListViewController?
     
     // MARK: - Properties
     
@@ -46,14 +46,6 @@ final class PhotosViewController: UIViewController {
         
         bindViewModel()
         bindShowAlbumListButton()
-        
-        PhotoManager.shared.fetchCollections()
-            .subscribe(onNext: {
-                $0.forEach {
-                    print($0.localizedTitle)
-                }
-            })
-            .disposed(by: disposeBag)
     }
 }
 
@@ -83,14 +75,20 @@ extension PhotosViewController {
             .withUnretained(self)
             .subscribe(onNext: { (owner, isShow) in
                 if isShow {
-                    owner.view.addSubview(owner.albumListViewController.view)
+                    owner.albumListViewController = AlbumListViewController()
+                    guard let albumListViewController = owner.albumListViewController else {
+                        return
+                    }
                     
-                    owner.albumListViewController.view.snp.makeConstraints { make in
+                    owner.view.addSubview(albumListViewController.view)
+                    
+                    albumListViewController.view.snp.makeConstraints { make in
                         make.top.equalTo(owner.photosView.photoListCollectionView.snp.top).inset(-8)
                         make.left.trailing.bottom.equalToSuperview()
                     }
                 } else {
-                    owner.albumListViewController.view.removeFromSuperview()
+                    owner.albumListViewController?.view.removeFromSuperview()
+                    owner.albumListViewController = nil
                 }
             })
             .disposed(by: disposeBag)
