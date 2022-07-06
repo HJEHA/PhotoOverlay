@@ -8,7 +8,7 @@
 import UIKit
 
 struct Photos {
-    let photos: [UIImage]
+    let photos: [UIImage?]
 }
 
 // MARK: - Mapping

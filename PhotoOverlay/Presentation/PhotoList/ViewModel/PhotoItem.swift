@@ -8,5 +8,5 @@
 import UIKit
 
 struct PhotoItem: Hashable {
-    let photo: UIImage
+    let photo: UIImage?
 }

@@ -26,15 +26,10 @@ final class AlbumListViewController: UIViewController {
     
     private let albumListView = AlbumListView()
     
-    // 임시
+    // MARK: - Properties
     
-    private let albums: [AlbumItem] = [
-        AlbumItem(title: "1", thumbnailImage: UIImage(systemName: "heart")),
-        AlbumItem(title: "2", thumbnailImage: UIImage(systemName: "heart")),
-        AlbumItem(title: "3", thumbnailImage: UIImage(systemName: "heart")),
-        AlbumItem(title: "4", thumbnailImage: UIImage(systemName: "heart")),
-        AlbumItem(title: "5", thumbnailImage: UIImage(systemName: "heart"))
-    ]
+    private let viewModel = AlbumListViewModel()
+    private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +38,28 @@ final class AlbumListViewController: UIViewController {
         configureSubViews()
         
         configureTableViewDataSource()
-        applySnapShot(albums)
+        
+        bindViewModel()
+    }
+}
+
+// MARK: - Bind
+
+extension AlbumListViewController {
+    private func bindViewModel() {
+        let input = AlbumListViewModel.Input(
+            viewWillAppear: self.rx.viewWillAppear.asObservable()
+        )
+        
+        let output = viewModel.transform(input)
+        
+        output.itemsObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, items) in
+                owner.applySnapShot(items)
+            })
+            .disposed(by: disposeBag)
     }
 }
 

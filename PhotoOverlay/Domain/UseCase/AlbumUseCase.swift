@@ -19,7 +19,7 @@ final class AlbumUseCase {
 }
 
 extension AlbumUseCase {
-    func fetch() -> Observable<[Album]> {
+    func fetchAlbum() -> Observable<[Album]> {
         return albumRepository.fetch()
             .withUnretained(self)
             .flatMap { (owner, collections) -> Observable<[Album]> in
@@ -28,7 +28,7 @@ extension AlbumUseCase {
                     let thumbnail = owner.albumRepository.fetchFirst(in: collection, with: .image)
                         .flatMap { asset in
                             ImageManager.shard.requestImage(
-                                asset: asset!,
+                                asset: asset,
                                 contentMode: .aspectFit
                             )
                         }

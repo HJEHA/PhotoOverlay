@@ -38,11 +38,13 @@ final class AlbumListViewModel: ViewModel {
         let itemsObservable = input.viewWillAppear
             .withUnretained(self)
             .flatMap { (owner, _) in
-                owner.useCase.fetch()
+                owner.useCase.fetchAlbum()
             }
             .map {
                 $0.map {
                     $0.toItem()
+                }.filter {
+                    $0.thumbnailImage != nil
                 }
             }
         
