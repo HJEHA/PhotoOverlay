@@ -13,7 +13,6 @@ final class AlbumListView: UIView {
     
     let albumListTableView: UITableView = {
         let tableView = UITableView(frame: .zero)
-        tableView.backgroundColor = .gray
         
         return tableView
     }()
@@ -24,6 +23,7 @@ final class AlbumListView: UIView {
         super.init(frame: frame)
         
         configureConstraintsSubviews()
+        configureTableView()
     }
     
     required init?(coder: NSCoder) {
@@ -44,3 +44,12 @@ extension AlbumListView {
         }
     }
 }
+
+// MARK: - Configure AlbumListTableView
+
+extension AlbumListView {
+    private func configureTableView() {
+        albumListTableView.rowHeight = 96
+    }
+}
+

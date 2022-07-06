@@ -10,44 +10,53 @@ import UIKit
 import SnapKit
 
 final class AlbumListTableViewCell: UITableViewCell {
+    
     // MARK: - View Properties
     
     private let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "heart")
         
         return imageView
     }()
     
     private let albumTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "All"
         label.font = .preferredFont(forTextStyle: .headline).bold
         
         return label
     }()
     
-    // MARK: - Override Methods
+    // MARK: - Initializer
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureConstraintsSubview()
+        configureView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 }
 
 // MARK: - Update View
 
 extension AlbumListTableViewCell {
-    func update(_ item: PhotoItem) {
-        albumTitleLabel.text = ""
-        thumbnailImageView.image = item.photo
+    func update(_ item: AlbumItem) {
+        albumTitleLabel.text = item.title
+        thumbnailImageView.image = item.thumbnailImage
     }
 }
 
 // MARK: - Configure View
 
 extension AlbumListTableViewCell {
+    
+    private func configureView() {
+        selectionStyle = .none
+    }
+    
     private func configureConstraintsSubview() {
         
         // MARK: - Constraints ThumbnailImageView
@@ -55,7 +64,7 @@ extension AlbumListTableViewCell {
         contentView.addSubview(thumbnailImageView)
         thumbnailImageView.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview().inset(8)
-            make.width.equalTo(thumbnailImageView.snp.height)
+            make.width.height.equalTo(80)
         }
         
         // MARK: - Constraints AlbumTitleLabel
