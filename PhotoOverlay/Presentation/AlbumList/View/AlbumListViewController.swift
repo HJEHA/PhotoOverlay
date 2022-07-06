@@ -120,10 +120,3 @@ private extension UITableView {
         )
     }
 }
-
-// 임시
-
-struct AlbumItem: Hashable {
-    let title: String
-    let thumbnailImage: UIImage?
-}
