@@ -23,6 +23,8 @@ final class PhotosViewModel: ViewModel {
     
     struct Output {
         let itemsObservable: Observable<[PhotoItem]>
+        let itemsInAlbumObservable: Observable<[PhotoItem]>
+        let albumTitleObservable: Observable<String>
     }
     
     // MARK: - Properties
@@ -45,14 +47,28 @@ final class PhotosViewModel: ViewModel {
                 $0.toItem()
             }
         
-        let itemsInAlbumObservable = input.viewWillAppear
+        let itemsInAlbumObservable = input.albumAsset
             .withUnretained(self)
-            .flatMap { (owner, asset) in
-                owner.useCase.
+            .flatMap { (owner, album) -> Observable<Photos> in
+                guard let collection = album.assetCollection else {
+                    return owner.useCase.fetch()
+                }
+                
+                return owner.useCase.fetch(in: collection)
+            }
+            .map {
+                $0.toItem()
+            }
+        
+        let albumTitleObservable = input.albumAsset
+            .compactMap { album in
+                album.title
             }
         
         return Output(
-            itemsObservable: itemsObservable
+            itemsObservable: itemsObservable,
+            itemsInAlbumObservable: itemsInAlbumObservable,
+            albumTitleObservable: albumTitleObservable
         )
     }
 }

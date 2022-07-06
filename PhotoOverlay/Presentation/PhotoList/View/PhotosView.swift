@@ -68,6 +68,14 @@ final class PhotosView: UIView {
 // MARK: - Configure View
 
 extension PhotosView {
+    func updateAlbumTitle(_ title: String) {
+        showAlbumListButtonLabel.text = title
+    }
+}
+
+// MARK: - Configure View
+
+extension PhotosView {
     private func configureSubviews() {
         
         // MARK: - Constraints AlbumListButton & Accessory

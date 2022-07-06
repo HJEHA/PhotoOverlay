@@ -36,6 +36,10 @@ final class PhotosViewController: UIViewController {
     private let viewModel = PhotosViewModel()
     private var disposeBag = DisposeBag()
     
+    // MARK: - Relay
+    
+    private let selectedAlbumRelay = PublishRelay<Album>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,7 +58,8 @@ final class PhotosViewController: UIViewController {
 extension PhotosViewController {
     private func bindViewModel() {
         let input = PhotosViewModel.Input(
-            viewWillAppear: self.rx.viewWillAppear.asObservable()
+            viewWillAppear: self.rx.viewWillAppear.asObservable(),
+            albumAsset: selectedAlbumRelay.asObservable()
         )
         
         let output = viewModel.transform(input)
@@ -65,6 +70,22 @@ extension PhotosViewController {
             .subscribe(onNext: { (owner, items) in
                 owner.photosView.activityIndicator.stopAnimating()
                 owner.applySnapShot(items)
+            })
+            .disposed(by: disposeBag)
+        
+        output.itemsInAlbumObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, items) in
+                owner.applySnapShot(items)
+            })
+            .disposed(by: disposeBag)
+        
+        output.albumTitleObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, title) in
+                owner.updateAlbumTitle(title)
             })
             .disposed(by: disposeBag)
     }
@@ -92,6 +113,14 @@ extension PhotosViewController {
                 }
             })
             .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Update View
+
+extension PhotosViewController {
+    private func updateAlbumTitle(_ title: String) {
+        photosView.updateAlbumTitle(title)
     }
 }
 
