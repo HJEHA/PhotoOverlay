@@ -22,16 +22,12 @@ final class PhotosView: UIView {
         return imageView
     }()
     
-    private let showAlbumListButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("All Photos", for: .normal)
-        button.setTitle("All Photos", for: .selected)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .title3).bold
+    private let showAlbumListButtonLabel: UILabel = {
+        let label = UILabel()
+        label.text = "All Photos"
+        label.font = .preferredFont(forTextStyle: .title3).bold
         
-        button.setTitleColor(UIColor.label, for: .normal)
-        button.setTitleColor(UIColor.label, for: .selected)
-        
-        return button
+        return label
     }()
     
     let photoListCollectionView: UICollectionView = {
@@ -42,6 +38,10 @@ final class PhotosView: UIView {
         
         return collectionView
     }()
+    
+    // MARK: - Gesture
+    
+    let showAlbumListGesture = UITapGestureRecognizer()
     
     let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
@@ -56,7 +56,7 @@ final class PhotosView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureConstraintsSubviews()
+        configureSubviews()
         configureCollectionViewLayout()
     }
     
@@ -68,12 +68,12 @@ final class PhotosView: UIView {
 // MARK: - Configure View
 
 extension PhotosView {
-    private func configureConstraintsSubviews() {
+    private func configureSubviews() {
         
         // MARK: - Constraints AlbumListButton & Accessory
         
         let showAlbumListButtonStackView = UIStackView(arrangedSubviews: [
-            showAlbumListButton,
+            showAlbumListButtonLabel,
             showAlbumListButtonAccessory
         ])
         showAlbumListButtonStackView.distribution = .equalSpacing
@@ -84,6 +84,10 @@ extension PhotosView {
             make.top.equalToSuperview().inset(8)
             make.centerX.equalToSuperview()
         }
+        
+        // MARK: - AlbumListButton & Accessory Add Gesture
+        showAlbumListButtonStackView.isUserInteractionEnabled = true
+        showAlbumListButtonStackView.addGestureRecognizer(showAlbumListGesture)
         
         // MARK: - Constraints SeparateView
         
