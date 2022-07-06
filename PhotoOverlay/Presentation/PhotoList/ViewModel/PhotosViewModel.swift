@@ -16,7 +16,7 @@ final class PhotosViewModel: ViewModel {
     
     struct Input {
         let viewWillAppear: Observable<Void>
-        let albumAsset: Observable<Album>
+        let albumAsset: Observable<Album?>
     }
     
     // MARK: - Output
@@ -50,7 +50,9 @@ final class PhotosViewModel: ViewModel {
         let itemsInAlbumObservable = input.albumAsset
             .withUnretained(self)
             .flatMap { (owner, album) -> Observable<Photos> in
-                guard let collection = album.assetCollection else {
+                guard let album = album,
+                      let collection = album.assetCollection
+                else {
                     return owner.useCase.fetch()
                 }
                 
@@ -61,8 +63,14 @@ final class PhotosViewModel: ViewModel {
             }
         
         let albumTitleObservable = input.albumAsset
-            .compactMap { album in
-                album.title
+            .map { album -> String in
+                guard let album = album,
+                      let title = album.title
+                else {
+                    return "All Photos"
+                }
+                
+                return title
             }
         
         return Output(
