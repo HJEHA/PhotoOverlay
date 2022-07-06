@@ -82,8 +82,6 @@ extension PhotosViewController {
             .scan(false) { lastState, _ in !lastState }
             .withUnretained(self)
             .subscribe(onNext: { (owner, isShow) in
-                print(isShow)
-                
                 if isShow {
                     owner.view.addSubview(owner.albumListViewController.view)
                     

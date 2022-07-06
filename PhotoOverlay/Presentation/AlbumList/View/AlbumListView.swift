@@ -8,6 +8,7 @@
 import UIKit
 
 final class AlbumListView: UIView {
+    
     // MARK: - View Properties
     
     let albumListTableView: UITableView = {
@@ -35,7 +36,7 @@ final class AlbumListView: UIView {
 extension AlbumListView {
     private func configureConstraintsSubviews() {
         
-        // MARK: - Constraints PhotoListCollectionView
+        // MARK: - Constraints AlbumListTableView
         
         addSubview(albumListTableView)
         albumListTableView.snp.makeConstraints { make in
