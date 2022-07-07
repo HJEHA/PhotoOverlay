@@ -11,14 +11,25 @@ import SnapKit
 
 final class PhotoOverlayViewController: UIViewController {
 
+    // 임시
+    
+    private let svgItems: [SVGItem] = [
+        SVGItem(svgImage: UIImage(systemName: "heart")),
+        SVGItem(svgImage: UIImage(systemName: "heart")),
+        SVGItem(svgImage: UIImage(systemName: "heart")),
+        SVGItem(svgImage: UIImage(systemName: "heart")),
+        SVGItem(svgImage: UIImage(systemName: "heart")),
+        SVGItem(svgImage: UIImage(systemName: "heart"))
+    ]
+    
     // MARK: - Collection View
-        
-        private enum Section {
-            case main
-        }
-
-        private typealias DiffableDataSource = UICollectionViewDiffableDataSource<Section, SVGItem>
-        private var dataSource: DiffableDataSource?
+    
+    private enum Section {
+        case main
+    }
+    
+    private typealias DiffableDataSource = UICollectionViewDiffableDataSource<Section, SVGItem>
+    private var dataSource: DiffableDataSource?
     
     // MARK: - Views
     
@@ -31,6 +42,7 @@ final class PhotoOverlayViewController: UIViewController {
         configureSubViews()
         
         configureCollectionViewDataSource()
+        applySnapShot(svgItems)
     }
 }
 
@@ -46,7 +58,8 @@ extension PhotoOverlayViewController {
         
         photoOverlayView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.leading.trailing.equalToSuperview()
         }
     }
 }
@@ -72,10 +85,20 @@ private extension PhotoOverlayViewController {
                 return cell
             })
     }
+    
+    private func applySnapShot(_ items: [SVGItem]) {
+        var snapShot = NSDiffableDataSourceSnapshot<Section, SVGItem>()
+    
+        snapShot.appendSections([.main])
+        snapShot.appendItems(items, toSection: .main)
+    
+        dataSource?.apply(snapShot, animatingDifferences: false)
+    }
 }
 
 // 임시
 
 struct SVGItem: Hashable {
-    let svgImage: UIImage
+    let svgImage: UIImage?
+    let uuid = UUID()
 }

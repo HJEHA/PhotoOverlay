@@ -25,7 +25,6 @@ final class PhotoOverlayView: UIView {
             frame: .zero,
             collectionViewLayout: UICollectionViewLayout()
         )
-        collectionView.backgroundColor = .blue
         
         return collectionView
     }()
@@ -54,7 +53,7 @@ extension PhotoOverlayView {
         addSubview(photoImageView)
         photoImageView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.75)
+            make.height.equalToSuperview().multipliedBy(0.8)
         }
         
         // MARK: - Constraints SVGListCollectionView
@@ -72,14 +71,20 @@ extension PhotoOverlayView {
 extension PhotoOverlayView {
     private func configureCollectionViewLayout() {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.25),
-            heightDimension: .fractionalWidth(0.25)
+            widthDimension: .fractionalWidth(0.28),
+            heightDimension: .fractionalWidth(0.28)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(
+            top: 8,
+            leading: 8,
+            bottom: 8,
+            trailing: 8
+        )
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(0.25)
+            widthDimension: .estimated(400),
+            heightDimension: .fractionalHeight(1)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
@@ -87,6 +92,15 @@ extension PhotoOverlayView {
         )
         
         let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous
+        section.supplementariesFollowContentInsets = true
+        section.contentInsets = NSDirectionalEdgeInsets(
+            top: 24,
+            leading: 24,
+            bottom: 0,
+            trailing: 24
+        )
+        
         let layout = UICollectionViewCompositionalLayout(section: section)
                 
         svgListCollectionView.collectionViewLayout = layout
