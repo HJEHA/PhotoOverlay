@@ -188,8 +188,8 @@
 		0898ABCF2876C3F500E0035A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				0898ABD02876C41E00E0035A /* SVGItem.swift */,
 				0898ABD22876C45600E0035A /* PhotoOverlayViewModel.swift */,
+				0898ABD02876C41E00E0035A /* SVGItem.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

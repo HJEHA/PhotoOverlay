@@ -10,3 +10,11 @@ import UIKit
 struct SVGImage {
     let image: UIImage?
 }
+
+// MARK: - Mapping
+
+extension SVGImage {
+    func toItem() -> SVGItem {
+        return SVGItem(svgImage: image)
+    }
+}
