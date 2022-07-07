@@ -38,7 +38,14 @@ final class PhotosViewController: UIViewController {
     
     // MARK: - Relay
     
-    private let selectedAlbumRelay = PublishRelay<Album?>()
+    private let selectedAlbumRelay = BehaviorRelay<Album?>(
+        value: Album(
+            title: "All Photos",
+            thumbnail: nil,
+            assetCollection: nil
+        )
+    )
+    
     private let showAlbumListGestureRelay = PublishRelay<Bool>()
     
     override func viewDidLoad() {
@@ -62,26 +69,17 @@ final class PhotosViewController: UIViewController {
 extension PhotosViewController {
     private func bindViewModel() {
         let input = PhotosViewModel.Input(
-            viewWillAppear: self.rx.viewWillAppear.asObservable(),
             albumAsset: selectedAlbumRelay.asObservable(),
             selectedItemIndexPath: photosView.photoListCollectionView.rx.itemSelected.asObservable()
         )
         
         let output = viewModel.transform(input)
         
-        output.itemsObservable
-            .observe(on: MainScheduler.asyncInstance)
-            .withUnretained(self)
-            .subscribe(onNext: { (owner, items) in
-                owner.photosView.activityIndicator.stopAnimating()
-                owner.applySnapShot(items)
-            })
-            .disposed(by: disposeBag)
-        
         output.itemsInAlbumObservable
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, items) in
+                owner.photosView.activityIndicator.stopAnimating()
                 owner.applySnapShot(items)
             })
             .disposed(by: disposeBag)

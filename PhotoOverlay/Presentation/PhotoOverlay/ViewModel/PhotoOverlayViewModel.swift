@@ -5,7 +5,7 @@
 //  Created by 황제하 on 2022/07/07.
 //
 
-import Foundation
+import UIKit
 import Photos
 
 import RxSwift
@@ -22,6 +22,7 @@ final class PhotoOverlayViewModel: ViewModel {
     // MARK: - Output
     
     struct Output {
+        let imageObservable: Observable<UIImage?>
         let itemsObservable: Observable<[SVGItem]>
         let selectedItemObservable: Observable<SVGItem>
     }
@@ -42,6 +43,16 @@ final class PhotoOverlayViewModel: ViewModel {
     }
     
     func transform(_ input: Input) -> Output {
+        let imageObservable = input.viewWillAppear
+            .withUnretained(self)
+            .flatMap { (owner, _) in
+                ImageManager.shard.requestImage(
+                    asset: owner.asset,
+                    contentMode: .aspectFit,
+                    isThumbnail: false
+                )
+            }
+        
         let itemsObservable = input.viewWillAppear
             .withUnretained(self)
             .flatMap { (owner, _) in
@@ -62,6 +73,7 @@ final class PhotoOverlayViewModel: ViewModel {
             }
         
         return Output(
+            imageObservable: imageObservable,
             itemsObservable: itemsObservable,
             selectedItemObservable: selectedItemObservable
         )

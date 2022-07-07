@@ -68,6 +68,14 @@ extension PhotoOverlayViewController {
         
         let output = viewModel?.transform(input)
         
+        output?.imageObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, image) in
+                owner.photoOverlayView.update(image)
+            })
+            .disposed(by: disposeBag)
+        
         output?.itemsObservable
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
