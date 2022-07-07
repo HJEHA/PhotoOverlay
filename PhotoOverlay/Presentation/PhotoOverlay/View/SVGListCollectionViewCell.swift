@@ -15,7 +15,6 @@ final class SVGListCollectionViewCell: UICollectionViewCell {
     
     private let svgImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.borderWidth = 1
         
         return imageView
     }()
@@ -25,6 +24,7 @@ final class SVGListCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        configureView()
         configureConstraintsSubview()
     }
     
@@ -44,13 +44,20 @@ extension SVGListCollectionViewCell {
 // MARK: - Configure View
 
 extension SVGListCollectionViewCell {
+    private func configureView() {
+        
+        // MARK: - Border
+        
+        layer.borderWidth = 1
+    }
+    
     private func configureConstraintsSubview() {
                 
         // MARK: - Constraints SVGImageView
         
         contentView.addSubview(svgImageView)
         svgImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalToSuperview().inset(8)
         }
     }
 }
