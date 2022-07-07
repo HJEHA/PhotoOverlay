@@ -15,12 +15,14 @@ final class PhotoOverlayViewModel: ViewModel {
     
     struct Input {
         let viewWillAppear: Observable<Void>
+        let selectedSVGItemIndexPath: Observable<IndexPath>
     }
     
     // MARK: - Output
     
     struct Output {
         let itemsObservable: Observable<[SVGItem]>
+        let selectedItemObservable: Observable<SVGItem>
     }
     
     // MARK: - Properties
@@ -45,8 +47,17 @@ final class PhotoOverlayViewModel: ViewModel {
                 }
             }
         
+        let selectedItemObservable = Observable.combineLatest(
+                itemsObservable,
+                input.selectedSVGItemIndexPath
+            )
+            .map { (items, indexPath) in
+                items[indexPath.row]
+            }
+        
         return Output(
-            itemsObservable: itemsObservable
+            itemsObservable: itemsObservable,
+            selectedItemObservable: selectedItemObservable
         )
     }
 }

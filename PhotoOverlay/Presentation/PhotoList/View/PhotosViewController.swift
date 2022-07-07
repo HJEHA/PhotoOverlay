@@ -54,12 +54,6 @@ final class PhotosViewController: UIViewController {
         bindViewModel()
         bindShowAlbumListButton()
         bindCollectionView()
-        
-        DefaultSVGRepository().loadSVGImageSet(name: "SVGImageSet")
-            .subscribe(onNext: {
-                print($0)
-            })
-            .disposed(by: disposeBag)
     }
 }
 
@@ -101,7 +95,6 @@ extension PhotosViewController {
     }
     
     private func bindCollectionView() {
-        
         photosView.photoListCollectionView.rx.itemSelected
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)

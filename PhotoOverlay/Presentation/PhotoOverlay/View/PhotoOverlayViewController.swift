@@ -61,7 +61,8 @@ final class PhotoOverlayViewController: UIViewController {
 extension PhotoOverlayViewController {
     private func bindViewModel() {
         let input = PhotoOverlayViewModel.Input(
-            viewWillAppear: self.rx.viewWillAppear.asObservable()
+            viewWillAppear: self.rx.viewWillAppear.asObservable(),
+            selectedSVGItemIndexPath: photoOverlayView.svgListCollectionView.rx.itemSelected.asObservable()
         )
         
         let output = viewModel.transform(input)
@@ -71,6 +72,14 @@ extension PhotoOverlayViewController {
             .withUnretained(self)
             .subscribe(onNext: { (owner, items) in
                 owner.applySnapShot(items)
+            })
+            .disposed(by: disposeBag)
+        
+        output.selectedItemObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, item) in
+                owner.photoOverlayView.update(item.svgImage)
             })
             .disposed(by: disposeBag)
     }
