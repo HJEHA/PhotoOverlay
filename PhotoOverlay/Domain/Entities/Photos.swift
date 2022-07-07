@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Photos
 
 struct Photos {
     let photos: [UIImage?]
+    let asset: [PHAsset]
 }
 
 // MARK: - Mapping

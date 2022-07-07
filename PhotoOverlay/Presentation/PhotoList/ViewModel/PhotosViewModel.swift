@@ -15,21 +15,22 @@ final class PhotosViewModel: ViewModel {
     // MARK: - Input
     
     struct Input {
-        let viewWillAppear: Observable<Void>
         let albumAsset: Observable<Album?>
+        let selectedItemIndexPath: Observable<IndexPath>
     }
     
     // MARK: - Output
     
     struct Output {
-        let itemsObservable: Observable<[PhotoItem]>
         let itemsInAlbumObservable: Observable<[PhotoItem]>
         let albumTitleObservable: Observable<String>
+        let selectedAssetObservable: Observable<PHAsset>
     }
     
     // MARK: - Properties
     
     private let useCase: PhotoUseCase
+    private var assets: [PHAsset] = []
     
     // MARK: - Initializer
     
@@ -38,16 +39,7 @@ final class PhotosViewModel: ViewModel {
     }
     
     func transform(_ input: Input) -> Output {
-        let itemsObservable = input.viewWillAppear
-            .withUnretained(self)
-            .flatMap { (owner, _) in
-                owner.useCase.fetch()
-            }
-            .map {
-                $0.toItem()
-            }
-        
-        let itemsInAlbumObservable = input.albumAsset
+        let photosObservable = input.albumAsset
             .withUnretained(self)
             .flatMap { (owner, album) -> Observable<Photos> in
                 guard let album = album,
@@ -58,8 +50,13 @@ final class PhotosViewModel: ViewModel {
                 
                 return owner.useCase.fetch(in: collection)
             }
-            .map {
-                $0.toItem()
+        
+        let itemsInAlbumObservable = photosObservable
+            .withUnretained(self)
+            .map { (owner, photos) -> [PhotoItem] in
+                owner.assets = photos.asset
+                
+                return photos.toItem()
             }
         
         let albumTitleObservable = input.albumAsset
@@ -73,10 +70,16 @@ final class PhotosViewModel: ViewModel {
                 return title
             }
         
+        let selectedAssetObservable = input.selectedItemIndexPath
+            .withUnretained(self)
+            .map { (owner, indexPath) in
+                owner.assets[indexPath.row]
+            }
+        
         return Output(
-            itemsObservable: itemsObservable,
             itemsInAlbumObservable: itemsInAlbumObservable,
-            albumTitleObservable: albumTitleObservable
+            albumTitleObservable: albumTitleObservable,
+            selectedAssetObservable: selectedAssetObservable
         )
     }
 }

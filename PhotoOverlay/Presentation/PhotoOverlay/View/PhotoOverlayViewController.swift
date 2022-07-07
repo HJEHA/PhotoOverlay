@@ -13,17 +13,6 @@ import SnapKit
 
 final class PhotoOverlayViewController: UIViewController {
     
-    // 임시
-    
-    private let svgItems: [SVGItem] = [
-        SVGItem(svgImage: UIImage(systemName: "heart")),
-        SVGItem(svgImage: UIImage(systemName: "heart")),
-        SVGItem(svgImage: UIImage(systemName: "heart")),
-        SVGItem(svgImage: UIImage(systemName: "heart")),
-        SVGItem(svgImage: UIImage(systemName: "heart")),
-        SVGItem(svgImage: UIImage(systemName: "heart"))
-    ]
-    
     // MARK: - Collection View
     
     private enum Section {
@@ -42,12 +31,14 @@ final class PhotoOverlayViewController: UIViewController {
         button.backgroundColor = .darkGray
         button.setTitle("   Overlay   ", for: .normal)
         button.layer.cornerRadius = 16
+        button.isHidden = true
         
         return button
     }()
     
     // MARK: - Properties
     
+    var viewModel: PhotoOverlayViewModel?
     private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -59,20 +50,68 @@ final class PhotoOverlayViewController: UIViewController {
         configureOverlayButton()
         
         configureCollectionViewDataSource()
-        applySnapShot(svgItems)
         
         bindViewWillAppear()
+        bindViewModel()
+        bindRemoveSVGButton()
     }
 }
 
 // MARK: - Bind
 
 extension PhotoOverlayViewController {
+    private func bindViewModel() {
+        let input = PhotoOverlayViewModel.Input(
+            viewWillAppear: self.rx.viewWillAppear.asObservable(),
+            selectedSVGItemIndexPath: photoOverlayView.svgListCollectionView.rx.itemSelected.asObservable()
+        )
+        
+        let output = viewModel?.transform(input)
+        
+        output?.imageObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, image) in
+                owner.photoOverlayView.update(image)
+            })
+            .disposed(by: disposeBag)
+        
+        output?.itemsObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, items) in
+                owner.applySnapShot(items)
+            })
+            .disposed(by: disposeBag)
+        
+        output?.selectedItemObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, item) in
+                owner.overlayButton.isHidden = false
+                owner.photoOverlayView.removeSVGButton.isHidden = false
+                owner.photoOverlayView.update(item.svgImage)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func bindViewWillAppear() {
         self.rx.viewWillAppear
             .withUnretained(self)
             .subscribe(onNext: { (owner, _) in
                 owner.navigationController?.isNavigationBarHidden = false
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindRemoveSVGButton() {
+        photoOverlayView.removeSVGButton.rx.tap
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, item) in
+                owner.overlayButton.isHidden = true
+                owner.photoOverlayView.removeSVGButton.isHidden = true
+                owner.photoOverlayView.update(nil)
             })
             .disposed(by: disposeBag)
     }
@@ -135,11 +174,4 @@ private extension PhotoOverlayViewController {
     
         dataSource?.apply(snapShot, animatingDifferences: false)
     }
-}
-
-// 임시
-
-struct SVGItem: Hashable {
-    let svgImage: UIImage?
-    let uuid = UUID()
 }

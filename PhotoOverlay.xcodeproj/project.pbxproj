@@ -17,6 +17,14 @@
 		0898ABC92876A98600E0035A /* PhotoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABC82876A98600E0035A /* PhotoOverlayView.swift */; };
 		0898ABCB2876AD0000E0035A /* SVGListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABCA2876AD0000E0035A /* SVGListCollectionViewCell.swift */; };
 		0898ABCD2876AE4500E0035A /* UICollectionView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABCC2876AE4500E0035A /* UICollectionView+extension.swift */; };
+		0898ABD12876C41E00E0035A /* SVGItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABD02876C41E00E0035A /* SVGItem.swift */; };
+		0898ABD32876C45600E0035A /* PhotoOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABD22876C45600E0035A /* PhotoOverlayViewModel.swift */; };
+		0898ABD72876CEF800E0035A /* DefaultSVGRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABD62876CEF800E0035A /* DefaultSVGRepository.swift */; };
+		0898ABDA2876CF6A00E0035A /* AssetLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABD92876CF6A00E0035A /* AssetLoadManager.swift */; };
+		0898ABDD2876D37B00E0035A /* SVGImageSetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABDC2876D37B00E0035A /* SVGImageSetDTO.swift */; };
+		0898ABDF2876D41300E0035A /* SVGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABDE2876D41300E0035A /* SVGImage.swift */; };
+		0898ABE12876D47200E0035A /* SVGUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABE02876D47200E0035A /* SVGUseCase.swift */; };
+		0898ABE32876D54B00E0035A /* SVGRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABE22876D54B00E0035A /* SVGRepository.swift */; };
 		089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089A8D5328718AAE00AC4873 /* ImageRequestable.swift */; };
 		08A1D49D2873FCA100490129 /* PhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D49C2873FCA100490129 /* PhotosViewModel.swift */; };
 		08A1D49F2873FD0D00490129 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D49E2873FD0D00490129 /* ViewModel.swift */; };
@@ -71,6 +79,14 @@
 		0898ABC82876A98600E0035A /* PhotoOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOverlayView.swift; sourceTree = "<group>"; };
 		0898ABCA2876AD0000E0035A /* SVGListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0898ABCC2876AE4500E0035A /* UICollectionView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+extension.swift"; sourceTree = "<group>"; };
+		0898ABD02876C41E00E0035A /* SVGItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGItem.swift; sourceTree = "<group>"; };
+		0898ABD22876C45600E0035A /* PhotoOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOverlayViewModel.swift; sourceTree = "<group>"; };
+		0898ABD62876CEF800E0035A /* DefaultSVGRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSVGRepository.swift; sourceTree = "<group>"; };
+		0898ABD92876CF6A00E0035A /* AssetLoadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetLoadManager.swift; sourceTree = "<group>"; };
+		0898ABDC2876D37B00E0035A /* SVGImageSetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageSetDTO.swift; sourceTree = "<group>"; };
+		0898ABDE2876D41300E0035A /* SVGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImage.swift; sourceTree = "<group>"; };
+		0898ABE02876D47200E0035A /* SVGUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGUseCase.swift; sourceTree = "<group>"; };
+		0898ABE22876D54B00E0035A /* SVGRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGRepository.swift; sourceTree = "<group>"; };
 		089A8D5328718AAE00AC4873 /* ImageRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequestable.swift; sourceTree = "<group>"; };
 		08A1D49C2873FCA100490129 /* PhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewModel.swift; sourceTree = "<group>"; };
 		08A1D49E2873FD0D00490129 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -153,6 +169,7 @@
 		0898ABC32876A92800E0035A /* PhotoOverlay */ = {
 			isa = PBXGroup;
 			children = (
+				0898ABCF2876C3F500E0035A /* ViewModel */,
 				0898ABC42876A93D00E0035A /* View */,
 			);
 			path = PhotoOverlay;
@@ -166,6 +183,31 @@
 				0898ABCA2876AD0000E0035A /* SVGListCollectionViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0898ABCF2876C3F500E0035A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0898ABD22876C45600E0035A /* PhotoOverlayViewModel.swift */,
+				0898ABD02876C41E00E0035A /* SVGItem.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0898ABD82876CF4E00E0035A /* AssetLoadManager */ = {
+			isa = PBXGroup;
+			children = (
+				0898ABD92876CF6A00E0035A /* AssetLoadManager.swift */,
+			);
+			path = AssetLoadManager;
+			sourceTree = "<group>";
+		};
+		0898ABDB2876D37000E0035A /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				0898ABDC2876D37B00E0035A /* SVGImageSetDTO.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		089A8D5228718A7F00AC4873 /* ImageManager */ = {
@@ -197,6 +239,7 @@
 		08A1D4A12874001E00490129 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				0898ABDB2876D37000E0035A /* DTO */,
 				08A1D4A2287400D700490129 /* Repositories */,
 			);
 			path = Data;
@@ -207,6 +250,7 @@
 			children = (
 				08A1D4A32874010F00490129 /* DefaultPhotoRepository.swift */,
 				08A1D4C1287563D800490129 /* DefaultAlbumRepositoryt.swift */,
+				0898ABD62876CEF800E0035A /* DefaultSVGRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -226,6 +270,7 @@
 			children = (
 				08A1D4A72874041900490129 /* PhotoUseCase.swift */,
 				08A1D4C32875666200490129 /* AlbumUseCase.swift */,
+				0898ABE02876D47200E0035A /* SVGUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -243,6 +288,7 @@
 			children = (
 				08A1D4AB287404DE00490129 /* PhotoRepository.swift */,
 				08A1D4C528756E9A00490129 /* AlbumRepository.swift */,
+				0898ABE22876D54B00E0035A /* SVGRepository.swift */,
 			);
 			path = Repositorise;
 			sourceTree = "<group>";
@@ -252,6 +298,7 @@
 			children = (
 				08A1D4AE287408C500490129 /* Album.swift */,
 				08A1D4B028740B6E00490129 /* Photos.swift */,
+				0898ABDE2876D41300E0035A /* SVGImage.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -371,6 +418,7 @@
 		08C78AFC287039CC006296DE /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				0898ABD82876CF4E00E0035A /* AssetLoadManager */,
 				089A8D5228718A7F00AC4873 /* ImageManager */,
 				08C78AFD287039D2006296DE /* PhotoManager */,
 			);
@@ -613,9 +661,12 @@
 				08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */,
 				089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */,
 				08A1D4C628756E9A00490129 /* AlbumRepository.swift in Sources */,
+				0898ABDD2876D37B00E0035A /* SVGImageSetDTO.swift in Sources */,
+				0898ABDF2876D41300E0035A /* SVGImage.swift in Sources */,
 				08A1D4AF287408C500490129 /* Album.swift in Sources */,
 				0898ABC72876A96100E0035A /* PhotoOverlayViewController.swift in Sources */,
 				08C78AFB2870395F006296DE /* PhotosViewController.swift in Sources */,
+				0898ABD32876C45600E0035A /* PhotoOverlayViewModel.swift in Sources */,
 				0817A9B42872DB7500C821DD /* UIFont+extension.swift in Sources */,
 				08A1D4B128740B6E00490129 /* Photos.swift in Sources */,
 				085CBFB92871AA4F006F2953 /* ImageManager.swift in Sources */,
@@ -623,6 +674,7 @@
 				08A1D4A42874010F00490129 /* DefaultPhotoRepository.swift in Sources */,
 				0817A9AF2872AB8200C821DD /* PhotosView.swift in Sources */,
 				08C78B2028706C0B006296DE /* PhotoFetchable.swift in Sources */,
+				0898ABE32876D54B00E0035A /* SVGRepository.swift in Sources */,
 				085CBFBB2871D145006F2953 /* PHImageManagerable.swift in Sources */,
 				0817A9B12872CDC300C821DD /* PhotoListCollectionViewCell.swift in Sources */,
 				0898ABCB2876AD0000E0035A /* SVGListCollectionViewCell.swift in Sources */,
@@ -634,11 +686,15 @@
 				08A1D4B3287411D300490129 /* PhotoItem.swift in Sources */,
 				08A1D4B928753B1300490129 /* AlbumListViewController.swift in Sources */,
 				08C78B0E28704483006296DE /* PhotoAuthorizationable.swift in Sources */,
+				0898ABD72876CEF800E0035A /* DefaultSVGRepository.swift in Sources */,
 				08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */,
 				0898ABC92876A98600E0035A /* PhotoOverlayView.swift in Sources */,
+				0898ABE12876D47200E0035A /* SVGUseCase.swift in Sources */,
 				0898ABCD2876AE4500E0035A /* UICollectionView+extension.swift in Sources */,
 				08C78AFF287039F7006296DE /* PhotoManager.swift in Sources */,
+				0898ABDA2876CF6A00E0035A /* AssetLoadManager.swift in Sources */,
 				08C78AE1286EE499006296DE /* SceneDelegate.swift in Sources */,
+				0898ABD12876C41E00E0035A /* SVGItem.swift in Sources */,
 				08A1D4C2287563D800490129 /* DefaultAlbumRepositoryt.swift in Sources */,
 				08A1D4C82875704400490129 /* AlbumItem.swift in Sources */,
 				08A1D4AC287404DE00490129 /* PhotoRepository.swift in Sources */,

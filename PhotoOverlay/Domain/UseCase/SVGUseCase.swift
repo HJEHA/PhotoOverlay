@@ -1,0 +1,29 @@
+//
+//  SVGUseCase.swift
+//  PhotoOverlay
+//
+//  Created by 황제하 on 2022/07/07.
+//
+
+import Foundation
+
+import RxSwift
+
+final class SVGUseCase {
+    let svgRepository: SVGRepository
+    
+    init(svgRepository: SVGRepository = DefaultSVGRepository()) {
+        self.svgRepository = svgRepository
+    }
+}
+
+extension SVGUseCase {
+    func loadDataAsset(name: String) -> Observable<[SVGImage]> {
+        return svgRepository.loadSVGImageSet(name: name)
+            .map { dtos in
+                dtos.map {
+                    $0.toDomain()
+                }
+            }
+    }
+}

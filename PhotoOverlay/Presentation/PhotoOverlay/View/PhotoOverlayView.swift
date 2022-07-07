@@ -14,12 +14,23 @@ final class PhotoOverlayView: UIView {
     // MARK: - View Properties
     
     private let photoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "heart.fill")
+        let imageView = UIImageView()        
         imageView.layer.borderWidth = 1
         imageView.contentMode = .scaleAspectFit
         
         return imageView
+    }()
+    
+    let removeSVGButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = .white
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.setImage(UIImage(systemName: "xmark"), for: .selected)
+        button.backgroundColor = .darkGray
+        button.layer.cornerRadius = 16
+        button.isHidden = true
+        
+        return button
     }()
     
     let svgListCollectionView: UICollectionView = {
@@ -45,6 +56,14 @@ final class PhotoOverlayView: UIView {
     }
 }
 
+// MARK: - Update View
+
+extension PhotoOverlayView {
+    func update(_ image: UIImage?) {
+        photoImageView.image = image
+    }
+}
+
 // MARK: - Configure View
 
 extension PhotoOverlayView {
@@ -64,6 +83,15 @@ extension PhotoOverlayView {
         svgListCollectionView.snp.makeConstraints { make in
             make.top.equalTo(photoImageView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        // MARK: - Constraints RemoveSVGButton
+        
+        addSubview(removeSVGButton)
+        removeSVGButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalTo(photoImageView.snp.bottom)
+            make.width.height.equalTo(44)
         }
     }
 }
