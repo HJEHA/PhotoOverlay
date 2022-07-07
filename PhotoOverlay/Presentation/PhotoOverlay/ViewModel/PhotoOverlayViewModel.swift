@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Photos
 
 import RxSwift
 
@@ -28,10 +29,15 @@ final class PhotoOverlayViewModel: ViewModel {
     // MARK: - Properties
     
     private let useCase: SVGUseCase
+    private let asset: PHAsset
     
     // MARK: - Initializer
     
-    init(useCase: SVGUseCase = SVGUseCase()) {
+    init(
+        asset: PHAsset,
+        useCase: SVGUseCase = SVGUseCase()
+    ) {
+        self.asset = asset
         self.useCase = useCase
     }
     

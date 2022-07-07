@@ -38,7 +38,7 @@ final class PhotoOverlayViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let viewModel = PhotoOverlayViewModel()
+    var viewModel: PhotoOverlayViewModel?
     private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -66,9 +66,9 @@ extension PhotoOverlayViewController {
             selectedSVGItemIndexPath: photoOverlayView.svgListCollectionView.rx.itemSelected.asObservable()
         )
         
-        let output = viewModel.transform(input)
+        let output = viewModel?.transform(input)
         
-        output.itemsObservable
+        output?.itemsObservable
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, items) in
@@ -76,7 +76,7 @@ extension PhotoOverlayViewController {
             })
             .disposed(by: disposeBag)
         
-        output.selectedItemObservable
+        output?.selectedItemObservable
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, item) in

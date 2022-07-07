@@ -63,7 +63,8 @@ extension PhotosViewController {
     private func bindViewModel() {
         let input = PhotosViewModel.Input(
             viewWillAppear: self.rx.viewWillAppear.asObservable(),
-            albumAsset: selectedAlbumRelay.asObservable()
+            albumAsset: selectedAlbumRelay.asObservable(),
+            selectedItemIndexPath: photosView.photoListCollectionView.rx.itemSelected.asObservable()
         )
         
         let output = viewModel.transform(input)
@@ -92,6 +93,19 @@ extension PhotosViewController {
                 owner.updateAlbumTitle(title)
             })
             .disposed(by: disposeBag)
+        
+        output.selectedAssetObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, asset) in
+                let photoOverlayViewModel = PhotoOverlayViewModel(asset: asset)
+                
+                let photoOverlayViewController = PhotoOverlayViewController()
+                photoOverlayViewController.viewModel = photoOverlayViewModel
+                
+                owner.show(photoOverlayViewController, sender: nil)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func bindCollectionView() {
@@ -99,9 +113,7 @@ extension PhotosViewController {
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, indexPath) in
-                let photoOverlayViewController = PhotoOverlayViewController()
                 
-                owner.show(photoOverlayViewController, sender: nil)
             })
             .disposed(by: disposeBag)
     }

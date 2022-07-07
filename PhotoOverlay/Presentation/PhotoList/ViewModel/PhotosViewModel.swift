@@ -17,6 +17,7 @@ final class PhotosViewModel: ViewModel {
     struct Input {
         let viewWillAppear: Observable<Void>
         let albumAsset: Observable<Album?>
+        let selectedItemIndexPath: Observable<IndexPath>
     }
     
     // MARK: - Output
@@ -25,6 +26,7 @@ final class PhotosViewModel: ViewModel {
         let itemsObservable: Observable<[PhotoItem]>
         let itemsInAlbumObservable: Observable<[PhotoItem]>
         let albumTitleObservable: Observable<String>
+        let selectedAssetObservable: Observable<PHAsset>
     }
     
     // MARK: - Properties
@@ -47,7 +49,7 @@ final class PhotosViewModel: ViewModel {
                 $0.toItem()
             }
         
-        let itemsInAlbumObservable = input.albumAsset
+        let photosObservable = input.albumAsset
             .withUnretained(self)
             .flatMap { (owner, album) -> Observable<Photos> in
                 guard let album = album,
@@ -58,6 +60,8 @@ final class PhotosViewModel: ViewModel {
                 
                 return owner.useCase.fetch(in: collection)
             }
+        
+        let itemsInAlbumObservable = photosObservable
             .map {
                 $0.toItem()
             }
@@ -73,10 +77,19 @@ final class PhotosViewModel: ViewModel {
                 return title
             }
         
+        let selectedAssetObservable = Observable.combineLatest(
+                photosObservable,
+                input.selectedItemIndexPath
+            )
+            .map { (photos, indexPath) in
+                photos.asset[indexPath.row]
+            }
+        
         return Output(
             itemsObservable: itemsObservable,
             itemsInAlbumObservable: itemsInAlbumObservable,
-            albumTitleObservable: albumTitleObservable
+            albumTitleObservable: albumTitleObservable,
+            selectedAssetObservable: selectedAssetObservable
         )
     }
 }
