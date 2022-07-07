@@ -10,9 +10,9 @@ import Foundation
 import RxSwift
 
 final class SVGUseCase {
-    let svgRepository: DefaultSVGRepository
+    let svgRepository: SVGRepository
     
-    init(svgRepository: DefaultSVGRepository = DefaultSVGRepository()) {
+    init(svgRepository: SVGRepository = DefaultSVGRepository()) {
         self.svgRepository = svgRepository
     }
 }

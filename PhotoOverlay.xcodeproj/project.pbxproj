@@ -24,6 +24,7 @@
 		0898ABDD2876D37B00E0035A /* SVGImageSetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABDC2876D37B00E0035A /* SVGImageSetDTO.swift */; };
 		0898ABDF2876D41300E0035A /* SVGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABDE2876D41300E0035A /* SVGImage.swift */; };
 		0898ABE12876D47200E0035A /* SVGUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABE02876D47200E0035A /* SVGUseCase.swift */; };
+		0898ABE32876D54B00E0035A /* SVGRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABE22876D54B00E0035A /* SVGRepository.swift */; };
 		089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089A8D5328718AAE00AC4873 /* ImageRequestable.swift */; };
 		08A1D49D2873FCA100490129 /* PhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D49C2873FCA100490129 /* PhotosViewModel.swift */; };
 		08A1D49F2873FD0D00490129 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D49E2873FD0D00490129 /* ViewModel.swift */; };
@@ -85,6 +86,7 @@
 		0898ABDC2876D37B00E0035A /* SVGImageSetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageSetDTO.swift; sourceTree = "<group>"; };
 		0898ABDE2876D41300E0035A /* SVGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImage.swift; sourceTree = "<group>"; };
 		0898ABE02876D47200E0035A /* SVGUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGUseCase.swift; sourceTree = "<group>"; };
+		0898ABE22876D54B00E0035A /* SVGRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGRepository.swift; sourceTree = "<group>"; };
 		089A8D5328718AAE00AC4873 /* ImageRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequestable.swift; sourceTree = "<group>"; };
 		08A1D49C2873FCA100490129 /* PhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewModel.swift; sourceTree = "<group>"; };
 		08A1D49E2873FD0D00490129 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 			children = (
 				08A1D4AB287404DE00490129 /* PhotoRepository.swift */,
 				08A1D4C528756E9A00490129 /* AlbumRepository.swift */,
+				0898ABE22876D54B00E0035A /* SVGRepository.swift */,
 			);
 			path = Repositorise;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				08A1D4A42874010F00490129 /* DefaultPhotoRepository.swift in Sources */,
 				0817A9AF2872AB8200C821DD /* PhotosView.swift in Sources */,
 				08C78B2028706C0B006296DE /* PhotoFetchable.swift in Sources */,
+				0898ABE32876D54B00E0035A /* SVGRepository.swift in Sources */,
 				085CBFBB2871D145006F2953 /* PHImageManagerable.swift in Sources */,
 				0817A9B12872CDC300C821DD /* PhotoListCollectionViewCell.swift in Sources */,
 				0898ABCB2876AD0000E0035A /* SVGListCollectionViewCell.swift in Sources */,
