@@ -39,3 +39,9 @@ extension PhotoOverlayViewController {
         }
     }
 }
+
+// 임시
+
+struct SVGItem: Hashable {
+    let svgImage: UIImage
+}
