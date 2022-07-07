@@ -13,17 +13,6 @@ import SnapKit
 
 final class PhotoOverlayViewController: UIViewController {
     
-    // 임시
-    
-    private let svgItems: [SVGItem] = [
-        SVGItem(svgImage: UIImage(systemName: "heart")),
-        SVGItem(svgImage: UIImage(systemName: "heart")),
-        SVGItem(svgImage: UIImage(systemName: "heart")),
-        SVGItem(svgImage: UIImage(systemName: "heart")),
-        SVGItem(svgImage: UIImage(systemName: "heart")),
-        SVGItem(svgImage: UIImage(systemName: "heart"))
-    ]
-    
     // MARK: - Collection View
     
     private enum Section {
@@ -42,12 +31,14 @@ final class PhotoOverlayViewController: UIViewController {
         button.backgroundColor = .darkGray
         button.setTitle("   Overlay   ", for: .normal)
         button.layer.cornerRadius = 16
+        button.isHidden = true
         
         return button
     }()
     
     // MARK: - Properties
     
+    private let viewModel = PhotoOverlayViewModel()
     private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -59,15 +50,31 @@ final class PhotoOverlayViewController: UIViewController {
         configureOverlayButton()
         
         configureCollectionViewDataSource()
-        applySnapShot(svgItems)
         
         bindViewWillAppear()
+        bindViewModel()
     }
 }
 
 // MARK: - Bind
 
 extension PhotoOverlayViewController {
+    private func bindViewModel() {
+        let input = PhotoOverlayViewModel.Input(
+            viewWillAppear: self.rx.viewWillAppear.asObservable()
+        )
+        
+        let output = viewModel.transform(input)
+        
+        output.itemsObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, items) in
+                owner.applySnapShot(items)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func bindViewWillAppear() {
         self.rx.viewWillAppear
             .withUnretained(self)

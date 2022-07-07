@@ -14,8 +14,7 @@ final class PhotoOverlayView: UIView {
     // MARK: - View Properties
     
     private let photoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "heart.fill")
+        let imageView = UIImageView()        
         imageView.layer.borderWidth = 1
         imageView.contentMode = .scaleAspectFit
         
