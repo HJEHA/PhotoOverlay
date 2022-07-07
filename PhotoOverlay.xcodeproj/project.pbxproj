@@ -13,6 +13,8 @@
 		085CBFB92871AA4F006F2953 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFB82871AA4F006F2953 /* ImageManager.swift */; };
 		085CBFBB2871D145006F2953 /* PHImageManagerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFBA2871D145006F2953 /* PHImageManagerable.swift */; };
 		085CBFBD2871D236006F2953 /* ImageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFBC2871D236006F2953 /* ImageManagerTests.swift */; };
+		0898ABC72876A96100E0035A /* PhotoOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABC62876A96100E0035A /* PhotoOverlayViewController.swift */; };
+		0898ABC92876A98600E0035A /* PhotoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABC82876A98600E0035A /* PhotoOverlayView.swift */; };
 		089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089A8D5328718AAE00AC4873 /* ImageRequestable.swift */; };
 		08A1D49D2873FCA100490129 /* PhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D49C2873FCA100490129 /* PhotosViewModel.swift */; };
 		08A1D49F2873FD0D00490129 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D49E2873FD0D00490129 /* ViewModel.swift */; };
@@ -63,6 +65,8 @@
 		085CBFB82871AA4F006F2953 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		085CBFBA2871D145006F2953 /* PHImageManagerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHImageManagerable.swift; sourceTree = "<group>"; };
 		085CBFBC2871D236006F2953 /* ImageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagerTests.swift; sourceTree = "<group>"; };
+		0898ABC62876A96100E0035A /* PhotoOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOverlayViewController.swift; sourceTree = "<group>"; };
+		0898ABC82876A98600E0035A /* PhotoOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOverlayView.swift; sourceTree = "<group>"; };
 		089A8D5328718AAE00AC4873 /* ImageRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequestable.swift; sourceTree = "<group>"; };
 		08A1D49C2873FCA100490129 /* PhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewModel.swift; sourceTree = "<group>"; };
 		08A1D49E2873FD0D00490129 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -139,6 +143,23 @@
 				085CBFBA2871D145006F2953 /* PHImageManagerable.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		0898ABC32876A92800E0035A /* PhotoOverlay */ = {
+			isa = PBXGroup;
+			children = (
+				0898ABC42876A93D00E0035A /* View */,
+			);
+			path = PhotoOverlay;
+			sourceTree = "<group>";
+		};
+		0898ABC42876A93D00E0035A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0898ABC62876A96100E0035A /* PhotoOverlayViewController.swift */,
+				0898ABC82876A98600E0035A /* PhotoOverlayView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		089A8D5228718A7F00AC4873 /* ImageManager */ = {
@@ -317,6 +338,7 @@
 				08A1D4A02873FD1400490129 /* Common */,
 				08A1D49B2873FC7400490129 /* PhotoList */,
 				08A1D4B628753AE800490129 /* AlbumList */,
+				0898ABC32876A92800E0035A /* PhotoOverlay */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -586,6 +608,7 @@
 				089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */,
 				08A1D4C628756E9A00490129 /* AlbumRepository.swift in Sources */,
 				08A1D4AF287408C500490129 /* Album.swift in Sources */,
+				0898ABC72876A96100E0035A /* PhotoOverlayViewController.swift in Sources */,
 				08C78AFB2870395F006296DE /* PhotosViewController.swift in Sources */,
 				0817A9B42872DB7500C821DD /* UIFont+extension.swift in Sources */,
 				08A1D4B128740B6E00490129 /* Photos.swift in Sources */,
@@ -605,6 +628,7 @@
 				08A1D4B928753B1300490129 /* AlbumListViewController.swift in Sources */,
 				08C78B0E28704483006296DE /* PhotoAuthorizationable.swift in Sources */,
 				08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */,
+				0898ABC92876A98600E0035A /* PhotoOverlayView.swift in Sources */,
 				08C78AFF287039F7006296DE /* PhotoManager.swift in Sources */,
 				08C78AE1286EE499006296DE /* SceneDelegate.swift in Sources */,
 				08A1D4C2287563D800490129 /* DefaultAlbumRepositoryt.swift in Sources */,
