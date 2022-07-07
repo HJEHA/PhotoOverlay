@@ -28,6 +28,7 @@ final class PhotoOverlayView: UIView {
         button.setImage(UIImage(systemName: "xmark"), for: .selected)
         button.backgroundColor = .darkGray
         button.layer.cornerRadius = 16
+        button.isHidden = true
         
         return button
     }()
