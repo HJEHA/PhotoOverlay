@@ -65,6 +65,24 @@ final class PhotosView: UIView {
     }
 }
 
+// MARK: - Update View
+
+extension PhotosView {
+    func updateAlbumTitle(_ title: String) {
+        showAlbumListButtonLabel.text = title
+    }
+    
+    func showAlbumListButtonAccessoryAnimation(isShow: Bool) {
+        UIView.animate(withDuration: 0.5) {
+            if isShow {
+                self.showAlbumListButtonAccessory.transform = CGAffineTransform(rotationAngle: .pi)
+            } else {
+                self.showAlbumListButtonAccessory.transform = CGAffineTransform(rotationAngle: 0)
+            }
+        }
+    }
+}
+
 // MARK: - Configure View
 
 extension PhotosView {

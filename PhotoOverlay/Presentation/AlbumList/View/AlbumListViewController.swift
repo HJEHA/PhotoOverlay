@@ -12,6 +12,10 @@ import RxRelay
 import RxCocoa
 import SnapKit
 
+protocol AlbumListViewControllerDelegate: AnyObject {
+    func AlbumListViewController(didSelectedAlbum: Album?)
+}
+
 final class AlbumListViewController: UIViewController {
 
     // MARK: - Collection View
@@ -22,6 +26,10 @@ final class AlbumListViewController: UIViewController {
     
     private typealias DiffableDataSource = UITableViewDiffableDataSource<Section, AlbumItem>
     private var dataSource: DiffableDataSource?
+    
+    // MARK: - Delegate
+    
+    weak var delegate: AlbumListViewControllerDelegate?
     
     // MARK: - Views
     
@@ -35,10 +43,6 @@ final class AlbumListViewController: UIViewController {
     // MARK: - Relay
     
     private let selectedAlbumTitleRelay = PublishRelay<String>()
-    
-    deinit {
-        print("디이닛")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +80,7 @@ extension AlbumListViewController {
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, album) in
-                print(album?.assetCollection)
+                owner.delegate?.AlbumListViewController(didSelectedAlbum: album)
             })
             .disposed(by: disposeBag)
     }

@@ -36,6 +36,11 @@ final class PhotosViewController: UIViewController {
     private let viewModel = PhotosViewModel()
     private var disposeBag = DisposeBag()
     
+    // MARK: - Relay
+    
+    private let selectedAlbumRelay = PublishRelay<Album?>()
+    private let showAlbumListGestureRelay = PublishRelay<Bool>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,7 +59,8 @@ final class PhotosViewController: UIViewController {
 extension PhotosViewController {
     private func bindViewModel() {
         let input = PhotosViewModel.Input(
-            viewWillAppear: self.rx.viewWillAppear.asObservable()
+            viewWillAppear: self.rx.viewWillAppear.asObservable(),
+            albumAsset: selectedAlbumRelay.asObservable()
         )
         
         let output = viewModel.transform(input)
@@ -67,6 +73,22 @@ extension PhotosViewController {
                 owner.applySnapShot(items)
             })
             .disposed(by: disposeBag)
+        
+        output.itemsInAlbumObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, items) in
+                owner.applySnapShot(items)
+            })
+            .disposed(by: disposeBag)
+        
+        output.albumTitleObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, title) in
+                owner.updateAlbumTitle(title)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func bindShowAlbumListButton() {
@@ -74,24 +96,60 @@ extension PhotosViewController {
             .scan(false) { lastState, _ in !lastState }
             .withUnretained(self)
             .subscribe(onNext: { (owner, isShow) in
-                if isShow {
-                    owner.albumListViewController = AlbumListViewController()
-                    guard let albumListViewController = owner.albumListViewController else {
-                        return
-                    }
-                    
-                    owner.view.addSubview(albumListViewController.view)
-                    
-                    albumListViewController.view.snp.makeConstraints { make in
-                        make.top.equalTo(owner.photosView.photoListCollectionView.snp.top).inset(-8)
-                        make.left.trailing.bottom.equalToSuperview()
-                    }
-                } else {
-                    owner.albumListViewController?.view.removeFromSuperview()
-                    owner.albumListViewController = nil
-                }
+                owner.showAlbumListGestureRelay.accept(isShow)
             })
             .disposed(by: disposeBag)
+        
+        showAlbumListGestureRelay.asObservable()
+            .scan(false) { lastState, _ in !lastState }
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, isShow) in
+                if isShow {
+                    owner.showAlbumList()
+                } else {
+                    owner.hideAlbumList()
+                }
+                
+                owner.photosView.showAlbumListButtonAccessoryAnimation(isShow: isShow)
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Update View
+
+extension PhotosViewController {
+    private func updateAlbumTitle(_ title: String) {
+        photosView.updateAlbumTitle(title)
+    }
+    
+    private func showAlbumList() {
+        albumListViewController = PhotoOverlay.AlbumListViewController()
+        guard let albumListViewController = albumListViewController else {
+            return
+        }
+        
+        albumListViewController.delegate = self
+        view.addSubview(albumListViewController.view)
+        
+        albumListViewController.view.snp.makeConstraints { make in
+            make.top.equalTo(photosView.photoListCollectionView.snp.top).inset(-8)
+            make.left.trailing.bottom.equalToSuperview()
+        }
+    }
+    
+    private func hideAlbumList() {
+        albumListViewController?.view.removeFromSuperview()
+        albumListViewController = nil
+    }
+}
+
+// MARK: - AlbumListViewController Delegate
+
+extension PhotosViewController: AlbumListViewControllerDelegate {
+    func AlbumListViewController(didSelectedAlbum: Album?) {
+        showAlbumListGestureRelay.accept(false)
+        selectedAlbumRelay.accept(didSelectedAlbum)
     }
 }
 
@@ -140,7 +198,7 @@ extension PhotosViewController {
         snapShot.appendSections([.main])
         snapShot.appendItems(items, toSection: .main)
     
-        dataSource?.apply(snapShot)
+        dataSource?.apply(snapShot, animatingDifferences: false)
     }
 }
 

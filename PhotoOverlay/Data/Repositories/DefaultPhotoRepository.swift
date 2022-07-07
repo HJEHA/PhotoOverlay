@@ -22,4 +22,14 @@ extension DefaultPhotoRepository: PhotoRepository {
     func fetch() -> Observable<[PHAsset]> {
         return photoManager.fetch(mediaType: .image)
     }
+    
+    func fetch(
+        in collection: PHAssetCollection,
+        with mediaType: PHAssetMediaType
+    ) -> Observable<[PHAsset]> {
+        return photoManager.fetch(
+            in: collection,
+            with: mediaType
+        )
+    }
 }
