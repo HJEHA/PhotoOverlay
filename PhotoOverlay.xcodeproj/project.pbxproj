@@ -21,6 +21,8 @@
 		0898ABD32876C45600E0035A /* PhotoOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABD22876C45600E0035A /* PhotoOverlayViewModel.swift */; };
 		0898ABD72876CEF800E0035A /* DefaultSVGRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABD62876CEF800E0035A /* DefaultSVGRepository.swift */; };
 		0898ABDA2876CF6A00E0035A /* AssetLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABD92876CF6A00E0035A /* AssetLoadManager.swift */; };
+		0898ABDD2876D37B00E0035A /* SVGImageSetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABDC2876D37B00E0035A /* SVGImageSetDTO.swift */; };
+		0898ABDF2876D41300E0035A /* SVGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABDE2876D41300E0035A /* SVGImage.swift */; };
 		089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089A8D5328718AAE00AC4873 /* ImageRequestable.swift */; };
 		08A1D49D2873FCA100490129 /* PhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D49C2873FCA100490129 /* PhotosViewModel.swift */; };
 		08A1D49F2873FD0D00490129 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D49E2873FD0D00490129 /* ViewModel.swift */; };
@@ -79,6 +81,8 @@
 		0898ABD22876C45600E0035A /* PhotoOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOverlayViewModel.swift; sourceTree = "<group>"; };
 		0898ABD62876CEF800E0035A /* DefaultSVGRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSVGRepository.swift; sourceTree = "<group>"; };
 		0898ABD92876CF6A00E0035A /* AssetLoadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetLoadManager.swift; sourceTree = "<group>"; };
+		0898ABDC2876D37B00E0035A /* SVGImageSetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageSetDTO.swift; sourceTree = "<group>"; };
+		0898ABDE2876D41300E0035A /* SVGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImage.swift; sourceTree = "<group>"; };
 		089A8D5328718AAE00AC4873 /* ImageRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequestable.swift; sourceTree = "<group>"; };
 		08A1D49C2873FCA100490129 /* PhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewModel.swift; sourceTree = "<group>"; };
 		08A1D49E2873FD0D00490129 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -194,6 +198,14 @@
 			path = AssetLoadManager;
 			sourceTree = "<group>";
 		};
+		0898ABDB2876D37000E0035A /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				0898ABDC2876D37B00E0035A /* SVGImageSetDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
 		089A8D5228718A7F00AC4873 /* ImageManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +235,7 @@
 		08A1D4A12874001E00490129 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				0898ABDB2876D37000E0035A /* DTO */,
 				08A1D4A2287400D700490129 /* Repositories */,
 			);
 			path = Data;
@@ -279,6 +292,7 @@
 			children = (
 				08A1D4AE287408C500490129 /* Album.swift */,
 				08A1D4B028740B6E00490129 /* Photos.swift */,
+				0898ABDE2876D41300E0035A /* SVGImage.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -641,6 +655,8 @@
 				08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */,
 				089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */,
 				08A1D4C628756E9A00490129 /* AlbumRepository.swift in Sources */,
+				0898ABDD2876D37B00E0035A /* SVGImageSetDTO.swift in Sources */,
+				0898ABDF2876D41300E0035A /* SVGImage.swift in Sources */,
 				08A1D4AF287408C500490129 /* Album.swift in Sources */,
 				0898ABC72876A96100E0035A /* PhotoOverlayViewController.swift in Sources */,
 				08C78AFB2870395F006296DE /* PhotosViewController.swift in Sources */,

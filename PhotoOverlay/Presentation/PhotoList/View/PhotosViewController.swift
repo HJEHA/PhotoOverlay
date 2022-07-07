@@ -54,6 +54,12 @@ final class PhotosViewController: UIViewController {
         bindViewModel()
         bindShowAlbumListButton()
         bindCollectionView()
+        
+        DefaultSVGRepository().loadSVGImageSet(name: "SVGImageSet")
+            .subscribe(onNext: {
+                print($0)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
