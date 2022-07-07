@@ -16,8 +16,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = PhotoOverlayViewController()
-//        window?.rootViewController = PhotosViewController()
+        let rootViweController = PhotosViewController()
+//        let rootViweController = PhotoOverlayViewController()
+        let navigationController = UINavigationController(
+            rootViewController: rootViweController
+        )
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 

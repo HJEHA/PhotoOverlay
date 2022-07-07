@@ -49,8 +49,11 @@ final class PhotosViewController: UIViewController {
         
         configureCollectionViewDataSource()
         
+        bindViewWillAppear() 
+        
         bindViewModel()
         bindShowAlbumListButton()
+        bindCollectionView()
     }
 }
 
@@ -91,6 +94,19 @@ extension PhotosViewController {
             .disposed(by: disposeBag)
     }
     
+    private func bindCollectionView() {
+        
+        photosView.photoListCollectionView.rx.itemSelected
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, indexPath) in
+                let photoOverlayViewController = PhotoOverlayViewController()
+                
+                owner.show(photoOverlayViewController, sender: nil)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func bindShowAlbumListButton() {
         photosView.showAlbumListGesture.rx.event
             .scan(false) { lastState, _ in !lastState }
@@ -111,6 +127,15 @@ extension PhotosViewController {
                 }
                 
                 owner.photosView.showAlbumListButtonAccessoryAnimation(isShow: isShow)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindViewWillAppear() {
+        self.rx.viewWillAppear
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                owner.navigationController?.isNavigationBarHidden = true
             })
             .disposed(by: disposeBag)
     }

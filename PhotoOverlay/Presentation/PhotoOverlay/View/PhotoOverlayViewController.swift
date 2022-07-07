@@ -7,10 +7,12 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
 import SnapKit
 
 final class PhotoOverlayViewController: UIViewController {
-
+    
     // 임시
     
     private let svgItems: [SVGItem] = [
@@ -35,14 +37,44 @@ final class PhotoOverlayViewController: UIViewController {
     
     private let photoOverlayView = PhotoOverlayView()
     
+    private let overlayButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .darkGray
+        button.setTitle("   Overlay   ", for: .normal)
+        button.layer.cornerRadius = 16
+        
+        return button
+    }()
+    
+    // MARK: - Properties
+    
+    private var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureView()
         configureSubViews()
+        configureBackButton()
+        configureOverlayButton()
         
         configureCollectionViewDataSource()
         applySnapShot(svgItems)
+        
+        bindViewWillAppear()
+    }
+}
+
+// MARK: - Bind
+
+extension PhotoOverlayViewController {
+    private func bindViewWillAppear() {
+        self.rx.viewWillAppear
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                owner.navigationController?.isNavigationBarHidden = false
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -61,6 +93,15 @@ extension PhotoOverlayViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.leading.trailing.equalToSuperview()
         }
+    }
+    
+    func configureBackButton() {
+        navigationController?.navigationBar.tintColor = .label
+        navigationController?.navigationBar.topItem?.title = String()
+    }
+    
+    func configureOverlayButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: overlayButton)
     }
 }
 
