@@ -11,6 +11,15 @@ import SnapKit
 
 final class PhotoOverlayViewController: UIViewController {
 
+    // MARK: - Collection View
+        
+        private enum Section {
+            case main
+        }
+
+        private typealias DiffableDataSource = UICollectionViewDiffableDataSource<Section, SVGItem>
+        private var dataSource: DiffableDataSource?
+    
     // MARK: - Views
     
     private let photoOverlayView = PhotoOverlayView()
@@ -20,6 +29,8 @@ final class PhotoOverlayViewController: UIViewController {
 
         configureView()
         configureSubViews()
+        
+        configureCollectionViewDataSource()
     }
 }
 
@@ -37,6 +48,29 @@ extension PhotoOverlayViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.bottom.equalToSuperview()
         }
+    }
+}
+
+// MARK: - Configure Collection View
+
+private extension PhotoOverlayViewController {
+    func configureCollectionViewDataSource() {
+        photoOverlayView.svgListCollectionView.registerCell(
+            withClass: SVGListCollectionViewCell.self
+        )
+        
+        dataSource = DiffableDataSource(
+            collectionView: photoOverlayView.svgListCollectionView,
+            cellProvider: { collectionView, indexPath, item in
+                let cell = collectionView.dequeueReusableCell(
+                    withClass: SVGListCollectionViewCell.self,
+                    indextPath: indexPath
+                )
+                
+                cell.update(item)
+                
+                return cell
+            })
     }
 }
 
