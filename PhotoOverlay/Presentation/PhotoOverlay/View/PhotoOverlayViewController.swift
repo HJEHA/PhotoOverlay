@@ -136,10 +136,3 @@ private extension PhotoOverlayViewController {
         dataSource?.apply(snapShot, animatingDifferences: false)
     }
 }
-
-// 임시
-
-struct SVGItem: Hashable {
-    let svgImage: UIImage?
-    let uuid = UUID()
-}
