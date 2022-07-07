@@ -144,7 +144,7 @@ extension PhotosViewController {
     }
 }
 
-// MARK: - Delegate
+// MARK: - AlbumListViewController Delegate
 
 extension PhotosViewController: AlbumListViewControllerDelegate {
     func AlbumListViewController(didSelectedAlbum: Album?) {
