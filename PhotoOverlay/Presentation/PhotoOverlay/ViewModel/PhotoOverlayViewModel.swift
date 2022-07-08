@@ -26,7 +26,7 @@ final class PhotoOverlayViewModel: ViewModel {
         let imageObservable: Observable<UIImage?>
         let itemsObservable: Observable<[SVGItem]>
         let selectedItemObservable: Observable<SVGItem>
-        let savedOverlaidPhoto: Observable<Void>
+        let savedOverlaidPhoto: Observable<OverlaidPhoto>
     }
     
     // MARK: - Properties
@@ -75,10 +75,12 @@ final class PhotoOverlayViewModel: ViewModel {
             }
         
         let savedOverlaidPhoto = input.overlaidPhotoObservable
-            .withUnretained(self)
-            .flatMap { (owner, overlaidPhoto) in
-                owner.useCase.save(overlaidPhoto.image)
-            }
+        
+        // TODO: 사이즈 조절 화면을 위한 임시 주석 처리
+//            .withUnretained(self)
+//            .flatMap { (owner, overlaidPhoto) in
+//                owner.useCase.save(overlaidPhoto.image)
+//            }
         
         return Output(
             imageObservable: imageObservable,

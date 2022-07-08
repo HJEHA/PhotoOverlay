@@ -60,7 +60,6 @@ final class PhotoOverlayViewController: UIViewController {
         bindViewWillAppear()
         bindViewModel()
         bindRemoveSVGButton()
-        bindOverlayButton()
     }
     
     deinit {
@@ -119,9 +118,14 @@ extension PhotoOverlayViewController {
         output?.savedOverlaidPhoto
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
-            .subscribe(onNext: { (owner, _) in
+            .subscribe(onNext: { (owner, overlaidPhoto) in
+                let vc = PhotoResizeViewController()
+                vc.update(overlaidPhoto.image)
+                
+                owner.navigationController?.show(vc, sender: nil)
+                
                 // TODO: - 이미지 크기 조절하는 화면 띄우기
-                owner.navigationController?.popViewController(animated: true)
+                // owner.navigationController?.popViewController(animated: true)
             }, onError: { error in
                 // TODO: - 저장 실패 얼럿 띄우기
                 print(error)
@@ -148,10 +152,6 @@ extension PhotoOverlayViewController {
                 owner.photoOverlayView.updateDecorationImageView(nil)
             })
             .disposed(by: disposeBag)
-    }
-    
-    private func bindOverlayButton() {
-        
     }
 }
 
