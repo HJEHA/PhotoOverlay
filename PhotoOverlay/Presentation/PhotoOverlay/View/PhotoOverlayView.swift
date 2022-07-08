@@ -56,6 +56,15 @@ final class PhotoOverlayView: UIView {
     }
 }
 
+// MARK: - Make OverlayPhoto
+
+extension PhotoOverlayView {
+    func overlay() {
+        photoImageView.overlay()
+    }
+}
+
+
 // MARK: - Update View
 
 extension PhotoOverlayView {

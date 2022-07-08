@@ -30,6 +30,31 @@ final class PhotoOverlayImageView: UIImageView {
     }
 }
 
+// MARK: - Make OverlayPhoto
+
+extension PhotoOverlayImageView {
+    func overlay() {
+        guard let photoSize = image?.size else {
+            return
+        }
+        UIGraphicsBeginImageContext(photoSize)
+        
+        image?.draw(in: CGRect(origin: .zero, size: photoSize))
+        let decorationImageFrame = CGRect(
+            x: photoSize.width * 0.25,
+            y: (photoSize.height * 0.5) - (photoSize.width * 0.25),
+            width: photoSize.width / 2,
+            height: photoSize.width / 2
+        )
+        decorationImageView.image?.draw(in: decorationImageFrame)
+        
+        let overlaidPhoto = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        update(overlaidPhoto)
+    }
+}
+
 // MARK: - Update View
 
 extension PhotoOverlayImageView {

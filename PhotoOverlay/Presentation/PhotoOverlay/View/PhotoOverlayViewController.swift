@@ -54,6 +54,7 @@ final class PhotoOverlayViewController: UIViewController {
         bindViewWillAppear()
         bindViewModel()
         bindRemoveSVGButton()
+        bindOverlayButton()
     }
 }
 
@@ -112,6 +113,16 @@ extension PhotoOverlayViewController {
                 owner.overlayButton.isHidden = true
                 owner.photoOverlayView.removeSVGButton.isHidden = true
                 owner.photoOverlayView.updateDecorationImageView(nil)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindOverlayButton() {
+        overlayButton.rx.tap
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                owner.photoOverlayView.overlay()
             })
             .disposed(by: disposeBag)
     }
