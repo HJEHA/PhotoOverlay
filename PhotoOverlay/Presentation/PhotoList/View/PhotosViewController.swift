@@ -223,7 +223,8 @@ extension PhotosViewController {
                 cell.update(item)
                 
                 return cell
-            })
+            }
+        )
     }
     
     private func applySnapShot(_ items: [PhotoItem]) {

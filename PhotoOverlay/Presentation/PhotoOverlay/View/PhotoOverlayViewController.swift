@@ -174,7 +174,8 @@ private extension PhotoOverlayViewController {
                 cell.update(item)
                 
                 return cell
-            })
+            }
+        )
     }
     
     private func applySnapShot(_ items: [SVGItem]) {
