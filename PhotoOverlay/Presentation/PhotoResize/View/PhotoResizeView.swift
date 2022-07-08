@@ -21,11 +21,21 @@ final class PhotoResizeView: UIView {
         return imageView
     }()
     
-    let resizeProgressBar: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray
+    let resizedLabel: UILabel = {
+        let label = UILabel()
+        label.text = "2000 x 2000"
+        label.font = .preferredFont(forTextStyle: .headline).bold
         
-        return view
+        return label
+    }()
+    
+    let resizeSlider: UISlider = {
+        let slider = UISlider()
+        slider.value = 1
+        slider.minimumValue = 0.01
+        slider.maximumValue = 1
+        
+        return slider
     }()
     
     // MARK: - Initializer
@@ -55,7 +65,7 @@ extension PhotoResizeView {
 extension PhotoResizeView {
     private func configureSubviews() {
         
-        // MARK: - Constraints PhotoImageView
+        // MARK: - Constraints OverlaidImageView
         
         addSubview(overlaidImageView)
         overlaidImageView.snp.makeConstraints { make in
@@ -63,12 +73,22 @@ extension PhotoResizeView {
             make.height.equalToSuperview().multipliedBy(0.8)
         }
         
-        // MARK: - Constraints SVGListCollectionView
+        // MARK: - Constraints ResizedLabel
         
-        addSubview(resizeProgressBar)
-        resizeProgressBar.snp.makeConstraints { make in
-            make.top.equalTo(overlaidImageView.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+        addSubview(resizedLabel)
+        resizedLabel.snp.makeConstraints { make in
+            make.top.equalTo(overlaidImageView.snp.bottom).inset(-8)
+            make.centerX.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.1)
+        }
+        
+        // MARK: - Constraints ResizeSlider
+        
+        addSubview(resizeSlider)
+        resizeSlider.snp.makeConstraints { make in
+            make.top.equalTo(resizedLabel.snp.bottom).inset(8)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview()
         }
     }
 }

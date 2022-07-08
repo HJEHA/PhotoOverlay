@@ -15,12 +15,11 @@ final class PhotoResizeViewController: UIViewController {
     
     private let photoResizeView = PhotoResizeView()
     
-    private let overlayButton: UIButton = {
+    private let saveButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .darkGray
-        button.setTitle("   Overlay   ", for: .normal)
+        button.setTitle("   Save   ", for: .normal)
         button.layer.cornerRadius = 16
-        button.isHidden = true
         
         return button
     }()
@@ -31,6 +30,7 @@ final class PhotoResizeViewController: UIViewController {
         configureView()
         configureSubViews()
         configureBackButton()
+        configureSaveButton()
     }
     
     // 임시
@@ -61,7 +61,7 @@ extension PhotoResizeViewController {
         navigationController?.navigationBar.topItem?.title = String()
     }
     
-    func configureOverlayButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: overlayButton)
+    func configureSaveButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: saveButton)
     }
 }
