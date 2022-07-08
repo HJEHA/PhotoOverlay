@@ -5,19 +5,24 @@
 //  Created by 황제하 on 2022/07/07.
 //
 
-import Foundation
+import UIKit
 
 import RxSwift
 
-final class SVGUseCase {
+final class PhotoOverlayUseCase {
     let svgRepository: SVGRepository
+    let savePhotoRepository: SavePhotoRepository
     
-    init(svgRepository: SVGRepository = DefaultSVGRepository()) {
+    init(
+        svgRepository: SVGRepository = LoadSVGRepository(),
+        savePhotoRepository: SavePhotoRepository = SavePhotoRepository()
+    ) {
         self.svgRepository = svgRepository
+        self.savePhotoRepository = savePhotoRepository
     }
 }
 
-extension SVGUseCase {
+extension PhotoOverlayUseCase {
     func loadDataAsset(name: String) -> Observable<[SVGImage]> {
         return svgRepository.loadSVGImageSet(name: name)
             .map { dtos in
@@ -25,5 +30,9 @@ extension SVGUseCase {
                     $0.toDomain()
                 }
             }
+    }
+    
+    func save(_ image: UIImage) -> Observable<Void> {
+        savePhotoRepository.save(image)
     }
 }

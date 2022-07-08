@@ -31,14 +31,14 @@ final class PhotoOverlayViewModel: ViewModel {
     
     // MARK: - Properties
     
-    private let useCase: SVGUseCase
+    private let useCase: PhotoOverlayUseCase
     private let asset: PHAsset
     
     // MARK: - Initializer
     
     init(
         asset: PHAsset,
-        useCase: SVGUseCase = SVGUseCase()
+        useCase: PhotoOverlayUseCase = PhotoOverlayUseCase()
     ) {
         self.asset = asset
         self.useCase = useCase
@@ -75,8 +75,9 @@ final class PhotoOverlayViewModel: ViewModel {
             }
         
         let savedOverlaidPhoto = input.overlaidPhotoObservable
-            .flatMap {
-                PhotoManager.shared.save($0.image)
+            .withUnretained(self)
+            .flatMap { (owner, overlaidPhoto) in
+                owner.useCase.save(overlaidPhoto.image)
             }
         
         return Output(

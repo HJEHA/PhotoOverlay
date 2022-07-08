@@ -13,7 +13,7 @@ import RxSwift
 final class PhotoUseCase {
     let photoRepository: PhotoRepository
     
-    init(photoRepository: PhotoRepository = DefaultPhotoRepository()) {
+    init(photoRepository: PhotoRepository = FetchPhotoRepository()) {
         self.photoRepository = photoRepository
     }
 }

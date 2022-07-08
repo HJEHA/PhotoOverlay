@@ -13,7 +13,7 @@ import RxSwift
 final class AlbumUseCase {
     let albumRepository: AlbumRepository
     
-    init(albumRepository: AlbumRepository = DefaultAlbumRepository()) {
+    init(albumRepository: AlbumRepository = FetchAlbumRepository()) {
         self.albumRepository = albumRepository
     }
 }
