@@ -105,16 +105,6 @@ extension PhotosViewController {
             .disposed(by: disposeBag)
     }
     
-    private func bindCollectionView() {
-        photosView.photoListCollectionView.rx.itemSelected
-            .observe(on: MainScheduler.asyncInstance)
-            .withUnretained(self)
-            .subscribe(onNext: { (owner, indexPath) in
-                
-            })
-            .disposed(by: disposeBag)
-    }
-    
     private func bindShowAlbumListButton() {
         photosView.showAlbumListGesture.rx.event
             .scan(false) { lastState, _ in !lastState }
