@@ -13,8 +13,8 @@ final class PhotoOverlayView: UIView {
     
     // MARK: - View Properties
     
-    private let photoImageView: UIImageView = {
-        let imageView = UIImageView()        
+    private let photoImageView: PhotoOverlayImageView = {
+        let imageView = PhotoOverlayImageView(frame: .zero)
         imageView.layer.borderWidth = 1
         imageView.contentMode = .scaleAspectFit
         
@@ -61,6 +61,10 @@ final class PhotoOverlayView: UIView {
 extension PhotoOverlayView {
     func update(_ image: UIImage?) {
         photoImageView.image = image
+    }
+    
+    func updateDecorationImageView(_ image: UIImage?) {
+        photoImageView.updateDecorationImageView(image)
     }
 }
 

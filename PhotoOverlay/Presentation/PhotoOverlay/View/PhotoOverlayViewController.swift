@@ -90,7 +90,7 @@ extension PhotoOverlayViewController {
             .subscribe(onNext: { (owner, item) in
                 owner.overlayButton.isHidden = false
                 owner.photoOverlayView.removeSVGButton.isHidden = false
-                owner.photoOverlayView.update(item.svgImage)
+                owner.photoOverlayView.updateDecorationImageView(item.svgImage)
             })
             .disposed(by: disposeBag)
     }
@@ -111,7 +111,7 @@ extension PhotoOverlayViewController {
             .subscribe(onNext: { (owner, item) in
                 owner.overlayButton.isHidden = true
                 owner.photoOverlayView.removeSVGButton.isHidden = true
-                owner.photoOverlayView.update(nil)
+                owner.photoOverlayView.updateDecorationImageView(nil)
             })
             .disposed(by: disposeBag)
     }
