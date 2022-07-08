@@ -64,7 +64,6 @@ final class PhotosViewController: UIViewController {
         
         bindViewModel()
         bindShowAlbumListButton()
-        bindCollectionView()
     }
 }
 
