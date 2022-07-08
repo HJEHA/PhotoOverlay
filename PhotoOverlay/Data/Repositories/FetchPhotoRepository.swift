@@ -1,5 +1,5 @@
 //
-//  DefaultPhotoRepository.swift
+//  FetchPhotoRepository.swift
 //  PhotoOverlay
 //
 //  Created by 황제하 on 2022/07/05.
@@ -10,7 +10,7 @@ import Photos
 
 import RxSwift
 
-final class DefaultPhotoRepository {
+final class FetchPhotoRepository {
     let photoManager: PhotoFetchable
     
     init(photoManager: PhotoFetchable = PhotoManager.shared) {
@@ -18,7 +18,7 @@ final class DefaultPhotoRepository {
     }
 }
 
-extension DefaultPhotoRepository: PhotoRepository {
+extension FetchPhotoRepository: PhotoRepositoryFetchable {
     func fetch() -> Observable<[PHAsset]> {
         return photoManager.fetch(mediaType: .image)
     }

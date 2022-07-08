@@ -11,9 +11,9 @@ import Photos
 import RxSwift
 
 final class AlbumUseCase {
-    let albumRepository: AlbumRepository
+    let albumRepository: AlbumRepositoryFetchable
     
-    init(albumRepository: AlbumRepository = DefaultAlbumRepository()) {
+    init(albumRepository: AlbumRepositoryFetchable = FetchAlbumRepository()) {
         self.albumRepository = albumRepository
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 import RxSwift
 
-final class DefaultSVGRepository {
+final class LoadSVGRepository {
     let assetLoadManager: AssetLoadManager
     
     init(assetLoadManager: AssetLoadManager = AssetLoadManager()) {
@@ -17,7 +17,7 @@ final class DefaultSVGRepository {
     }
 }
 
-extension DefaultSVGRepository: SVGRepository {
+extension LoadSVGRepository: SVGRepositoryLoadable {
     func loadSVGImageSet(name: String) -> Observable<[SVGImageSetDTO]> {
         return assetLoadManager.loadDataAsset(name: name)
             .compactMap { data in

@@ -54,6 +54,7 @@ final class PhotoOverlayViewController: UIViewController {
         bindViewWillAppear()
         bindViewModel()
         bindRemoveSVGButton()
+        bindOverlayButton()
     }
 }
 
@@ -61,9 +62,20 @@ final class PhotoOverlayViewController: UIViewController {
 
 extension PhotoOverlayViewController {
     private func bindViewModel() {
+        let overlaidPhotoObservable = overlayButton.rx.tap
+            .withUnretained(self)
+            .flatMap { (owner, _) in
+                owner.photoOverlayView.overlay()
+            }
+            .filterNil()
+            .map {
+                OverlaidPhoto(image: $0)
+            }
+        
         let input = PhotoOverlayViewModel.Input(
             viewWillAppear: self.rx.viewWillAppear.asObservable(),
-            selectedSVGItemIndexPath: photoOverlayView.svgListCollectionView.rx.itemSelected.asObservable()
+            selectedSVGItemIndexPath: photoOverlayView.svgListCollectionView.rx.itemSelected.asObservable(),
+            overlaidPhotoObservable: overlaidPhotoObservable
         )
         
         let output = viewModel?.transform(input)
@@ -90,7 +102,19 @@ extension PhotoOverlayViewController {
             .subscribe(onNext: { (owner, item) in
                 owner.overlayButton.isHidden = false
                 owner.photoOverlayView.removeSVGButton.isHidden = false
-                owner.photoOverlayView.update(item.svgImage)
+                owner.photoOverlayView.updateDecorationImageView(item.svgImage)
+            })
+            .disposed(by: disposeBag)
+        
+        output?.savedOverlaidPhoto
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                // TODO: - 이미지 크기 조절하는 화면 띄우기
+                owner.navigationController?.popViewController(animated: true)
+            }, onError: { error in
+                // TODO: - 저장 실패 얼럿 띄우기
+                print(error)
             })
             .disposed(by: disposeBag)
     }
@@ -111,9 +135,13 @@ extension PhotoOverlayViewController {
             .subscribe(onNext: { (owner, item) in
                 owner.overlayButton.isHidden = true
                 owner.photoOverlayView.removeSVGButton.isHidden = true
-                owner.photoOverlayView.update(nil)
+                owner.photoOverlayView.updateDecorationImageView(nil)
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func bindOverlayButton() {
+        
     }
 }
 
@@ -163,7 +191,8 @@ private extension PhotoOverlayViewController {
                 cell.update(item)
                 
                 return cell
-            })
+            }
+        )
     }
     
     private func applySnapShot(_ items: [SVGItem]) {

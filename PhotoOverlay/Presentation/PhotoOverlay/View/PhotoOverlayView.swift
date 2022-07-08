@@ -7,14 +7,15 @@
 
 import UIKit
 
+import RxSwift
 import SnapKit
 
 final class PhotoOverlayView: UIView {
     
     // MARK: - View Properties
     
-    private let photoImageView: UIImageView = {
-        let imageView = UIImageView()        
+    private let photoImageView: PhotoOverlayImageView = {
+        let imageView = PhotoOverlayImageView(frame: .zero)
         imageView.layer.borderWidth = 1
         imageView.contentMode = .scaleAspectFit
         
@@ -56,11 +57,24 @@ final class PhotoOverlayView: UIView {
     }
 }
 
+// MARK: - Make OverlayPhoto
+
+extension PhotoOverlayView {
+    func overlay() -> Observable<UIImage?> {
+        return photoImageView.overlay()
+    }
+}
+
+
 // MARK: - Update View
 
 extension PhotoOverlayView {
     func update(_ image: UIImage?) {
         photoImageView.image = image
+    }
+    
+    func updateDecorationImageView(_ image: UIImage?) {
+        photoImageView.updateDecorationImageView(image)
     }
 }
 

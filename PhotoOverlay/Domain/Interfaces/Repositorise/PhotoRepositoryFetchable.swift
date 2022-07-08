@@ -1,5 +1,5 @@
 //
-//  PhotoRepository.swift
+//  PhotoRepositoryFetchable.swift
 //  PhotoOverlay
 //
 //  Created by 황제하 on 2022/07/05.
@@ -10,7 +10,7 @@ import Photos
 
 import RxSwift
 
-protocol PhotoRepository {
+protocol PhotoRepositoryFetchable {
     func fetch() -> Observable<[PHAsset]>
     
     func fetch(

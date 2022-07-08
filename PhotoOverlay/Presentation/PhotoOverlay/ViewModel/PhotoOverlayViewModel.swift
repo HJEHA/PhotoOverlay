@@ -17,6 +17,7 @@ final class PhotoOverlayViewModel: ViewModel {
     struct Input {
         let viewWillAppear: Observable<Void>
         let selectedSVGItemIndexPath: Observable<IndexPath>
+        let overlaidPhotoObservable: Observable<OverlaidPhoto>
     }
     
     // MARK: - Output
@@ -25,18 +26,19 @@ final class PhotoOverlayViewModel: ViewModel {
         let imageObservable: Observable<UIImage?>
         let itemsObservable: Observable<[SVGItem]>
         let selectedItemObservable: Observable<SVGItem>
+        let savedOverlaidPhoto: Observable<Void>
     }
     
     // MARK: - Properties
     
-    private let useCase: SVGUseCase
+    private let useCase: PhotoOverlayUseCase
     private let asset: PHAsset
     
     // MARK: - Initializer
     
     init(
         asset: PHAsset,
-        useCase: SVGUseCase = SVGUseCase()
+        useCase: PhotoOverlayUseCase = PhotoOverlayUseCase()
     ) {
         self.asset = asset
         self.useCase = useCase
@@ -72,10 +74,17 @@ final class PhotoOverlayViewModel: ViewModel {
                 items[indexPath.row]
             }
         
+        let savedOverlaidPhoto = input.overlaidPhotoObservable
+            .withUnretained(self)
+            .flatMap { (owner, overlaidPhoto) in
+                owner.useCase.save(overlaidPhoto.image)
+            }
+        
         return Output(
             imageObservable: imageObservable,
             itemsObservable: itemsObservable,
-            selectedItemObservable: selectedItemObservable
+            selectedItemObservable: selectedItemObservable,
+            savedOverlaidPhoto: savedOverlaidPhoto
         )
     }
 }
