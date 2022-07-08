@@ -49,6 +49,10 @@
 		08B5A42C287882130036C4F4 /* Observable+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A42B287882130036C4F4 /* Observable+extension.swift */; };
 		08B5A42E287886310036C4F4 /* SavePhotoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A42D287886310036C4F4 /* SavePhotoRepository.swift */; };
 		08B5A43028788C750036C4F4 /* PhotoRepositorySavable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A42F28788C750036C4F4 /* PhotoRepositorySavable.swift */; };
+		08B5A434287890AE0036C4F4 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A433287890AE0036C4F4 /* Coordinator.swift */; };
+		08B5A436287890F40036C4F4 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A435287890F40036C4F4 /* AppCoordinator.swift */; };
+		08B5A439287891770036C4F4 /* PhotoListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A438287891770036C4F4 /* PhotoListCoordinator.swift */; };
+		08B5A43B2878934F0036C4F4 /* PhotoOverlayCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A43A2878934F0036C4F4 /* PhotoOverlayCoordinator.swift */; };
 		08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78ADE286EE499006296DE /* AppDelegate.swift */; };
 		08C78AE1286EE499006296DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE0286EE499006296DE /* SceneDelegate.swift */; };
 		08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE7286EE499006296DE /* PhotoOverlay.xcdatamodeld */; };
@@ -117,6 +121,10 @@
 		08B5A42B287882130036C4F4 /* Observable+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+extension.swift"; sourceTree = "<group>"; };
 		08B5A42D287886310036C4F4 /* SavePhotoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePhotoRepository.swift; sourceTree = "<group>"; };
 		08B5A42F28788C750036C4F4 /* PhotoRepositorySavable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRepositorySavable.swift; sourceTree = "<group>"; };
+		08B5A433287890AE0036C4F4 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		08B5A435287890F40036C4F4 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		08B5A438287891770036C4F4 /* PhotoListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListCoordinator.swift; sourceTree = "<group>"; };
+		08B5A43A2878934F0036C4F4 /* PhotoOverlayCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOverlayCoordinator.swift; sourceTree = "<group>"; };
 		08C78ADB286EE499006296DE /* PhotoOverlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoOverlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C78ADE286EE499006296DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08C78AE0286EE499006296DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -348,6 +356,25 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		08B5A4312878907F0036C4F4 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				08B5A432287890850036C4F4 /* Protocol */,
+				08B5A435287890F40036C4F4 /* AppCoordinator.swift */,
+				08B5A438287891770036C4F4 /* PhotoListCoordinator.swift */,
+				08B5A43A2878934F0036C4F4 /* PhotoOverlayCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		08B5A432287890850036C4F4 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				08B5A433287890AE0036C4F4 /* Coordinator.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		08C78AD2286EE499006296DE = {
 			isa = PBXGroup;
 			children = (
@@ -405,6 +432,7 @@
 		08C78AF728703916006296DE /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				08B5A4312878907F0036C4F4 /* Coordinator */,
 				08A1D4A02873FD1400490129 /* Common */,
 				08A1D49B2873FC7400490129 /* PhotoList */,
 				08A1D4B628753AE800490129 /* AlbumList */,
@@ -678,6 +706,7 @@
 			files = (
 				08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */,
 				089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */,
+				08B5A436287890F40036C4F4 /* AppCoordinator.swift in Sources */,
 				08A1D4C628756E9A00490129 /* AlbumRepositoryFetchable.swift in Sources */,
 				0898ABDD2876D37B00E0035A /* SVGImageSetDTO.swift in Sources */,
 				0898ABDF2876D41300E0035A /* SVGImage.swift in Sources */,
@@ -699,6 +728,7 @@
 				0817A9B12872CDC300C821DD /* PhotoListCollectionViewCell.swift in Sources */,
 				08B5A4262878568E0036C4F4 /* PhotoOverlayImageView.swift in Sources */,
 				0898ABCB2876AD0000E0035A /* SVGListCollectionViewCell.swift in Sources */,
+				08B5A43B2878934F0036C4F4 /* PhotoOverlayCoordinator.swift in Sources */,
 				08A1D49F2873FD0D00490129 /* ViewModel.swift in Sources */,
 				08A1D4BD287550C000490129 /* AlbumListTableViewCell.swift in Sources */,
 				08A1D4C42875666200490129 /* AlbumUseCase.swift in Sources */,
@@ -710,12 +740,14 @@
 				08B5A43028788C750036C4F4 /* PhotoRepositorySavable.swift in Sources */,
 				08C78B0E28704483006296DE /* PhotoAuthorizationable.swift in Sources */,
 				0898ABD72876CEF800E0035A /* LoadSVGRepository.swift in Sources */,
+				08B5A434287890AE0036C4F4 /* Coordinator.swift in Sources */,
 				08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */,
 				0898ABC92876A98600E0035A /* PhotoOverlayView.swift in Sources */,
 				0898ABE12876D47200E0035A /* PhotoOverlayUseCase.swift in Sources */,
 				0898ABCD2876AE4500E0035A /* UICollectionView+extension.swift in Sources */,
 				08C78AFF287039F7006296DE /* PhotoManager.swift in Sources */,
 				0898ABDA2876CF6A00E0035A /* AssetLoadManager.swift in Sources */,
+				08B5A439287891770036C4F4 /* PhotoListCoordinator.swift in Sources */,
 				08C78AE1286EE499006296DE /* SceneDelegate.swift in Sources */,
 				0898ABD12876C41E00E0035A /* SVGItem.swift in Sources */,
 				08A1D4C2287563D800490129 /* FetchAlbumRepository.swift in Sources */,

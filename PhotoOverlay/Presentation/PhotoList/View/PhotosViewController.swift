@@ -6,13 +6,17 @@
 //
 
 import UIKit
+import Photos
 
 import RxSwift
 import RxCocoa
 import SnapKit
-import Photos
 
 final class PhotosViewController: UIViewController {
+    
+    // MARK: - Coordinator
+    
+    weak var coordinator: PhotoListCoordinator?
     
     // MARK: - Collection View
     
@@ -60,7 +64,6 @@ final class PhotosViewController: UIViewController {
         
         bindViewModel()
         bindShowAlbumListButton()
-        bindCollectionView()
     }
 }
 
@@ -96,22 +99,7 @@ extension PhotosViewController {
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, asset) in
-                let photoOverlayViewModel = PhotoOverlayViewModel(asset: asset)
-                
-                let photoOverlayViewController = PhotoOverlayViewController()
-                photoOverlayViewController.viewModel = photoOverlayViewModel
-                
-                owner.show(photoOverlayViewController, sender: nil)
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    private func bindCollectionView() {
-        photosView.photoListCollectionView.rx.itemSelected
-            .observe(on: MainScheduler.asyncInstance)
-            .withUnretained(self)
-            .subscribe(onNext: { (owner, indexPath) in
-                
+                owner.coordinator?.showPhotoOverlayView(asset)
             })
             .disposed(by: disposeBag)
     }
