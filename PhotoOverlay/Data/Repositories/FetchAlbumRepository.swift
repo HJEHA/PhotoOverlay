@@ -18,7 +18,7 @@ final class FetchAlbumRepository {
     }
 }
 
-extension FetchAlbumRepository: AlbumRepository {
+extension FetchAlbumRepository: AlbumRepositoryFetchable {
     func fetch() -> Observable<[PHAssetCollection]> {
         return photoManager.fetchCollections()
     }

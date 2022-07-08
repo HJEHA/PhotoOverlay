@@ -17,7 +17,7 @@ final class LoadSVGRepository {
     }
 }
 
-extension LoadSVGRepository: SVGRepository {
+extension LoadSVGRepository: SVGRepositoryLoadable {
     func loadSVGImageSet(name: String) -> Observable<[SVGImageSetDTO]> {
         return assetLoadManager.loadDataAsset(name: name)
             .compactMap { data in

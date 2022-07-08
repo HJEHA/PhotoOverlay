@@ -10,11 +10,11 @@ import UIKit
 import RxSwift
 
 final class PhotoOverlayUseCase {
-    let svgRepository: SVGRepository
+    let svgRepository: SVGRepositoryLoadable
     let savePhotoRepository: SavePhotoRepository
     
     init(
-        svgRepository: SVGRepository = LoadSVGRepository(),
+        svgRepository: SVGRepositoryLoadable = LoadSVGRepository(),
         savePhotoRepository: SavePhotoRepository = SavePhotoRepository()
     ) {
         self.svgRepository = svgRepository

@@ -18,7 +18,7 @@ final class FetchPhotoRepository {
     }
 }
 
-extension FetchPhotoRepository: PhotoRepository {
+extension FetchPhotoRepository: PhotoRepositoryFetchable {
     func fetch() -> Observable<[PHAsset]> {
         return photoManager.fetch(mediaType: .image)
     }

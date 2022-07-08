@@ -1,5 +1,5 @@
 //
-//  SVGRepository.swift
+//  SVGRepositoryLoadable.swift
 //  PhotoOverlay
 //
 //  Created by 황제하 on 2022/07/07.
@@ -9,6 +9,6 @@ import Foundation
 
 import RxSwift
 
-protocol SVGRepository {
+protocol SVGRepositoryLoadable {
     func loadSVGImageSet(name: String) -> Observable<[SVGImageSetDTO]>    
 }

@@ -1,5 +1,5 @@
 //
-//  AlbumRepository.swift
+//  AlbumRepositoryFetchable.swift
 //  PhotoOverlay
 //
 //  Created by 황제하 on 2022/07/06.
@@ -10,7 +10,7 @@ import Photos
 
 import RxSwift
 
-protocol AlbumRepository {
+protocol AlbumRepositoryFetchable {
     func fetch() -> Observable<[PHAssetCollection]>
     
     func fetchFirst(
