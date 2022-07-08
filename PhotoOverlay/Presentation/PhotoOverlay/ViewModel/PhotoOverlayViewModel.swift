@@ -17,6 +17,7 @@ final class PhotoOverlayViewModel: ViewModel {
     struct Input {
         let viewWillAppear: Observable<Void>
         let selectedSVGItemIndexPath: Observable<IndexPath>
+        let overlaidPhotoObservable: Observable<OverlaidPhoto>
     }
     
     // MARK: - Output
@@ -25,6 +26,7 @@ final class PhotoOverlayViewModel: ViewModel {
         let imageObservable: Observable<UIImage?>
         let itemsObservable: Observable<[SVGItem]>
         let selectedItemObservable: Observable<SVGItem>
+        let savedOverlaidPhoto: Observable<Void>
     }
     
     // MARK: - Properties
@@ -72,10 +74,16 @@ final class PhotoOverlayViewModel: ViewModel {
                 items[indexPath.row]
             }
         
+        let savedOverlaidPhoto = input.overlaidPhotoObservable
+            .flatMap {
+                PhotoManager.shared.save($0.image)
+            }
+        
         return Output(
             imageObservable: imageObservable,
             itemsObservable: itemsObservable,
-            selectedItemObservable: selectedItemObservable
+            selectedItemObservable: selectedItemObservable,
+            savedOverlaidPhoto: savedOverlaidPhoto
         )
     }
 }

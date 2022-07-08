@@ -8,5 +8,5 @@
 import UIKit
 
 struct OverlaidPhoto {
-    let image: UIImage?
+    let image: UIImage
 }
