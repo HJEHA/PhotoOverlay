@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 final class PhotoListCoordinator: Coordinator {
         
@@ -29,7 +30,7 @@ final class PhotoListCoordinator: Coordinator {
         navigationController.show(photoListViewController, sender: nil)
     }
     
-    func showPhotoOverlayView() {
-        parentCoordinator?.showPhotoOverlayView()
+    func showPhotoOverlayView(_ asset: PHAsset) {
+        parentCoordinator?.showPhotoOverlayView(asset)
     }
 }

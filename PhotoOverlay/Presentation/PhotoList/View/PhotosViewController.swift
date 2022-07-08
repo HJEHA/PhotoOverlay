@@ -6,11 +6,11 @@
 //
 
 import UIKit
+import Photos
 
 import RxSwift
 import RxCocoa
 import SnapKit
-import Photos
 
 final class PhotosViewController: UIViewController {
     
@@ -100,12 +100,7 @@ extension PhotosViewController {
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, asset) in
-                let photoOverlayViewModel = PhotoOverlayViewModel(asset: asset)
-                
-                let photoOverlayViewController = PhotoOverlayViewController()
-                photoOverlayViewController.viewModel = photoOverlayViewModel
-                
-                owner.show(photoOverlayViewController, sender: nil)
+                owner.coordinator?.showPhotoOverlayView(asset)
             })
             .disposed(by: disposeBag)
     }
