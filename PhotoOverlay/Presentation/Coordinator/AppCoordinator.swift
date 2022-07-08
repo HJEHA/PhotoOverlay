@@ -33,6 +33,10 @@ final class AppCoordinator: Coordinator {
     }
     
     func showPhotoOverlayView() {
-        
+        let photoListCoordinator = PhotoOverlayCoordinator(
+            parentCoordinator: self,
+            navigationController: navigationController
+        )
+        photoListCoordinator.start()
     }
 }

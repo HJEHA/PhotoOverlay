@@ -13,6 +13,10 @@ import SnapKit
 
 final class PhotoOverlayViewController: UIViewController {
     
+    // MARK: - Coordinator
+    
+    weak var coordinator: PhotoOverlayCoordinator?
+    
     // MARK: - Collection View
     
     private enum Section {
@@ -41,6 +45,8 @@ final class PhotoOverlayViewController: UIViewController {
     var viewModel: PhotoOverlayViewModel?
     private var disposeBag = DisposeBag()
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -55,6 +61,10 @@ final class PhotoOverlayViewController: UIViewController {
         bindViewModel()
         bindRemoveSVGButton()
         bindOverlayButton()
+    }
+    
+    deinit {
+        coordinator?.popPhotoOverlayView()
     }
 }
 

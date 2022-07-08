@@ -1,5 +1,5 @@
 //
-//  PhotoListCoordinator.swift
+//  PhotoOverlayCoordinator.swift
 //  PhotoOverlay
 //
 //  Created by 황제하 on 2022/07/09.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PhotoListCoordinator: Coordinator {
+final class PhotoOverlayCoordinator: Coordinator {
         
     // MARK: - Coordinator Property
     
@@ -24,12 +24,12 @@ final class PhotoListCoordinator: Coordinator {
     }
     
     func start() {
-        let photoListViewController = PhotosViewController()
-        photoListViewController.coordinator = self
-        navigationController.show(photoListViewController, sender: nil)
+        let photoOverlayViewController = PhotoOverlayViewController()
+        photoOverlayViewController.coordinator = self
+        navigationController.show(photoOverlayViewController, sender: nil)
     }
     
-    func showPhotoOverlayView() {
-        parentCoordinator?.showPhotoOverlayView()
+    func popPhotoOverlayView() {
+        parentCoordinator?.removeChildCoordinator(self)
     }
 }
