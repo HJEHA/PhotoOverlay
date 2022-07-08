@@ -16,6 +16,8 @@ final class PhotoManager {
     private init() { }
 }
 
+// MARK: - PhotoAuthorizationable
+
 extension PhotoManager: PhotoAuthorizationable {
     
     /// 앨범 권한 확인 메서드
@@ -40,6 +42,8 @@ extension PhotoManager: PhotoAuthorizationable {
         }
     }
 }
+
+// MARK: - PhotoFetchable
 
 extension PhotoManager: PhotoFetchable {
     
@@ -107,6 +111,62 @@ extension PhotoManager: PhotoFetchable {
             emitter.onCompleted()
             
             return Disposables.create()
+        }
+    }
+}
+
+// MARK: - PhotoSavable
+
+extension PhotoManager: PhotoSavable {
+    func save(_ image: UIImage) -> Observable<Void> {
+        return Observable<Void>.create { emitter in
+            let writer = PhotoWriter(callback: { error in
+              if let error = error {
+                  emitter.onError(error)
+              } else {
+                  emitter.onCompleted()
+              }
+            })
+            
+            UIImageWriteToSavedPhotosAlbum(
+                image,
+                writer,
+                #selector(writer.image(_:didFinishSavingWithError:contextInfo:)),
+                nil
+            )
+            
+            return Disposables.create()
+        }
+    }
+}
+
+// MARK: - PhotoWriter
+
+extension PhotoManager {
+    
+    // MARK: - Nested Type
+    
+    final class PhotoWriter: NSObject {
+        
+        // MARK: - Typealias & Properties
+        
+        typealias Callback = (NSError?)->Void
+        private var callback: Callback
+        
+        // MARK: - Initializer
+        
+        init(callback: @escaping Callback) {
+            self.callback = callback
+        }
+        
+        // MARK: - @objc Method
+        
+        @objc func image(
+            _ image: UIImage,
+            didFinishSavingWithError error: NSError?,
+            contextInfo info: UnsafeRawPointer
+        ) {
+            callback(error)
         }
     }
 }

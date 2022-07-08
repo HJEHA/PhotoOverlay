@@ -7,15 +7,21 @@
 
 import UIKit
 
+import RxSwift
 import SnapKit
 
 final class PhotoOverlayImageView: UIImageView {
+    
+    // MARK: - View
+    
     private let decorationImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         
         return imageView
     }()
+    
+    var disposeBag = DisposeBag()
     
     // MARK: - Initializer
     
@@ -50,6 +56,15 @@ extension PhotoOverlayImageView {
         
         let overlaidPhoto = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        
+        PhotoManager.shared.save(overlaidPhoto!)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: {
+                print("성공")
+            }, onError: { error in
+                print(error)
+            })
+            .disposed(by: disposeBag)
         
         update(overlaidPhoto)
     }
