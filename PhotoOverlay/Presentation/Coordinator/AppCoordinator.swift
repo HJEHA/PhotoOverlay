@@ -25,7 +25,11 @@ final class AppCoordinator: Coordinator {
     }
     
     func showPhotoListView() {
-        
+        let photoListCoordinator = PhotoListCoordinator(
+            parentCoordinator: self,
+            navigationController: navigationController
+        )
+        photoListCoordinator.start()
     }
     
     func showPhotoOverlayView() {
