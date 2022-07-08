@@ -124,6 +124,7 @@ extension PhotoManager: PhotoSavable {
               if let error = error {
                   emitter.onError(error)
               } else {
+                  emitter.onNext(Void())
                   emitter.onCompleted()
               }
             })

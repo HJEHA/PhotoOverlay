@@ -45,6 +45,7 @@
 		08A1D4C82875704400490129 /* AlbumItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D4C72875704400490129 /* AlbumItem.swift */; };
 		08B5A4262878568E0036C4F4 /* PhotoOverlayImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A4252878568E0036C4F4 /* PhotoOverlayImageView.swift */; };
 		08B5A42828786D8A0036C4F4 /* PhotoSavable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A42728786D8A0036C4F4 /* PhotoSavable.swift */; };
+		08B5A42A28787EE80036C4F4 /* OverlaidPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A42928787EE80036C4F4 /* OverlaidPhoto.swift */; };
 		08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78ADE286EE499006296DE /* AppDelegate.swift */; };
 		08C78AE1286EE499006296DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE0286EE499006296DE /* SceneDelegate.swift */; };
 		08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE7286EE499006296DE /* PhotoOverlay.xcdatamodeld */; };
@@ -109,6 +110,7 @@
 		08A1D4C72875704400490129 /* AlbumItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumItem.swift; sourceTree = "<group>"; };
 		08B5A4252878568E0036C4F4 /* PhotoOverlayImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOverlayImageView.swift; sourceTree = "<group>"; };
 		08B5A42728786D8A0036C4F4 /* PhotoSavable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSavable.swift; sourceTree = "<group>"; };
+		08B5A42928787EE80036C4F4 /* OverlaidPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlaidPhoto.swift; sourceTree = "<group>"; };
 		08C78ADB286EE499006296DE /* PhotoOverlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoOverlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C78ADE286EE499006296DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08C78AE0286EE499006296DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				08A1D4AE287408C500490129 /* Album.swift */,
 				08A1D4B028740B6E00490129 /* Photos.swift */,
 				0898ABDE2876D41300E0035A /* SVGImage.swift */,
+				08B5A42928787EE80036C4F4 /* OverlaidPhoto.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -692,6 +695,7 @@
 				08A1D4BB28753B5800490129 /* AlbumListView.swift in Sources */,
 				08A1D4C02875636200490129 /* AlbumListViewModel.swift in Sources */,
 				08A1D4B3287411D300490129 /* PhotoItem.swift in Sources */,
+				08B5A42A28787EE80036C4F4 /* OverlaidPhoto.swift in Sources */,
 				08A1D4B928753B1300490129 /* AlbumListViewController.swift in Sources */,
 				08C78B0E28704483006296DE /* PhotoAuthorizationable.swift in Sources */,
 				0898ABD72876CEF800E0035A /* DefaultSVGRepository.swift in Sources */,

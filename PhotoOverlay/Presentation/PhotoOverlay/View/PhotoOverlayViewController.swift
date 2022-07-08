@@ -118,13 +118,14 @@ extension PhotoOverlayViewController {
     }
     
     private func bindOverlayButton() {
-        overlayButton.rx.tap
-            .observe(on: MainScheduler.asyncInstance)
+        let overlaidPhotoObservable = overlayButton.rx.tap
             .withUnretained(self)
-            .subscribe(onNext: { (owner, _) in
+            .flatMap { (owner, _) in
                 owner.photoOverlayView.overlay()
-            })
-            .disposed(by: disposeBag)
+            }
+            .map {
+                OverlaidPhoto(image: $0)
+            }
     }
 }
 

@@ -7,6 +7,7 @@
 
 import UIKit
 
+import RxSwift
 import SnapKit
 
 final class PhotoOverlayView: UIView {
@@ -59,8 +60,8 @@ final class PhotoOverlayView: UIView {
 // MARK: - Make OverlayPhoto
 
 extension PhotoOverlayView {
-    func overlay() {
-        photoImageView.overlay()
+    func overlay() -> Observable<UIImage?> {
+        return photoImageView.overlay()
     }
 }
 
