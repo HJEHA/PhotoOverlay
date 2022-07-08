@@ -48,6 +48,7 @@
 		08B5A42A28787EE80036C4F4 /* OverlaidPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A42928787EE80036C4F4 /* OverlaidPhoto.swift */; };
 		08B5A42C287882130036C4F4 /* Observable+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A42B287882130036C4F4 /* Observable+extension.swift */; };
 		08B5A42E287886310036C4F4 /* SavePhotoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A42D287886310036C4F4 /* SavePhotoRepository.swift */; };
+		08B5A43028788C750036C4F4 /* PhotoRepositorySavable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B5A42F28788C750036C4F4 /* PhotoRepositorySavable.swift */; };
 		08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78ADE286EE499006296DE /* AppDelegate.swift */; };
 		08C78AE1286EE499006296DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE0286EE499006296DE /* SceneDelegate.swift */; };
 		08C78AE9286EE499006296DE /* PhotoOverlay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08C78AE7286EE499006296DE /* PhotoOverlay.xcdatamodeld */; };
@@ -115,6 +116,7 @@
 		08B5A42928787EE80036C4F4 /* OverlaidPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlaidPhoto.swift; sourceTree = "<group>"; };
 		08B5A42B287882130036C4F4 /* Observable+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+extension.swift"; sourceTree = "<group>"; };
 		08B5A42D287886310036C4F4 /* SavePhotoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePhotoRepository.swift; sourceTree = "<group>"; };
+		08B5A42F28788C750036C4F4 /* PhotoRepositorySavable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRepositorySavable.swift; sourceTree = "<group>"; };
 		08C78ADB286EE499006296DE /* PhotoOverlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoOverlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C78ADE286EE499006296DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08C78AE0286EE499006296DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				08A1D4AB287404DE00490129 /* PhotoRepositoryFetchable.swift */,
+				08B5A42F28788C750036C4F4 /* PhotoRepositorySavable.swift */,
 				08A1D4C528756E9A00490129 /* AlbumRepositoryFetchable.swift */,
 				0898ABE22876D54B00E0035A /* SVGRepositoryLoadable.swift */,
 			);
@@ -704,6 +707,7 @@
 				08A1D4B3287411D300490129 /* PhotoItem.swift in Sources */,
 				08B5A42A28787EE80036C4F4 /* OverlaidPhoto.swift in Sources */,
 				08A1D4B928753B1300490129 /* AlbumListViewController.swift in Sources */,
+				08B5A43028788C750036C4F4 /* PhotoRepositorySavable.swift in Sources */,
 				08C78B0E28704483006296DE /* PhotoAuthorizationable.swift in Sources */,
 				0898ABD72876CEF800E0035A /* LoadSVGRepository.swift in Sources */,
 				08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */,

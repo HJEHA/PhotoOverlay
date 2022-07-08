@@ -17,7 +17,7 @@ final class SavePhotoRepository {
     }
 }
 
-extension SavePhotoRepository {
+extension SavePhotoRepository: PhotoRepositorySavable {
     func save(_ image: UIImage) -> Observable<Void> {
         return photoManager.save(image)
     }
