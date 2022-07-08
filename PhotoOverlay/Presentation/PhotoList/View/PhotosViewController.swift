@@ -14,6 +14,10 @@ import Photos
 
 final class PhotosViewController: UIViewController {
     
+    // MARK: - Coordinator
+    
+    weak var coordinator: PhotoListCoordinator?
+    
     // MARK: - Collection View
     
     private enum Section {
