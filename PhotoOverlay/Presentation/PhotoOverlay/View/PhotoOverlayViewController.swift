@@ -212,7 +212,7 @@ extension PhotoOverlayViewController {
     private func showSaveSuccessAlert() -> Observable<Void> {
         return Observable<Void>.create { [weak self] emitter in
             let alertController = UIAlertController(
-                title: "저장이 완료 되었습니다.",
+                title: "저장이 완료되었습니다.",
                 message: nil,
                 preferredStyle: .actionSheet
             )
@@ -226,6 +226,48 @@ extension PhotoOverlayViewController {
             }
             
             alertController.addAction(saveSussessAction)
+                        
+            self?.present(alertController, animated: true)
+            
+            return Disposables.create {
+                alertController.dismiss(animated: true)
+            }
+        }
+    }
+    
+    private func showSaveOrResizeAlert() -> Observable<Void> {
+        return Observable<Void>.create { [weak self] emitter in
+            let alertController = UIAlertController(
+                title: "합성이 완료되었습니다. \n 앨범에 저장하시겠습니까?",
+                message: nil,
+                preferredStyle: .actionSheet
+            )
+            
+            let saveAction = UIAlertAction(
+                title: "저장",
+                style: .default
+            ) { _ in
+                emitter.onNext(Void())
+                emitter.onCompleted()
+            }
+            
+            let resizeAction = UIAlertAction(
+                title: "크기 조절",
+                style: .default
+            ) { _ in
+                emitter.onNext(Void())
+                emitter.onCompleted()
+            }
+            
+            let cancelAction = UIAlertAction(
+                title: "취소",
+                style: .cancel,
+                handler: nil
+            )
+            
+            alertController.addAction(saveAction)
+            alertController.addAction(resizeAction)
+            alertController.addAction(cancelAction)
                         
             self?.present(alertController, animated: true)
             
