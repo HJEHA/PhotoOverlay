@@ -205,3 +205,33 @@ private extension PhotoOverlayViewController {
         dataSource?.apply(snapShot, animatingDifferences: false)
     }
 }
+
+// MARK: - Alert
+
+extension PhotoOverlayViewController {
+    private func showSaveSuccessAlert() -> Observable<Void> {
+        return Observable<Void>.create { [weak self] emitter in
+            let alertController = UIAlertController(
+                title: "저장이 완료 되었습니다.",
+                message: nil,
+                preferredStyle: .actionSheet
+            )
+            
+            let saveSussessAction = UIAlertAction(
+                title: "확인",
+                style: .default
+            ) { _ in
+                emitter.onNext(Void())
+                emitter.onCompleted()
+            }
+            
+            alertController.addAction(saveSussessAction)
+                        
+            self?.present(alertController, animated: true)
+            
+            return Disposables.create {
+                alertController.dismiss(animated: true)
+            }
+        }
+    }
+}
