@@ -120,7 +120,8 @@ extension PhotoOverlayViewController {
             .withUnretained(self)
             .subscribe(onNext: { (owner, overlaidPhoto) in
                 let vc = PhotoResizeViewController()
-                vc.update(overlaidPhoto.image)
+                let vm = PhotoResizeViewModel(photo: overlaidPhoto)
+                vc.viewModel = vm
                 
                 owner.navigationController?.show(vc, sender: nil)
                 
