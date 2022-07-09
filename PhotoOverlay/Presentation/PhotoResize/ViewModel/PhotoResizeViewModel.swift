@@ -60,8 +60,7 @@ final class PhotoResizeViewModel: ViewModel {
                 let resizedHeight = (owner.photo.image.size.height * rate).rounded()
                 
                 return CGSize(width: resizedWidth, height: resizedHeight)
-            }
-            
+            }            
         
         let resizedTextObservable = resizeRateObservable
             .map {
@@ -89,7 +88,7 @@ final class PhotoResizeViewModel: ViewModel {
     }
 }
 
-extension UIImage {
+private extension UIImage {
     func resize(_ size: CGSize) -> UIImage? {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContext(size)
