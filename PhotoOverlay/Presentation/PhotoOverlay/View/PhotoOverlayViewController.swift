@@ -115,7 +115,7 @@ extension PhotoOverlayViewController {
             })
             .disposed(by: disposeBag)
         
-        output?.savedOverlaidPhoto
+        output?.overlaidPhoto
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, overlaidPhoto) in
@@ -235,8 +235,8 @@ extension PhotoOverlayViewController {
         }
     }
     
-    private func showSaveOrResizeAlert() -> Observable<Void> {
-        return Observable<Void>.create { [weak self] emitter in
+    private func showSaveOrResizeAlert() -> Observable<OverlaidAction> {
+        return Observable<OverlaidAction>.create { [weak self] emitter in
             let alertController = UIAlertController(
                 title: "합성이 완료되었습니다. \n 앨범에 저장하시겠습니까?",
                 message: nil,
@@ -247,7 +247,7 @@ extension PhotoOverlayViewController {
                 title: "저장",
                 style: .default
             ) { _ in
-                emitter.onNext(Void())
+                emitter.onNext(.save)
                 emitter.onCompleted()
             }
             
@@ -255,14 +255,13 @@ extension PhotoOverlayViewController {
                 title: "크기 조절",
                 style: .default
             ) { _ in
-                emitter.onNext(Void())
+                emitter.onNext(.resize)
                 emitter.onCompleted()
             }
             
             let cancelAction = UIAlertAction(
                 title: "취소",
-                style: .cancel,
-                handler: nil
+                style: .cancel
             )
             
             alertController.addAction(saveAction)
