@@ -17,6 +17,7 @@ final class PhotoResizeViewModel: ViewModel {
     struct Input {
         let viewWillAppear: Observable<Void>
         let resizeRate: Observable<Float>
+        let saveButtonTapEvent: Observable<Void>
     }
     
     // MARK: - Output
@@ -24,6 +25,7 @@ final class PhotoResizeViewModel: ViewModel {
     struct Output {
         let imageObservable: Observable<OverlaidPhoto>
         let resizedTextObservable: Observable<String>
+        let savedOverlaidPhoto: Observable<Void>
     }
     
     // MARK: - Properties
@@ -66,9 +68,34 @@ final class PhotoResizeViewModel: ViewModel {
                 "\(Int($0.width)) x \(Int($0.height))"
             }
         
+        let savedOverlaidPhoto = Observable.combineLatest(
+                imageObservable,
+                resizeRateObservable,
+                input.saveButtonTapEvent
+            )
+            .compactMap { (overlaidPhoto, size, _) in
+                overlaidPhoto.image.resize(size)
+            }
+            .withUnretained(self)
+            .flatMap { (owner, resizedPhoto) in
+                owner.useCase.save(resizedPhoto)
+            }
+        
         return Output(
             imageObservable: imageObservable,
-            resizedTextObservable: resizedTextObservable
+            resizedTextObservable: resizedTextObservable,
+            savedOverlaidPhoto: savedOverlaidPhoto
         )
+    }
+}
+
+extension UIImage {
+    func resize(_ size: CGSize) -> UIImage? {
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        UIGraphicsBeginImageContext(size)
+        self.draw(in: rect)
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage
     }
 }

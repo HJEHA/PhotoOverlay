@@ -51,7 +51,8 @@ extension PhotoResizeViewController {
     private func bindViewModel() {
         let input = PhotoResizeViewModel.Input(
             viewWillAppear: self.rx.viewWillAppear.asObservable(),
-            resizeRate: photoResizeView.resizeSlider.rx.value.asObservable()
+            resizeRate: photoResizeView.resizeSlider.rx.value.asObservable(),
+            saveButtonTapEvent: saveButton.rx.tap.asObservable()
         )
         
         let output = viewModel?.transform(input)
@@ -66,6 +67,17 @@ extension PhotoResizeViewController {
         
         output?.resizedTextObservable
             .bind(to: photoResizeView.resizedLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output?.savedOverlaidPhoto
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, _) in
+                owner.navigationController?.popToRootViewController(animated: true)
+            }, onError: { error in
+                // TODO: - 저장 실패 얼럿 띄우기
+                print("저장 실패 : ", error.localizedDescription)
+            })
             .disposed(by: disposeBag)
     }
 }
