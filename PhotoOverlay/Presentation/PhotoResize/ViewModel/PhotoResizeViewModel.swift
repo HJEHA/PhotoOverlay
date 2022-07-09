@@ -32,6 +32,7 @@ final class PhotoResizeViewModel: ViewModel {
     
     private let useCase: PhotoOverlayUseCase
     private let photo: OverlaidPhoto
+    private lazy var size = photo.image.size
     
     // MARK: - Initializer
     
@@ -58,8 +59,11 @@ final class PhotoResizeViewModel: ViewModel {
             .map { (owner, rate) -> CGSize in
                 let resizedWidth = (owner.photo.image.size.width * rate).rounded()
                 let resizedHeight = (owner.photo.image.size.height * rate).rounded()
+                let resize = CGSize(width: resizedWidth, height: resizedHeight)
                 
-                return CGSize(width: resizedWidth, height: resizedHeight)
+                owner.size = resize
+                
+                return resize
             }            
         
         let resizedTextObservable = resizeRateObservable
@@ -69,11 +73,11 @@ final class PhotoResizeViewModel: ViewModel {
         
         let savedOverlaidPhoto = Observable.combineLatest(
                 imageObservable,
-                resizeRateObservable,
                 input.saveButtonTapEvent
             )
-            .compactMap { (overlaidPhoto, size, _) in
-                overlaidPhoto.image.resize(size)
+            .withUnretained(self)
+            .compactMap { (owner, overlaidPhoto) in
+                overlaidPhoto.0.image.resize(owner.size)
             }
             .withUnretained(self)
             .flatMap { (owner, resizedPhoto) in
@@ -87,6 +91,8 @@ final class PhotoResizeViewModel: ViewModel {
         )
     }
 }
+
+// MARK: - Private Extension
 
 private extension UIImage {
     func resize(_ size: CGSize) -> UIImage? {
