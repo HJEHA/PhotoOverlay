@@ -40,8 +40,6 @@ final class PhotoOverlayViewController: UIViewController {
         return button
     }()
     
-    private var overlaidAlertController: UIAlertController?
-    
     // MARK: - Properties
     
     var viewModel: PhotoOverlayViewModel?
@@ -61,8 +59,8 @@ final class PhotoOverlayViewController: UIViewController {
         
         bindViewWillAppear()
         bindViewModel()
-        bindOverlayButton()
         bindRemoveSVGButton()
+        bindOverlayButton()
     }
     
     deinit {
@@ -73,31 +71,15 @@ final class PhotoOverlayViewController: UIViewController {
 // MARK: - Bind
 
 extension PhotoOverlayViewController {
-    private func bindViewModel() {
-        guard let viewModel = viewModel else {
-            return
-        }
-        
-        let overlaidPhotoObservable = overlayButton.rx.tap
-            .withUnretained(self)
-            .flatMap { (owner, _) in
-                owner.photoOverlayView.overlay()
-            }
-            .filterNil()
-            .map {
-                OverlaidPhoto(image: $0)
-            }
-        
+    private func bindViewModel() {        
         let input = PhotoOverlayViewModel.Input(
             viewWillAppear: self.rx.viewWillAppear.asObservable(),
-            selectedSVGItemIndexPath: photoOverlayView.svgListCollectionView.rx.itemSelected.asObservable(),
-            overlaidPhotoObservable: overlaidPhotoObservable,
-            overlaidActionObservable: showSaveOrResizeAlert()
+            selectedSVGItemIndexPath: photoOverlayView.svgListCollectionView.rx.itemSelected.asObservable()
         )
         
-        let output = viewModel.transform(input)
+        let output = viewModel?.transform(input)
         
-        output.imageObservable
+        output?.imageObservable
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, image) in
@@ -105,7 +87,7 @@ extension PhotoOverlayViewController {
             })
             .disposed(by: disposeBag)
         
-        output.itemsObservable
+        output?.itemsObservable
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, items) in
@@ -113,7 +95,7 @@ extension PhotoOverlayViewController {
             })
             .disposed(by: disposeBag)
         
-        output.selectedItemObservable
+        output?.selectedItemObservable
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, item) in
@@ -122,9 +104,33 @@ extension PhotoOverlayViewController {
                 owner.photoOverlayView.updateDecorationImageView(item.svgImage)
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func bindOverlayButton() {
+        let actionObservable = overlayButton.rx.tap
+            .withUnretained(self)
+            .flatMap { (owner, _) in
+                owner.showSaveOrResizeAlert()
+            }
+            .share()
+
+        // MARK: - Alert Save Action
         
-        output.savedPhoto
-            .observe(on: MainScheduler.asyncInstance)
+        actionObservable
+            .filter { action in
+                action == .save
+            }
+            .withUnretained(self)
+            .flatMap { (owner, _) in
+                owner.photoOverlayView.overlay()
+            }
+            .filterNil()
+            .map {
+                OverlaidPhoto(image: $0)
+            }
+            .flatMap { [weak self] photo -> Observable<Void> in
+                return self?.viewModel?.save(photo) ?? .empty()
+            }
             .flatMap { [weak self] _ in
                 self?.showSaveSuccessAlert() ?? .empty()
             }
@@ -133,27 +139,22 @@ extension PhotoOverlayViewController {
             })
             .disposed(by: disposeBag)
         
-//        output.overlaidPhoto
-//            .observe(on: MainScheduler.asyncInstance)
-//            .withUnretained(self)
-//            .subscribe(onNext: { (owner, overlaidPhoto) in
-//                owner.coordinator?.showPhotoResizeView(overlaidPhoto)
-//            })
-//            .disposed(by: disposeBag)
+        // MARK: - Alert Resize Action
         
-        
-    }
-    
-    private func bindOverlayButton() {
-        overlayButton.rx.tap
-            .observe(on: MainScheduler.asyncInstance)
+        actionObservable
+            .filter { action in
+                action == .resize
+            }
             .withUnretained(self)
-            .subscribe(onNext: { (owner, _) in
-                guard let alertController = owner.overlaidAlertController else {
-                    return
-                }
-                
-                owner.present(alertController, animated: true)
+            .flatMap { (owner, _) in
+                owner.photoOverlayView.overlay()
+            }
+            .filterNil()
+            .map {
+                OverlaidPhoto(image: $0)
+            }
+            .subscribe(onNext: { [weak self] photo in
+                self?.coordinator?.showPhotoResizeView(photo)
             })
             .disposed(by: disposeBag)
     }
@@ -302,7 +303,7 @@ extension PhotoOverlayViewController {
             alertController.addAction(resizeAction)
             alertController.addAction(cancelAction)
                         
-            self?.overlaidAlertController = alertController
+            self?.present(alertController, animated: true)
             
             return Disposables.create {
                 alertController.dismiss(animated: true)

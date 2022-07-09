@@ -17,8 +17,6 @@ final class PhotoOverlayViewModel: ViewModel {
     struct Input {
         let viewWillAppear: Observable<Void>
         let selectedSVGItemIndexPath: Observable<IndexPath>
-        let overlaidPhotoObservable: Observable<OverlaidPhoto>
-        let overlaidActionObservable: Observable<OverlaidAction>
     }
     
     // MARK: - Output
@@ -27,8 +25,6 @@ final class PhotoOverlayViewModel: ViewModel {
         let imageObservable: Observable<UIImage?>
         let itemsObservable: Observable<[SVGItem]>
         let selectedItemObservable: Observable<SVGItem>
-        let overlaidPhoto: Observable<OverlaidPhoto>
-        let savedPhoto: Observable<Void>
     }
     
     // MARK: - Properties
@@ -76,31 +72,14 @@ final class PhotoOverlayViewModel: ViewModel {
                 items[indexPath.row]
             }
         
-        let overlaidPhoto = input.overlaidPhotoObservable
-        
-        let saveAction = input.overlaidActionObservable
-            .filter {
-                $0 == .save
-            }
-        
-        let savedPhoto = Observable.zip(
-                saveAction,
-                overlaidPhoto
-            )
-            .map {
-                $1
-            }
-            .withUnretained(self)
-            .flatMap { (owner, overlaidPhoto) in
-                owner.useCase.save(overlaidPhoto.image)
-            }
-        
         return Output(
             imageObservable: imageObservable,
             itemsObservable: itemsObservable,
-            selectedItemObservable: selectedItemObservable,
-            overlaidPhoto: overlaidPhoto,
-            savedPhoto: savedPhoto
+            selectedItemObservable: selectedItemObservable
         )
+    }
+    
+    func save(_ overlaidPhoto: OverlaidPhoto) -> Observable<Void> {
+        useCase.save(overlaidPhoto.image)
     }
 }
