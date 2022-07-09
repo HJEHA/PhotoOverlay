@@ -14,6 +14,7 @@
 		085CBFBB2871D145006F2953 /* PHImageManagerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFBA2871D145006F2953 /* PHImageManagerable.swift */; };
 		085CBFBD2871D236006F2953 /* ImageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFBC2871D236006F2953 /* ImageManagerTests.swift */; };
 		087FD8F6287984A2008849DA /* PhotoResizeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087FD8F5287984A2008849DA /* PhotoResizeViewModel.swift */; };
+		087FD8F82879CD47008849DA /* PhotoResizeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087FD8F72879CD47008849DA /* PhotoResizeCoordinator.swift */; };
 		0898ABC72876A96100E0035A /* PhotoOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABC62876A96100E0035A /* PhotoOverlayViewController.swift */; };
 		0898ABC92876A98600E0035A /* PhotoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABC82876A98600E0035A /* PhotoOverlayView.swift */; };
 		0898ABCB2876AD0000E0035A /* SVGListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABCA2876AD0000E0035A /* SVGListCollectionViewCell.swift */; };
@@ -89,6 +90,7 @@
 		085CBFBA2871D145006F2953 /* PHImageManagerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHImageManagerable.swift; sourceTree = "<group>"; };
 		085CBFBC2871D236006F2953 /* ImageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagerTests.swift; sourceTree = "<group>"; };
 		087FD8F5287984A2008849DA /* PhotoResizeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResizeViewModel.swift; sourceTree = "<group>"; };
+		087FD8F72879CD47008849DA /* PhotoResizeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResizeCoordinator.swift; sourceTree = "<group>"; };
 		0898ABC62876A96100E0035A /* PhotoOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOverlayViewController.swift; sourceTree = "<group>"; };
 		0898ABC82876A98600E0035A /* PhotoOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOverlayView.swift; sourceTree = "<group>"; };
 		0898ABCA2876AD0000E0035A /* SVGListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 				08B5A435287890F40036C4F4 /* AppCoordinator.swift */,
 				08B5A438287891770036C4F4 /* PhotoListCoordinator.swift */,
 				08B5A43A2878934F0036C4F4 /* PhotoOverlayCoordinator.swift */,
+				087FD8F72879CD47008849DA /* PhotoResizeCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -792,6 +795,7 @@
 				08A1D4B52874127F00490129 /* UIViewController+Rx.swift in Sources */,
 				08A1D4A82874041900490129 /* PhotoUseCase.swift in Sources */,
 				08B5A42E287886310036C4F4 /* SavePhotoRepository.swift in Sources */,
+				087FD8F82879CD47008849DA /* PhotoResizeCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

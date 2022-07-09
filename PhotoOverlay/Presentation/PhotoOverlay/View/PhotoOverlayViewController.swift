@@ -119,17 +119,7 @@ extension PhotoOverlayViewController {
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, overlaidPhoto) in
-                let vc = PhotoResizeViewController()
-                let vm = PhotoResizeViewModel(photo: overlaidPhoto)
-                vc.viewModel = vm
-                
-                owner.navigationController?.show(vc, sender: nil)
-                
-                // TODO: - 이미지 크기 조절하는 화면 띄우기
-                // owner.navigationController?.popViewController(animated: true)
-            }, onError: { error in
-                // TODO: - 저장 실패 얼럿 띄우기
-                print(error)
+                owner.coordinator?.showPhotoResizeView(overlaidPhoto)
             })
             .disposed(by: disposeBag)
     }

@@ -13,6 +13,10 @@ import SnapKit
 
 final class PhotoResizeViewController: UIViewController {
 
+    // MARK: - Coordinator
+    
+    weak var coordinator: PhotoResizeCoordinator?
+    
     // MARK: - Views
     
     private let photoResizeView = PhotoResizeView()
@@ -42,6 +46,10 @@ final class PhotoResizeViewController: UIViewController {
         configureSaveButton()
         
         bindViewModel() 
+    }
+    
+    deinit {
+        coordinator?.popPhotoResizeView()
     }
 }
 
