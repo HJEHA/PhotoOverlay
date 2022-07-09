@@ -40,6 +40,8 @@ final class PhotoOverlayViewController: UIViewController {
         return button
     }()
     
+    private var overlaidAlertController: UIAlertController?
+    
     // MARK: - Properties
     
     var viewModel: PhotoOverlayViewModel?
@@ -59,6 +61,7 @@ final class PhotoOverlayViewController: UIViewController {
         
         bindViewWillAppear()
         bindViewModel()
+        bindOverlayButton()
         bindRemoveSVGButton()
     }
     
@@ -71,6 +74,10 @@ final class PhotoOverlayViewController: UIViewController {
 
 extension PhotoOverlayViewController {
     private func bindViewModel() {
+        guard let viewModel = viewModel else {
+            return
+        }
+        
         let overlaidPhotoObservable = overlayButton.rx.tap
             .withUnretained(self)
             .flatMap { (owner, _) in
@@ -84,12 +91,13 @@ extension PhotoOverlayViewController {
         let input = PhotoOverlayViewModel.Input(
             viewWillAppear: self.rx.viewWillAppear.asObservable(),
             selectedSVGItemIndexPath: photoOverlayView.svgListCollectionView.rx.itemSelected.asObservable(),
-            overlaidPhotoObservable: overlaidPhotoObservable
+            overlaidPhotoObservable: overlaidPhotoObservable,
+            overlaidActionObservable: showSaveOrResizeAlert()
         )
         
-        let output = viewModel?.transform(input)
+        let output = viewModel.transform(input)
         
-        output?.imageObservable
+        output.imageObservable
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, image) in
@@ -97,7 +105,7 @@ extension PhotoOverlayViewController {
             })
             .disposed(by: disposeBag)
         
-        output?.itemsObservable
+        output.itemsObservable
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, items) in
@@ -105,7 +113,7 @@ extension PhotoOverlayViewController {
             })
             .disposed(by: disposeBag)
         
-        output?.selectedItemObservable
+        output.selectedItemObservable
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: { (owner, item) in
@@ -115,11 +123,37 @@ extension PhotoOverlayViewController {
             })
             .disposed(by: disposeBag)
         
-        output?.overlaidPhoto
+        output.savedPhoto
+            .observe(on: MainScheduler.asyncInstance)
+            .flatMap { [weak self] _ in
+                self?.showSaveSuccessAlert() ?? .empty()
+            }
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popToRootViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+//        output.overlaidPhoto
+//            .observe(on: MainScheduler.asyncInstance)
+//            .withUnretained(self)
+//            .subscribe(onNext: { (owner, overlaidPhoto) in
+//                owner.coordinator?.showPhotoResizeView(overlaidPhoto)
+//            })
+//            .disposed(by: disposeBag)
+        
+        
+    }
+    
+    private func bindOverlayButton() {
+        overlayButton.rx.tap
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
-            .subscribe(onNext: { (owner, overlaidPhoto) in
-                owner.coordinator?.showPhotoResizeView(overlaidPhoto)
+            .subscribe(onNext: { (owner, _) in
+                guard let alertController = owner.overlaidAlertController else {
+                    return
+                }
+                
+                owner.present(alertController, animated: true)
             })
             .disposed(by: disposeBag)
     }
@@ -268,7 +302,7 @@ extension PhotoOverlayViewController {
             alertController.addAction(resizeAction)
             alertController.addAction(cancelAction)
                         
-            self?.present(alertController, animated: true)
+            self?.overlaidAlertController = alertController
             
             return Disposables.create {
                 alertController.dismiss(animated: true)
