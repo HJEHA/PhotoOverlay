@@ -43,4 +43,14 @@ final class AppCoordinator: Coordinator {
         childCoordinators.append(photoOverlayCoordinator)
         photoOverlayCoordinator.start()
     }
+    
+    func showPhotoResizeView(_ overlaidPhoto: OverlaidPhoto) {
+        let photoResizeCoordinator = PhotoResizeCoordinator(
+            overlaidPhoto: overlaidPhoto,
+            parentCoordinator: self,
+            navigationController: navigationController
+        )
+        childCoordinators.append(photoResizeCoordinator)
+        photoResizeCoordinator.start()
+    }
 }

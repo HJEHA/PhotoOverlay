@@ -38,6 +38,10 @@ final class PhotoOverlayCoordinator: Coordinator {
         navigationController.show(photoOverlayViewController, sender: nil)
     }
     
+    func showPhotoResizeView(_ overlaidPhoto: OverlaidPhoto) {
+        parentCoordinator?.showPhotoResizeView(overlaidPhoto)
+    }
+    
     func popPhotoOverlayView() {
         parentCoordinator?.removeChildCoordinator(self)
     }
