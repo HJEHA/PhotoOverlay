@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
 import SnapKit
 
 final class PhotoResizeViewController: UIViewController {
@@ -24,6 +26,13 @@ final class PhotoResizeViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Properties
+    
+    var viewModel: PhotoResizeViewModel?
+    private var disposeBag = DisposeBag()
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,11 +40,33 @@ final class PhotoResizeViewController: UIViewController {
         configureSubViews()
         configureBackButton()
         configureSaveButton()
+        
+        bindViewModel() 
     }
-    
-    // 임시
-    func update(_ image: UIImage) {
-        photoResizeView.update(image)
+}
+
+// MARK: - Bind
+
+extension PhotoResizeViewController {
+    private func bindViewModel() {
+        let input = PhotoResizeViewModel.Input(
+            viewWillAppear: self.rx.viewWillAppear.asObservable(),
+            resizeRate: photoResizeView.resizeSlider.rx.value.asObservable()
+        )
+        
+        let output = viewModel?.transform(input)
+        
+        output?.imageObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, image) in
+                owner.photoResizeView.update(image.image)
+            })
+            .disposed(by: disposeBag)
+        
+        output?.resizedTextObservable
+            .bind(to: photoResizeView.resizedLabel.rx.text)
+            .disposed(by: disposeBag)
     }
 }
 

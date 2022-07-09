@@ -16,14 +16,14 @@ final class PhotoResizeViewModel: ViewModel {
     
     struct Input {
         let viewWillAppear: Observable<Void>
-        let resizeRate: Observable<Double>
+        let resizeRate: Observable<Float>
     }
     
     // MARK: - Output
     
     struct Output {
         let imageObservable: Observable<OverlaidPhoto>
-        let resizeRate: Observable<String>
+        let resizedTextObservable: Observable<String>
     }
     
     // MARK: - Properties
@@ -48,15 +48,27 @@ final class PhotoResizeViewModel: ViewModel {
                 owner.photo
             }
         
-        let resizeRate = input.resizeRate
+        let resizeRateObservable = input.resizeRate
+            .map {
+                CGFloat($0)
+            }
             .withUnretained(self)
-            .map { (owner, rate) in
-                "\(owner.photo.image.size.width * rate) x \(owner.photo.image.size.height * rate)"
+            .map { (owner, rate) -> CGSize in
+                let resizedWidth = (owner.photo.image.size.width * rate).rounded()
+                let resizedHeight = (owner.photo.image.size.height * rate).rounded()
+                
+                return CGSize(width: resizedWidth, height: resizedHeight)
+            }
+            
+        
+        let resizedTextObservable = resizeRateObservable
+            .map {
+                "\(Int($0.width)) x \(Int($0.height))"
             }
         
         return Output(
             imageObservable: imageObservable,
-            resizeRate: resizeRate
+            resizedTextObservable: resizedTextObservable
         )
     }
 }
