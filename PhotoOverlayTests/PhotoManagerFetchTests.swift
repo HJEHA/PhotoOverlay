@@ -26,6 +26,18 @@ final class MockPHFetchResult<ObjectType>: PHFetchResult<AnyObject> where Object
 }
 
 final class MockPhotoFetchManager: PhotoFetchable {
+    func fetchCollections() -> Observable<[PHAssetCollection]> {
+        return .empty()
+    }
+    
+    func fetch(in collection: PHAssetCollection, with mediaType: PHAssetMediaType) -> Observable<[PHAsset]> {
+        return .empty()
+    }
+    
+    func fetchFirst(in collection: PHAssetCollection, with mediaType: PHAssetMediaType) -> Observable<PHAsset?> {
+        return .empty()
+    }
+    
     func fetch(
         mediaType: PHAssetMediaType = .image
     ) -> Observable<[PHAsset]> {
