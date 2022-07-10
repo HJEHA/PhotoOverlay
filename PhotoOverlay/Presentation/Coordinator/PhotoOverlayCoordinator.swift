@@ -42,6 +42,10 @@ final class PhotoOverlayCoordinator: Coordinator {
         parentCoordinator?.showPhotoResizeView(overlaidPhoto)
     }
     
+    func showPhotoListView() {
+        navigationController.popToRootViewController(animated: true)
+    }
+    
     func popPhotoOverlayView() {
         parentCoordinator?.removeChildCoordinator(self)
     }
