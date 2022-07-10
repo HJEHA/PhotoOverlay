@@ -250,7 +250,7 @@ extension PhotosViewController {
             style: .default
         ) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.open(url, options: [:])
+                UIApplication.shared.open(url)
             }
         }
         
