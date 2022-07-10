@@ -15,6 +15,7 @@ final class PhotosViewModel: ViewModel {
     // MARK: - Input
     
     struct Input {
+        let viewWillAppear: Observable<Void>
         let albumAsset: Observable<Album?>
         let selectedItemIndexPath: Observable<IndexPath>
     }

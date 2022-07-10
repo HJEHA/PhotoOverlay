@@ -72,6 +72,7 @@ final class PhotosViewController: UIViewController {
 extension PhotosViewController {
     private func bindViewModel() {
         let input = PhotosViewModel.Input(
+            viewWillAppear: self.rx.viewWillAppear.asObservable(),
             albumAsset: selectedAlbumRelay.asObservable(),
             selectedItemIndexPath: photosView.photoListCollectionView.rx.itemSelected.asObservable()
         )
