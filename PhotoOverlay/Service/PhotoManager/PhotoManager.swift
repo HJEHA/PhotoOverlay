@@ -10,10 +10,18 @@ import Photos
 
 import RxSwift
 
+extension PHPhotoLibrary: PHPhotoLibraryProtocol { }
+
 final class PhotoManager {
     static let shared: PhotoManager = PhotoManager()
     
-    private init() { }
+    private let phPhotoLibrary: PHPhotoLibraryProtocol.Type
+    
+    init(
+        phPotoLibrary: PHPhotoLibraryProtocol.Type = PHPhotoLibrary.self
+    ) {
+        self.phPhotoLibrary = phPotoLibrary
+    }
 }
 
 // MARK: - PhotoAuthorizationable
@@ -22,8 +30,12 @@ extension PhotoManager: PhotoAuthorizationable {
     
     /// 앨범 권한 확인 메서드
     func checkPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus> {
-        return Observable<PHAuthorizationStatus>.create { emitter in
-            emitter.onNext(PHPhotoLibrary.authorizationStatus())
+        return Observable<PHAuthorizationStatus>.create { [weak self] emitter in
+            guard let self = self else {
+                return Disposables.create()
+            }
+            
+            emitter.onNext(self.phPhotoLibrary.authorizationStatus())
             emitter.onCompleted()
             
             return Disposables.create()
@@ -32,8 +44,12 @@ extension PhotoManager: PhotoAuthorizationable {
     
     /// 앨범 권한 요청 메서드
     func requestPhotoLibraryAuthorization() -> Observable<PHAuthorizationStatus> {
-        return Observable<PHAuthorizationStatus>.create { emitter in
-            PHPhotoLibrary.requestAuthorization { status in
+        return Observable<PHAuthorizationStatus>.create { [weak self] emitter in
+            guard let self = self else {
+                return Disposables.create()
+            }
+            
+            self.phPhotoLibrary.requestAuthorization { status in
                 emitter.onNext(status)
                 emitter.onCompleted()
             }
