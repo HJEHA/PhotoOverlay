@@ -15,6 +15,9 @@ final class PhotosViewModel: ViewModel {
     // MARK: - Input
     
     struct Input {
+        let viewWillAppear: Observable<Void>
+        let requestAuthorization: Observable<PHAuthorizationStatus>
+        let checkAuthorization: Observable<PHAuthorizationStatus>
         let albumAsset: Observable<Album?>
         let selectedItemIndexPath: Observable<IndexPath>
     }
@@ -25,6 +28,7 @@ final class PhotosViewModel: ViewModel {
         let itemsInAlbumObservable: Observable<[PhotoItem]>
         let albumTitleObservable: Observable<String>
         let selectedAssetObservable: Observable<PHAsset>
+        let authorizationDeniedObservable: Observable<Void>
     }
     
     // MARK: - Properties
@@ -39,10 +43,30 @@ final class PhotosViewModel: ViewModel {
     }
     
     func transform(_ input: Input) -> Output {
-        let photosObservable = input.albumAsset
+        let authorized = input.requestAuthorization.filter {
+            $0 == .authorized
+        }
+        
+        let authorizationDeniedObservable = Observable.combineLatest(
+                input.checkAuthorization,
+                input.requestAuthorization,
+                input.viewWillAppear
+            )
+            .filter { (check, request, _) in
+                check != .authorized && request != .authorized
+            }
+            .map { _ in
+                Void()
+            }
+        
+        let photosObservable = Observable.combineLatest(
+                input.albumAsset,
+                input.viewWillAppear,
+                authorized
+            )
             .withUnretained(self)
             .flatMap { (owner, album) -> Observable<Photos> in
-                guard let album = album,
+                guard let album = album.0,
                       let collection = album.assetCollection
                 else {
                     return owner.useCase.fetch()
@@ -79,7 +103,8 @@ final class PhotosViewModel: ViewModel {
         return Output(
             itemsInAlbumObservable: itemsInAlbumObservable,
             albumTitleObservable: albumTitleObservable,
-            selectedAssetObservable: selectedAssetObservable
+            selectedAssetObservable: selectedAssetObservable,
+            authorizationDeniedObservable: authorizationDeniedObservable
         )
     }
 }

@@ -71,7 +71,14 @@ extension PhotoManager: PhotoFetchable {
         with mediaType: PHAssetMediaType = .image
     ) -> Observable<[PHAsset]> {
         return Observable<[PHAsset]>.create { emitter in
-            let fetchResult = PHAsset.fetchAssets(in: collection, options: nil)
+            let fetchOptions = PHFetchOptions()
+            fetchOptions.sortDescriptors = [
+                NSSortDescriptor(
+                    key: "creationDate",
+                    ascending: false
+                )
+            ]
+            let fetchResult = PHAsset.fetchAssets(in: collection, options: fetchOptions)
             let indexSet = IndexSet(integersIn: 0..<fetchResult.count)
             let assets = fetchResult.objects(at: indexSet)
             
@@ -103,7 +110,14 @@ extension PhotoManager: PhotoFetchable {
         mediaType: PHAssetMediaType = .image
     ) -> Observable<[PHAsset]> {
         return Observable<[PHAsset]>.create { emitter in
-            let fetchResult = PHAsset.fetchAssets(with: mediaType, options: nil)
+            let fetchOptions = PHFetchOptions()
+            fetchOptions.sortDescriptors = [
+                NSSortDescriptor(
+                    key: "creationDate",
+                    ascending: false
+                )
+            ]
+            let fetchResult = PHAsset.fetchAssets(with: mediaType, options: fetchOptions)
             let indexSet = IndexSet(integersIn: 0..<fetchResult.count)
             let assets = fetchResult.objects(at: indexSet)
             
