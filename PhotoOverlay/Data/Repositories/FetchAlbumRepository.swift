@@ -34,6 +34,6 @@ extension FetchAlbumRepository: AlbumRepositoryFetchable {
         mediaType: PHAssetMediaType
     ) -> Observable<PHAsset?> {
         return photoManager.fetch(mediaType: .image)
-            .map { $0.last }
+            .map { $0.first }
     }
 }
