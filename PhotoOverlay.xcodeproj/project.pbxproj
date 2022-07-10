@@ -28,6 +28,7 @@
 		0898ABDF2876D41300E0035A /* SVGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABDE2876D41300E0035A /* SVGImage.swift */; };
 		0898ABE12876D47200E0035A /* PhotoOverlayUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABE02876D47200E0035A /* PhotoOverlayUseCase.swift */; };
 		0898ABE32876D54B00E0035A /* SVGRepositoryLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABE22876D54B00E0035A /* SVGRepositoryLoadable.swift */; };
+		0899CA36287AD5780068FD33 /* PHPhotoLibraryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0899CA35287AD5780068FD33 /* PHPhotoLibraryProtocol.swift */; };
 		089A8D5428718AAE00AC4873 /* ImageRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089A8D5328718AAE00AC4873 /* ImageRequestable.swift */; };
 		08A1D49D2873FCA100490129 /* PhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D49C2873FCA100490129 /* PhotosViewModel.swift */; };
 		08A1D49F2873FD0D00490129 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A1D49E2873FD0D00490129 /* ViewModel.swift */; };
@@ -105,6 +106,7 @@
 		0898ABDE2876D41300E0035A /* SVGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImage.swift; sourceTree = "<group>"; };
 		0898ABE02876D47200E0035A /* PhotoOverlayUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOverlayUseCase.swift; sourceTree = "<group>"; };
 		0898ABE22876D54B00E0035A /* SVGRepositoryLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGRepositoryLoadable.swift; sourceTree = "<group>"; };
+		0899CA35287AD5780068FD33 /* PHPhotoLibraryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPhotoLibraryProtocol.swift; sourceTree = "<group>"; };
 		089A8D5328718AAE00AC4873 /* ImageRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequestable.swift; sourceTree = "<group>"; };
 		08A1D49C2873FCA100490129 /* PhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewModel.swift; sourceTree = "<group>"; };
 		08A1D49E2873FD0D00490129 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -436,13 +438,13 @@
 		08C78ADD286EE499006296DE /* PhotoOverlay */ = {
 			isa = PBXGroup;
 			children = (
-				08A1D4A5287403C300490129 /* Domain */,
-				08A1D4A12874001E00490129 /* Data */,
-				0817A9B22872DB5300C821DD /* Extension */,
-				08C78AFC287039CC006296DE /* Service */,
-				08C78AF728703916006296DE /* Presentation */,
-				08C78AF628703670006296DE /* Resource */,
 				08C78AF528703650006296DE /* Application */,
+				08C78AFC287039CC006296DE /* Service */,
+				08C78AF628703670006296DE /* Resource */,
+				0817A9B22872DB5300C821DD /* Extension */,
+				08A1D4A12874001E00490129 /* Data */,
+				08A1D4A5287403C300490129 /* Domain */,
+				08C78AF728703916006296DE /* Presentation */,
 			);
 			path = PhotoOverlay;
 			sourceTree = "<group>";
@@ -534,6 +536,7 @@
 				08C78B0D28704483006296DE /* PhotoAuthorizationable.swift */,
 				08C78B1F28706C0B006296DE /* PhotoFetchable.swift */,
 				08B5A42728786D8A0036C4F4 /* PhotoSavable.swift */,
+				0899CA35287AD5780068FD33 /* PHPhotoLibraryProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -749,6 +752,7 @@
 				08A1D4C628756E9A00490129 /* AlbumRepositoryFetchable.swift in Sources */,
 				0898ABDD2876D37B00E0035A /* SVGImageSetDTO.swift in Sources */,
 				0898ABDF2876D41300E0035A /* SVGImage.swift in Sources */,
+				0899CA36287AD5780068FD33 /* PHPhotoLibraryProtocol.swift in Sources */,
 				08A1D4AF287408C500490129 /* Album.swift in Sources */,
 				08B5A42C287882130036C4F4 /* Observable+extension.swift in Sources */,
 				0898ABC72876A96100E0035A /* PhotoOverlayViewController.swift in Sources */,
