@@ -15,6 +15,7 @@
 		085CBFBD2871D236006F2953 /* ImageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085CBFBC2871D236006F2953 /* ImageManagerTests.swift */; };
 		087FD8F6287984A2008849DA /* PhotoResizeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087FD8F5287984A2008849DA /* PhotoResizeViewModel.swift */; };
 		087FD8F82879CD47008849DA /* PhotoResizeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087FD8F72879CD47008849DA /* PhotoResizeCoordinator.swift */; };
+		087FD8FA2879EEEB008849DA /* OverlaidAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087FD8F92879EEEB008849DA /* OverlaidAction.swift */; };
 		0898ABC72876A96100E0035A /* PhotoOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABC62876A96100E0035A /* PhotoOverlayViewController.swift */; };
 		0898ABC92876A98600E0035A /* PhotoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABC82876A98600E0035A /* PhotoOverlayView.swift */; };
 		0898ABCB2876AD0000E0035A /* SVGListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898ABCA2876AD0000E0035A /* SVGListCollectionViewCell.swift */; };
@@ -91,6 +92,7 @@
 		085CBFBC2871D236006F2953 /* ImageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagerTests.swift; sourceTree = "<group>"; };
 		087FD8F5287984A2008849DA /* PhotoResizeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResizeViewModel.swift; sourceTree = "<group>"; };
 		087FD8F72879CD47008849DA /* PhotoResizeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResizeCoordinator.swift; sourceTree = "<group>"; };
+		087FD8F92879EEEB008849DA /* OverlaidAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlaidAction.swift; sourceTree = "<group>"; };
 		0898ABC62876A96100E0035A /* PhotoOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOverlayViewController.swift; sourceTree = "<group>"; };
 		0898ABC82876A98600E0035A /* PhotoOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOverlayView.swift; sourceTree = "<group>"; };
 		0898ABCA2876AD0000E0035A /* SVGListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			children = (
 				0898ABD22876C45600E0035A /* PhotoOverlayViewModel.swift */,
 				0898ABD02876C41E00E0035A /* SVGItem.swift */,
+				087FD8F92879EEEB008849DA /* OverlaidAction.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -782,6 +785,7 @@
 				08C78ADF286EE499006296DE /* AppDelegate.swift in Sources */,
 				0898ABC92876A98600E0035A /* PhotoOverlayView.swift in Sources */,
 				0898ABE12876D47200E0035A /* PhotoOverlayUseCase.swift in Sources */,
+				087FD8FA2879EEEB008849DA /* OverlaidAction.swift in Sources */,
 				0898ABCD2876AE4500E0035A /* UICollectionView+extension.swift in Sources */,
 				08C78AFF287039F7006296DE /* PhotoManager.swift in Sources */,
 				0898ABDA2876CF6A00E0035A /* AssetLoadManager.swift in Sources */,

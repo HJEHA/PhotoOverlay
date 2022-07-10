@@ -122,7 +122,7 @@ extension PhotoResizeViewController {
     private func showSaveSuccessAlert() -> Observable<Void> {
         return Observable<Void>.create { [weak self] emitter in
             let alertController = UIAlertController(
-                title: "저장이 완료 되었습니다.",
+                title: "저장이 완료되었습니다.",
                 message: nil,
                 preferredStyle: .actionSheet
             )
