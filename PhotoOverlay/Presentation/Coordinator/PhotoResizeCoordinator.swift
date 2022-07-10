@@ -37,6 +37,10 @@ final class PhotoResizeCoordinator: Coordinator {
         navigationController.show(photoResizeViewController, sender: nil)
     }
     
+    func showPhotoListView() {
+        navigationController.popToRootViewController(animated: true)
+    }
+    
     func popPhotoResizeView() {
         parentCoordinator?.removeChildCoordinator(self)
     }

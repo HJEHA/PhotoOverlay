@@ -83,7 +83,7 @@ extension PhotoResizeViewController {
                 self?.showSaveSuccessAlert() ?? .empty()
             }
             .subscribe(onNext: { [weak self] _ in
-                self?.navigationController?.popToRootViewController(animated: true)
+                self?.coordinator?.showPhotoListView()
             })
             .disposed(by: disposeBag)
     }
