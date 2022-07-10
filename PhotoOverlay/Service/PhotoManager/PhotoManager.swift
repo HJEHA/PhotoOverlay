@@ -10,8 +10,6 @@ import Photos
 
 import RxSwift
 
-extension PHPhotoLibrary: PHPhotoLibraryProtocol { }
-
 final class PhotoManager {
     static let shared: PhotoManager = PhotoManager()
     
@@ -181,7 +179,7 @@ extension PhotoManager {
         
         // MARK: - Typealias & Properties
         
-        typealias Callback = (NSError?)->Void
+        typealias Callback = (NSError?) -> Void
         private var callback: Callback
         
         // MARK: - Initializer

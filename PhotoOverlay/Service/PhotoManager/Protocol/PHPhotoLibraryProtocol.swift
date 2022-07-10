@@ -12,3 +12,5 @@ protocol PHPhotoLibraryProtocol {
     static func authorizationStatus() -> PHAuthorizationStatus
     static func requestAuthorization(_ handler: @escaping (PHAuthorizationStatus) -> Void)
 }
+
+extension PHPhotoLibrary: PHPhotoLibraryProtocol { }
