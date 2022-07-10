@@ -40,10 +40,13 @@ final class PhotosViewModel: ViewModel {
     }
     
     func transform(_ input: Input) -> Output {
-        let photosObservable = input.albumAsset
+        let photosObservable = Observable.combineLatest(
+                input.albumAsset,
+                input.viewWillAppear
+            )
             .withUnretained(self)
             .flatMap { (owner, album) -> Observable<Photos> in
-                guard let album = album,
+                guard let album = album.0,
                       let collection = album.assetCollection
                 else {
                     return owner.useCase.fetch()
