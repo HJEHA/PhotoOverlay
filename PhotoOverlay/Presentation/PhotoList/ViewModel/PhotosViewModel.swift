@@ -49,9 +49,10 @@ final class PhotosViewModel: ViewModel {
         
         let authorizationDeniedObservable = Observable.combineLatest(
                 input.checkAuthorization,
-                input.requestAuthorization
+                input.requestAuthorization,
+                input.viewWillAppear
             )
-            .filter { (check, request) in
+            .filter { (check, request, _) in
                 check != .authorized && request != .authorized
             }
             .map { _ in
