@@ -60,7 +60,7 @@ final class PhotosViewController: UIViewController {
         
         configureCollectionViewDataSource()
         
-        bindViewWillAppear() 
+        bindViewWillAppear()
         
         bindViewModel()
         bindShowAlbumListButton()
@@ -73,6 +73,8 @@ extension PhotosViewController {
     private func bindViewModel() {
         let input = PhotosViewModel.Input(
             viewWillAppear: self.rx.viewWillAppear.asObservable(),
+            requestAuthorization: PhotoManager.shared.requestPhotoLibraryAuthorization(),
+            checkAuthorization: PhotoManager.shared.checkPhotoLibraryAuthorization(),
             albumAsset: selectedAlbumRelay.asObservable(),
             selectedItemIndexPath: photosView.photoListCollectionView.rx.itemSelected.asObservable()
         )
@@ -101,6 +103,14 @@ extension PhotosViewController {
             .withUnretained(self)
             .subscribe(onNext: { (owner, asset) in
                 owner.coordinator?.showPhotoOverlayView(asset)
+            })
+            .disposed(by: disposeBag)
+        
+        output.authorizationDeniedObservable
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, asset) in
+                owner.showNoAccessAlert()
             })
             .disposed(by: disposeBag)
     }
@@ -223,5 +233,29 @@ extension PhotosViewController {
         snapShot.appendItems(items, toSection: .main)
     
         dataSource?.apply(snapShot, animatingDifferences: false)
+    }
+}
+
+// MARK: - Alert
+
+extension PhotosViewController {
+    func showNoAccessAlert() {
+        let alertController = UIAlertController(
+            title: "앨범 권한이 허용되지 않았습니다.",
+            message: "권한 설정 화면으로 이동합니다.",
+            preferredStyle: .alert
+        )
+        let action = UIAlertAction(
+            title: "설정하기",
+            style: .default
+        ) { _ in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url, options: [:])
+            }
+        }
+        
+        alertController.addAction(action)
+            
+        present(alertController, animated: true)
     }
 }
