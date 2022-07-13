@@ -18,12 +18,17 @@ final class LoadSVGRepository {
 }
 
 extension LoadSVGRepository: SVGRepositoryLoadable {
-    func loadSVGImageSet(name: String) -> Observable<[SVGImageSetDTO]> {
+    func loadSVGImageSet(name: String) -> Observable<[SVGImage]> {
         return assetLoadManager.loadDataAsset(name: name)
-            .compactMap { data in
+            .compactMap { data -> [SVGImageSetDTO]? in
                 let decoder = JSONDecoder()
                 let decoded = try? decoder.decode([SVGImageSetDTO].self, from: data)
                 return decoded
+            }
+            .map { dtos in
+                dtos.map {
+                    $0.toDomain()
+                }
             }
     }
 }
