@@ -20,50 +20,10 @@ final class PhotoUseCase {
 
 extension PhotoUseCase {
     func fetch() -> Observable<Photos> {
-        let assetsObservable = photoRepository.fetch()
-        
-        let imagesObservable = assetsObservable
-            .flatMap { assets -> Observable<[UIImage?]> in
-                let observables = assets.map { asset in
-                    ImageManager.shard.requestImage(
-                        asset: asset,
-                        contentMode: .aspectFit
-                    )
-                }
-                
-                return Observable.combineLatest(observables)
-            }
-        
-        return Observable.combineLatest(
-                assetsObservable,
-                imagesObservable
-            )
-            .map { (assets, images) in
-                Photos(photos: images, asset: assets)
-            }
+        return photoRepository.fetch()
     }
     
     func fetch(in collection: PHAssetCollection) -> Observable<Photos> {
-        let assetsObservable = photoRepository.fetch(in: collection, with: .image)
-        
-        let imagesObservable = assetsObservable
-            .flatMap { assets -> Observable<[UIImage?]> in
-                let observables = assets.map { asset in
-                    ImageManager.shard.requestImage(
-                        asset: asset,
-                        contentMode: .aspectFit
-                    )
-                }
-                
-                return Observable.combineLatest(observables)
-            }
-        
-        return Observable.combineLatest(
-                assetsObservable,
-                imagesObservable
-            )
-            .map { (assets, images) in
-                Photos(photos: images, asset: assets)
-            }
+        return photoRepository.fetch(in: collection, with: .image)
     }
 }
