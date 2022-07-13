@@ -11,14 +11,7 @@ import Photos
 import RxSwift
 
 protocol AlbumRepositoryFetchable {
-    func fetch() -> Observable<[PHAssetCollection]>
+    func fetch() -> Observable<[Album]>
     
-    func fetchFirst(
-        in collection: PHAssetCollection,
-        with mediaType: PHAssetMediaType
-    ) -> Observable<PHAsset?>
-    
-    func fetchFirst(
-        mediaType: PHAssetMediaType
-    ) -> Observable<PHAsset?>
+    func fetchAllPhotosAlbum() -> Observable<Album>
 }

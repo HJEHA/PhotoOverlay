@@ -10,5 +10,5 @@ import Foundation
 import RxSwift
 
 protocol SVGRepositoryLoadable {
-    func loadSVGImageSet(name: String) -> Observable<[SVGImageSetDTO]>    
+    func loadSVGImageSet(name: String) -> Observable<[SVGImage]>    
 }

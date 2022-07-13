@@ -25,11 +25,6 @@ final class PhotoOverlayUseCase {
 extension PhotoOverlayUseCase {
     func loadDataAsset(name: String) -> Observable<[SVGImage]> {
         return svgRepository.loadSVGImageSet(name: name)
-            .map { dtos in
-                dtos.map {
-                    $0.toDomain()
-                }
-            }
     }
     
     func save(_ image: UIImage) -> Observable<Void> {

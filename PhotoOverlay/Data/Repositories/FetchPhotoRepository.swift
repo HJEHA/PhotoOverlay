@@ -19,17 +19,54 @@ final class FetchPhotoRepository {
 }
 
 extension FetchPhotoRepository: PhotoRepositoryFetchable {
-    func fetch() -> Observable<[PHAsset]> {
-        return photoManager.fetch(mediaType: .image)
+    func fetch() -> Observable<Photos> {
+        let assetsObservable = photoManager.fetch(mediaType: .image)
+        
+        let imagesObservable = assetsObservable
+            .flatMap { assets -> Observable<[UIImage?]> in
+                let observables = assets.map { asset in
+                    ImageManager.shard.requestImage(
+                        asset: asset,
+                        contentMode: .aspectFit
+                    )
+                }
+                
+                return Observable.combineLatest(observables)
+            }
+        
+        return Observable.combineLatest(
+                assetsObservable,
+                imagesObservable
+            )
+            .map { (assets, images) in
+                Photos(photos: images, asset: assets)
+            }
     }
     
     func fetch(
         in collection: PHAssetCollection,
         with mediaType: PHAssetMediaType
-    ) -> Observable<[PHAsset]> {
-        return photoManager.fetch(
-            in: collection,
-            with: mediaType
-        )
+    ) -> Observable<Photos> {
+        let assetsObservable = photoManager.fetch(in: collection, with: .image)
+        
+        let imagesObservable = assetsObservable
+            .flatMap { assets -> Observable<[UIImage?]> in
+                let observables = assets.map { asset in
+                    ImageManager.shard.requestImage(
+                        asset: asset,
+                        contentMode: .aspectFit
+                    )
+                }
+                
+                return Observable.combineLatest(observables)
+            }
+        
+        return Observable.combineLatest(
+                assetsObservable,
+                imagesObservable
+            )
+            .map { (assets, images) in
+                Photos(photos: images, asset: assets)
+            }
     }
 }
