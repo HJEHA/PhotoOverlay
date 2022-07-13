@@ -4,7 +4,7 @@
 - Pods은 이 Repository에 올라가 있지 않습니다. `pod install` 후 `PhotoOverlay.xcworkspace`를 실행해 주십시오.
 
 ### 개발 환경
-![](https://img.shields.io/badge/Xcode-blue) ![](https://img.shields.io/badge/Swif-orange) ![](https://img.shields.io/badge/RxSwift-yellow) ![](https://img.shields.io/badge/RxCocoa-blue) ![](https://img.shields.io/badge/SnapKit-green) ![](https://img.shields.io/badge/CocoaPods-red)
+![](https://img.shields.io/badge/Xcode-blue) ![](https://img.shields.io/badge/Swift-orange) ![](https://img.shields.io/badge/RxSwift-yellow) ![](https://img.shields.io/badge/RxCocoa-blue) ![](https://img.shields.io/badge/SnapKit-green) ![](https://img.shields.io/badge/CocoaPods-red)
 
 ### 디렉토리 구조
 ```
