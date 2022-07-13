@@ -19,21 +19,48 @@ final class FetchAlbumRepository {
 }
 
 extension FetchAlbumRepository: AlbumRepositoryFetchable {
-    func fetch() -> Observable<[PHAssetCollection]> {
+    func fetch() -> Observable<[Album]> {
         return photoManager.fetchCollections()
+            .withUnretained(self)
+            .flatMap { (owner, collections) -> Observable<[Album]> in
+                let observables = collections.map { collection -> Observable<Album> in
+                    
+                    let thumbnail = owner.photoManager.fetchFirst(in: collection, with: .image)
+                        .flatMap { asset in
+                            ImageManager.shard.requestImage(
+                                asset: asset,
+                                contentMode: .aspectFit
+                            )
+                        }
+                    
+                    let title = Observable<String?>.just(collection.localizedTitle)
+                    
+                    return Observable.combineLatest(title, thumbnail).map {
+                        Album(
+                            title: $0,
+                            thumbnail: $1,
+                            assetCollection: collection
+                        )
+                    }
+                }
+                
+                return Observable.combineLatest(observables)
+            }
     }
     
-    func fetchFirst(
-        in collection: PHAssetCollection,
-        with mediaType: PHAssetMediaType
-    ) -> Observable<PHAsset?> {
-        return photoManager.fetchFirst(in: collection, with: mediaType)
-    }
-    
-    func fetchFirst(
-        mediaType: PHAssetMediaType
-    ) -> Observable<PHAsset?> {
+    func fetchAllPhotosAlbum() -> Observable<Album> {
         return photoManager.fetch(mediaType: .image)
             .map { $0.first }
+            .filterNil()
+            .flatMap { asset -> Observable<UIImage?> in
+                ImageManager.shard.requestImage(asset: asset, contentMode: .aspectFit)
+            }
+            .map { image in
+                Album(
+                    title: "All Photos",
+                    thumbnail: image,
+                    assetCollection: nil
+                )
+            }
     }
 }
